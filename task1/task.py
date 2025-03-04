@@ -46,18 +46,26 @@ def logistic_fun(w, m, x):
 
 ## Loss functions
 class MyCrossEntropy:
-    # optinal: epsilon for stability
-    def __call__(self, y, t, epsilon=1e-7):
+    # optinal param: epsilon for stability
+    def __call__(self, y_pred, y_true, epsilon=1e-7):
+        # prevent log(0) by clipping the values
+        y_pred = torch.clamp(y_pred, epsilon, 1 - epsilon)
+        # cross-entropy loss
         loss = -torch.mean(
-            t * torch.log(y + epsilon) + (1 - t) * torch.log(1 - y + epsilon)
+            y_true * torch.log(y_pred) + (1 - y_true) * torch.log(1 - y_pred)
         )
         return loss
 
 
 class MyRootMeanSquare:
     # compute the root-mean-square error between predicted class probabilities and targets.
-    def __call__(self, y, t):
-        loss = torch.sqrt(torch.mean((y - t) ** 2))
+    def __call__(self, y_pred, y_true):
+        # square error
+        squared_error = torch.square(y_pred - y_true)
+        # mean square error
+        mse = torch.mean(squared_error)
+        # root mean square error
+        loss = torch.sqrt(mse)
         return loss
 
 
@@ -90,6 +98,7 @@ def fit_logistic_sgt(
 
 
 def main():
+    # setting the seed for reproducibility
     torch.manual_seed(42)
     np.random.seed(42)
 
