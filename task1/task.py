@@ -101,18 +101,19 @@ def fit_logistic_sgd(
             for x in x_batch:
                 y_pred = logistic_fun(w, M, x)
                 y_preds.append(y_pred)
+            y_preds = torch.stack(y_preds)
             loss = loss_fn(y_preds, t_batch)
             loss.backward()
             with torch.no_grad():
                 w -= learning_rate * w.grad
         # loss reporting
         if epoch % 10 == 0:
-            preds = []
-            for x in x_train:
+            y_preds = []
+            for x in x_batch:
                 y_pred = logistic_fun(w, M, x)
-                preds.append(y_pred)
-            preds = torch.stack(preds)
-            train_loss = loss_fn(preds, t_train)
+                y_preds.append(y_pred)
+            y_preds = torch.stack(y_preds)
+            train_loss = loss_fn(y_preds, t_batch)
             print(f"Epoch: {epoch}, Loss: {train_loss.item()}")
     return w.detach()
 
@@ -183,3 +184,4 @@ if __name__ == "__main__":
     main()
     ## placeholder
     # print("Comment: Accuracy is chosen as the metric because it directly reflects the percentage of correctly classified samples, making it a more interpretable measure for classification compared to the raw loss values.")
+
