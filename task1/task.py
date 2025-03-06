@@ -1,7 +1,6 @@
 import numpy as np
 import torch
-from torch.utils.data import TensorDataset, DataLoader
-import torch.optim as optim
+from math import comb
 
 
 # helper functions
@@ -72,7 +71,7 @@ class MyRootMeanSquare:
         return loss
 
 
-def fit_logistic_sgt(
+def fit_logistic_sgd(
     x_train, t_train, M, loss_fn, learning_rate=0.001, minibatch_size=32, epochs=100
 ):
     """
@@ -81,22 +80,40 @@ def fit_logistic_sgt(
     each M, compute the predicted target values y~ for all x in both the training and test sets.
     """
     N, D = x_train.shape
-    exp = get_exp_combinations(D, M)
-    w = torch.nn.Parameter(torch.randn(len(exp), device=x_train.device) * 0.1)
-
-    dataset = TensorDataset(x_train, t_train)
-    loader = DataLoader(dataset, batch_size=minibatch_size, shuffle=True)
-    optimizer = optim.AdamW([w], lr=learning_rate)
+    # using combination formula to calculate the number of polynomial terms
+    p = sum(comb(D + m - 1, m) for m in range(M + 1))
+    # initialize the weight vector
+    w = torch.randn(p, requires_grad=True)
 
     for epoch in range(epochs):
-        for x, t in loader:
-            optimizer.zero_grad()
-            y_pred = logistic_fun(w, M, x)
-            loss = loss_fn(y_pred, t)
+        # shuffle training data
+        perm = torch.randperm(N)
+        x_train_shuffle = x_train[perm]
+        t_train_shuffle = t_train[perm]
+
+        for i in range(0, N, minibatch_size):
+            x_batch = x_train_shuffle[i : i + minibatch_size]
+            t_batch = t_train_shuffle[i : i + minibatch_size]
+            if w.grad is not None:
+                w.grad.zero_()
+            # compute preds
+            y_preds = []
+            for x in x_batch:
+                y_pred = logistic_fun(w, M, x)
+                y_preds.append(y_pred)
+            loss = loss_fn(y_preds, t_batch)
             loss.backward()
-            optimizer.step()
+            with torch.no_grad():
+                w -= learning_rate * w.grad
+        # loss reporting
         if epoch % 10 == 0:
-            print(f"Epoch {epoch}, Loss: {loss.item()}")
+            preds = []
+            for x in x_train:
+                y_pred = logistic_fun(w, M, x)
+                preds.append(y_pred)
+            preds = torch.stack(preds)
+            train_loss = loss_fn(preds, t_train)
+            print(f"Epoch: {epoch}, Loss: {train_loss.item()}")
     return w.detach()
 
 
@@ -145,8 +162,8 @@ def main():
         print(f"Training with {loss_fn_name} loss function:")
         for M_val in [1, 2, 3]:
             print(f"Training with Polynomial Order M={M_val}")
-            # use `fit_logistic_sgt` to compute optimum weight vector W~ using the training set
-            w = fit_logistic_sgt(x_train, t_train, M_val, loss_fn)
+            # use `fit_logistic_sgd` to compute optimum weight vector W~ using the training set
+            w = fit_logistic_sgd(x_train, t_train, M_val, loss_fn)
 
             with torch.no_grad():
                 y_train_pred = logistic_fun(w, M_val, x_train)
