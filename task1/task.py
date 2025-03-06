@@ -6,39 +6,42 @@ import torch.optim as optim
 
 # helper functions
 def get_exp_combinations(D, M):
-    # returns all combinations of exponents for the polynomial features
-    stack = [([], 0, M)]
-    results = []
-
-    while stack:
-        cur, idx, remaining = stack.pop()
-
-        if idx == D:
-            if remaining == 0:
-                results.append(cur)
-            continue
-        if idx < D:
-            for i in range(remaining + 1):
-                new_cur = cur + [i]
-                stack.append((new_cur, idx + 1, remaining - i))
-    return results
+    # returns the list of all possible combinations of exponents for the polynomial features
+    if D == 1:
+        return [
+            (M,)
+        ]  # base case: return only the highest order for the single variable
+    exp = []
+    for i in range(M + 1):
+        for j in get_exp_combinations(
+            D - 1, M - i
+        ):  # return all possible combinations for the remaining variables
+            exp.append((i,) + j)
+    return exp
 
 
-def logistic_fun(w, m, x):
-    def get_poly_features(x, M):
-        # returns the polynomial features of x
-        N, D = x.shape
-        exp = get_exp_combinations(D, M)
-        poly_features = []
-        for e in exp:
-            exp_tensor = torch.tensor(e, dtype=torch.float32, device=x.device)
-            term = torch.prod(x**exp_tensor, dim=1, keepdim=True)
-            poly_features.append(term)
-        return torch.cat(poly_features, dim=1)
+def polynomial_features(x, M):
+    # returns the polynomial features of x
+    D = x.shape[0]
 
-    f = get_poly_features(x, m)
-    f = torch.matmul(f, w.unsqueeze(1)).squeeze(1)
+    all_exp = []
+    for m in range(M + 1):
+        all_exp.extend(get_exp_combinations(D, m))
 
+    features = []
+    for exp in all_exp:
+        # convert tuple of exp to tensor
+        exp = torch.tensor(exp, dtype=x.dtype, device=x.device)
+        # compute each term of the polynomial
+        term = torch.prod(x**exp)
+        features.append(term)
+    return torch.stack(features)
+
+
+def logistic_fun(w, M, x):
+    # Dimension means num variables, M is the polynomial order
+    f = polynomial_features(x, M)
+    f = w @ f
     # returns the functional value representing prob of y
     y = torch.sigmoid(f)
     return y
@@ -104,8 +107,10 @@ def main():
 
     # generate synthetic data
     M = 2
-    D = 16
+    D = 5
     exp = get_exp_combinations(D, M)
+
+    # Generate weights
     W_np = np.array([np.sqrt(len(exp) - i) for i in range(len(exp))])
     W = torch.tensor(W_np, dtype=torch.float32)
 
@@ -159,3 +164,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    ## placeholder
+    # print("Comment: Accuracy is chosen as the metric because it directly reflects the percentage of correctly classified samples, making it a more interpretable measure for classification compared to the raw loss values.")
