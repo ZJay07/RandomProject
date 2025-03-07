@@ -1,6 +1,6 @@
 import numpy as np
 import torch
-from math import comb
+from math import comb, sqrt
 
 
 # helper functions
@@ -118,6 +118,29 @@ def fit_logistic_sgd(
     return w.detach()
 
 
+def generate_sample(w, M, D):
+    """
+    Generate one (x, t) pair.
+
+    x is uniformly sampled from [-5, 5]^D.
+    y is computed using logistic_fun(w, M, x).
+    Then a random Gaussian noise (std=1.0) is added to y and thresholded at 0.5 to produce t.
+    """
+    # Sample x uniformly from [-5, 5]^D:
+    x = torch.empty(D).uniform_(-5.0, 5.0)
+
+    # Compute the logistic function probability for x:
+    y = logistic_fun(w, M, x)
+
+    # Add Gaussian noise (mean 0, std 1.0)
+    noise = torch.randn(1).item()  # single scalar noise
+    y_noisy = y.item() + noise
+
+    # Threshold at 0.5 to get binary target:
+    t = 1.0 if y_noisy >= 0.5 else 0.0
+    return x, t
+
+
 def main():
     # setting the seed for reproducibility
     torch.manual_seed(42)
@@ -126,62 +149,61 @@ def main():
     # generate synthetic data
     M = 2
     D = 5
-    exp = get_exp_combinations(D, M)
+    p = sum(comb(D + m - 1, m) for m in range(M + 1))
 
     # Generate weights
-    W_np = np.array([np.sqrt(len(exp) - i) for i in range(len(exp))])
-    W = torch.tensor(W_np, dtype=torch.float32)
+    w_list = [((-1) ** (p - i)) * (sqrt(p - i) / p) for i in range(p)]
+    W = torch.tensor(w_list, dtype=torch.float32)
 
-    # generate training and test datasets.
+    print("Underlying weight vector w_true:")
+    print(W)
+
+    # Generate 200 training samples
     N_train = 200
+    train_samples = [generate_sample(W, M, D) for _ in range(N_train)]
+    x_train = torch.stack([s[0] for s in train_samples])  # shape: (200, D)
+    t_train = torch.tensor(
+        [s[1] for s in train_samples], dtype=torch.float32
+    )  # shape: (200,)
+
+    # Generate 100 test samples:
     N_test = 100
-    x_train = torch.FloatTensor(N_train, D).uniform_(0.0, 10.0)
-    x_test = torch.FloatTensor(N_test, D).uniform_(0.0, 10.0)
+    test_samples = [generate_sample(W, M, D) for _ in range(N_test)]
+    x_test = torch.stack([s[0] for s in test_samples])  # shape: (100, D)
+    t_test = torch.tensor(
+        [s[1] for s in test_samples], dtype=torch.float32
+    )  # shape: (100,)
 
-    # use `logistic_fun` to generate training and test set
-    with torch.no_grad():
-        y_train_clean = logistic_fun(W, M, x_train)
-        y_test_clean = logistic_fun(W, M, x_test)
+    assert x_train.shape == (N_train, D)
+    assert t_train.shape == (N_train,)
+    assert x_test.shape == (N_test, D)
+    assert t_test.shape == (N_test,)
 
-    # adding random Gaussian noice
-    noise_train = torch.randn(N_train)
-    noise_test = torch.randn(N_test)
-    y_train_noisy = y_train_clean + noise_train
-    y_test_noisy = y_test_clean + noise_test
-    # threshold cutoff of 0.5
-    t_train = (y_train_noisy >= 0.5).float()
-    t_test = (y_test_noisy >= 0.5).float()
+    print("Training set x_train shape:", x_train.shape)
+    print("Training set t_train shape:", t_train.shape)
+    print("Test set x_test shape:", x_test.shape)
+    print("Test set t_test shape:", t_test.shape)
 
-    # normalise the data
-    x_train = (x_train - x_train.mean(dim=0)) / x_train.std(dim=0)
-    x_test = (x_test - x_test.mean(dim=0)) / x_test.std(dim=0)
+    # --- Optimization and Prediction for Different M Values with cross entropy and root mean square---
+    loss_fns = [MyCrossEntropy(), MyRootMeanSquare()]
 
-    # define the loss functions
-    loss_functions = {"cross_entropy": MyCrossEntropy(), "rms": MyRootMeanSquare()}
-
-    for loss_fn_name, loss_fn in loss_functions.items():
-        print(f"Training with {loss_fn_name} loss function:")
+    for loss_fn in loss_fns:
+        print("\n --------------------------------------------------")
+        print(f"Using loss function: {loss_fn.__class__.__name__}")
         for M_val in [1, 2, 3]:
-            print(f"Training with Polynomial Order M={M_val}")
-            # use `fit_logistic_sgd` to compute optimum weight vector W~ using the training set
+            print("--------------------------------------------------")
+            print(f"Training with polynomial order M = {M_val}")
             w = fit_logistic_sgd(x_train, t_train, M_val, loss_fn)
+            print("Optimized weight vector (first 5 elements):", w[:5])
 
-            with torch.no_grad():
-                y_train_pred = logistic_fun(w, M_val, x_train)
-                y_test_pred = logistic_fun(w, M_val, x_test)
-                train_pred = (y_train_pred >= 0.5).float()
-                train_acc = torch.mean((train_pred == t_train).float())
+            # Compute predicted target values (probabilities) for the training set.
+            y_train_hat = torch.stack([logistic_fun(w, M_val, x) for x in x_train])
+            # Compute predicted target values (probabilities) for the test set.
+            y_test_hat = torch.stack([logistic_fun(w, M_val, x) for x in x_test])
 
-                test_pred = (y_test_pred >= 0.5).float()
-                test_acc = torch.mean((test_pred == t_test).float())
-                loss = loss_fn(y_train_pred, t_train)
-            print(
-                f"M={M_val}, Train Accuracy: {train_acc:.4f}, Test Accuracy: {test_acc:.4f}, Loss: {loss:.4f}"
-            )
+            print("Train predictions (first 10):", y_train_hat[:10])
+            print("Test predictions (first 10):", y_test_hat[:10])
 
 
 if __name__ == "__main__":
     main()
-    ## placeholder
-    # print("Comment: Accuracy is chosen as the metric because it directly reflects the percentage of correctly classified samples, making it a more interpretable measure for classification compared to the raw loss values.")
-
