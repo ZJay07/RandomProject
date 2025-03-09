@@ -7,7 +7,7 @@ from math import comb, sqrt
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from task import get_exp_combinations, polynomial_features, logistic_fun, MyCrossEntropy, generate_sample
+from task import get_exp_combinations, generate_sample
 
 class FlexibleLogisticModel(nn.Module):
     def __init__(self, D, M_max):
@@ -23,7 +23,6 @@ class FlexibleLogisticModel(nn.Module):
         self.alphas = nn.Parameter(torch.ones(M_max+1))
     
     def forward(self, x):
-        # x is a 1D tensor of shape (D,)
         features = []
         for m in range(self.M_max+1):
             idxs = get_exp_combinations(self.D, m)
@@ -31,11 +30,11 @@ class FlexibleLogisticModel(nn.Module):
             for idx in idxs:
                 exponents = torch.tensor(idx, dtype=x.dtype, device=x.device)
                 phi_m.append(torch.prod(x ** exponents))
-            phi_m = torch.stack(phi_m)  # shape (n_m,)
+            phi_m = torch.stack(phi_m)
             # Scale features of order m by alpha_m
             features.append(self.alphas[m] * phi_m)
-        # Concatenate features from all orders.
-        phi = torch.cat(features)  # shape (total_features,)
+
+        phi = torch.cat(features) 
         f = torch.dot(self.w, phi)
         return torch.sigmoid(f)
 
@@ -66,8 +65,6 @@ t_test = torch.tensor([s[1] for s in test_samples], dtype=torch.float32)
 model = FlexibleLogisticModel(D, M_data)
 optimizer = optim.SGD(model.parameters(), lr=0.01)
 
-# Assume x_train and t_train have been generated as in your earlier code.
-# (x_train: shape (N, D), t_train: shape (N,))
 epochs = 100
 for epoch in range(epochs):
     optimizer.zero_grad()
@@ -83,5 +80,4 @@ for epoch in range(epochs):
     if epoch % 10 == 0:
         print(f"Epoch {epoch}, Loss: {loss_epoch.item()}")
 
-# After training, you can inspect the learned alpha values.
 print("Learned order weights (alphas):", model.alphas.data)
