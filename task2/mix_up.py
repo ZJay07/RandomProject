@@ -33,7 +33,7 @@ class MyMixUp:
         # Return mixed images and both sets of labels with lambda
         return mixed_x, y, y[index], lam
     
-    def visualize_mixup_grid(self, dataset, num_samples=16, save_path="mixup.png", seed=None):
+    def visualize_mixup_grid(self, dataset, num_samples=16, save_path="mixup.png", seed=42):
         """
         Visualize a montage of mixup augmented images and save to a PNG file.
         
@@ -46,8 +46,6 @@ class MyMixUp:
         Returns:
             tuple: Mixed images, lambdas, original labels 1, original labels 2
         """
-        if seed is not None:
-            self.set_seed(seed)
             
         # Get random samples from the dataset
         indices = np.random.choice(len(dataset), size=num_samples*2, replace=False)
@@ -102,3 +100,28 @@ class MyMixUp:
         print(f"Grid visualization saved to {save_path}")
         
         return mixed_images, lambdas, labels1, labels2
+
+if __name__ == "__main__":
+    from torchvision import datasets, transforms
+    from torch.utils.data import DataLoader
+    def load_cifar10(batch_size=128):
+        transform = transforms.Compose([
+            transforms.ToTensor(),
+            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
+        ])
+        
+        train_dataset = datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
+        test_dataset = datasets.CIFAR10(root='./data', train=False, download=True, transform=transform)
+        
+        train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+        test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+        
+        return train_loader, test_loader
+    transform = transforms.Compose([
+    transforms.ToTensor(),
+    # Add other transformations if needed
+])
+
+    train_dataset = datasets.CIFAR10(root='./data', train=True, download=True, transform=transform)
+    mixup = MyMixUp(alpha=0.2, seed=42)
+    mixup.visualize_mixup_grid(train_dataset, num_samples=16, save_path="mixup.png")
