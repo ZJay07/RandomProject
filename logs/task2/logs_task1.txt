@@ -1,0 +1,286 @@
+Using device: cpu
+Files already downloaded and verified
+Files already downloaded and verified
+
+Testing: feature_maps=16, std_dev=0.01, kernel_size=3, lr=0.001, epochs=5
+Epoch 1/5, Loss: 2.2994, Acc: 0.1428
+Epoch 2/5, Loss: 2.2941, Acc: 0.1994
+Epoch 3/5, Loss: 2.2888, Acc: 0.2253
+Epoch 4/5, Loss: 2.2837, Acc: 0.2408
+Epoch 5/5, Loss: 2.2787, Acc: 0.2485
+Test Accuracy: 25.44%
+
+Testing: feature_maps=16, std_dev=0.01, kernel_size=3, lr=0.001, epochs=10
+Epoch 1/10, Loss: 2.3004, Acc: 0.1259
+Epoch 2/10, Loss: 2.2955, Acc: 0.1557
+Epoch 3/10, Loss: 2.2908, Acc: 0.1787
+Epoch 4/10, Loss: 2.2862, Acc: 0.1925
+Epoch 5/10, Loss: 2.2816, Acc: 0.2054
+Epoch 6/10, Loss: 2.2772, Acc: 0.2154
+Epoch 7/10, Loss: 2.2729, Acc: 0.2308
+Epoch 8/10, Loss: 2.2686, Acc: 0.2387
+Epoch 9/10, Loss: 2.2644, Acc: 0.2452
+Epoch 10/10, Loss: 2.2604, Acc: 0.2530
+Test Accuracy: 25.95%
+
+Testing: feature_maps=16, std_dev=0.01, kernel_size=3, lr=0.001, epochs=20
+Epoch 1/20, Loss: 2.2969, Acc: 0.1709
+Epoch 2/20, Loss: 2.2878, Acc: 0.2187
+Epoch 3/20, Loss: 2.2792, Acc: 0.2313
+Epoch 4/20, Loss: 2.2710, Acc: 0.2346
+Epoch 5/20, Loss: 2.2632, Acc: 0.2388
+Epoch 6/20, Loss: 2.2559, Acc: 0.2407
+Epoch 7/20, Loss: 2.2489, Acc: 0.2433
+Epoch 8/20, Loss: 2.2422, Acc: 0.2455
+Epoch 9/20, Loss: 2.2359, Acc: 0.2471
+Epoch 10/20, Loss: 2.2298, Acc: 0.2490
+Epoch 11/20, Loss: 2.2240, Acc: 0.2499
+Epoch 12/20, Loss: 2.2184, Acc: 0.2517
+Epoch 13/20, Loss: 2.2131, Acc: 0.2521
+Epoch 14/20, Loss: 2.2080, Acc: 0.2541
+Epoch 15/20, Loss: 2.2031, Acc: 0.2549
+Epoch 16/20, Loss: 2.1983, Acc: 0.2563
+Epoch 17/20, Loss: 2.1938, Acc: 0.2571
+Epoch 18/20, Loss: 2.1894, Acc: 0.2584
+Epoch 19/20, Loss: 2.1851, Acc: 0.2603
+Epoch 20/20, Loss: 2.1811, Acc: 0.2613
+Test Accuracy: 26.75%
+
+Testing: feature_maps=16, std_dev=0.01, kernel_size=3, lr=0.01, epochs=5
+Epoch 1/5, Loss: 2.2742, Acc: 0.1963
+Epoch 2/5, Loss: 2.2311, Acc: 0.2492
+Epoch 3/5, Loss: 2.1969, Acc: 0.2704
+Epoch 4/5, Loss: 2.1685, Acc: 0.2838
+Epoch 5/5, Loss: 2.1443, Acc: 0.2952
+Test Accuracy: 30.01%
+
+Testing: feature_maps=16, std_dev=0.01, kernel_size=3, lr=0.01, epochs=10
+Epoch 1/10, Loss: 2.2758, Acc: 0.2203
+Epoch 2/10, Loss: 2.2325, Acc: 0.2486
+Epoch 3/10, Loss: 2.1996, Acc: 0.2600
+Epoch 4/10, Loss: 2.1733, Acc: 0.2705
+Epoch 5/10, Loss: 2.1518, Acc: 0.2770
+Epoch 6/10, Loss: 2.1335, Acc: 0.2839
+Epoch 7/10, Loss: 2.1177, Acc: 0.2894
+Epoch 8/10, Loss: 2.1037, Acc: 0.2954
+Epoch 9/10, Loss: 2.0912, Acc: 0.2991
+Epoch 10/10, Loss: 2.0799, Acc: 0.3035
+Test Accuracy: 31.26%
+
+Testing: feature_maps=16, std_dev=0.01, kernel_size=3, lr=0.01, epochs=20
+Epoch 1/20, Loss: 2.2763, Acc: 0.2326
+Epoch 2/20, Loss: 2.2312, Acc: 0.2608
+Epoch 3/20, Loss: 2.1956, Acc: 0.2713
+Epoch 4/20, Loss: 2.1665, Acc: 0.2809
+Epoch 5/20, Loss: 2.1421, Acc: 0.2883
+Epoch 6/20, Loss: 2.1213, Acc: 0.2957
+Epoch 7/20, Loss: 2.1033, Acc: 0.3009
+Epoch 8/20, Loss: 2.0873, Acc: 0.3062
+Epoch 9/20, Loss: 2.0731, Acc: 0.3107
+Epoch 10/20, Loss: 2.0603, Acc: 0.3142
+Epoch 11/20, Loss: 2.0486, Acc: 0.3186
+Epoch 12/20, Loss: 2.0379, Acc: 0.3215
+Epoch 13/20, Loss: 2.0281, Acc: 0.3237
+Epoch 14/20, Loss: 2.0189, Acc: 0.3279
+Epoch 15/20, Loss: 2.0104, Acc: 0.3302
+Epoch 16/20, Loss: 2.0025, Acc: 0.3314
+Epoch 17/20, Loss: 1.9950, Acc: 0.3349
+Epoch 18/20, Loss: 1.9880, Acc: 0.3359
+Epoch 19/20, Loss: 1.9813, Acc: 0.3382
+Epoch 20/20, Loss: 1.9750, Acc: 0.3397
+Test Accuracy: 35.10%
+
+Testing: feature_maps=16, std_dev=0.01, kernel_size=3, lr=0.1, epochs=5
+Epoch 1/5, Loss: 2.1246, Acc: 0.2775
+Epoch 2/5, Loss: 1.9917, Acc: 0.3275
+Epoch 3/5, Loss: 1.9326, Acc: 0.3466
+Epoch 4/5, Loss: 1.8939, Acc: 0.3585
+Epoch 5/5, Loss: 1.8658, Acc: 0.3683
+Test Accuracy: 36.83%
+
+Testing: feature_maps=16, std_dev=0.01, kernel_size=3, lr=0.1, epochs=10
+Epoch 1/10, Loss: 2.1392, Acc: 0.2748
+Epoch 2/10, Loss: 2.0066, Acc: 0.3192
+Epoch 3/10, Loss: 1.9485, Acc: 0.3355
+Epoch 4/10, Loss: 1.9099, Acc: 0.3497
+Epoch 5/10, Loss: 1.8807, Acc: 0.3613
+Epoch 6/10, Loss: 1.8575, Acc: 0.3665
+Epoch 7/10, Loss: 1.8379, Acc: 0.3748
+Epoch 8/10, Loss: 1.8211, Acc: 0.3808
+Epoch 9/10, Loss: 1.8064, Acc: 0.3862
+Epoch 10/10, Loss: 1.7932, Acc: 0.3904
+Test Accuracy: 39.01%
+
+Testing: feature_maps=16, std_dev=0.01, kernel_size=3, lr=0.1, epochs=20
+Epoch 1/20, Loss: 2.1717, Acc: 0.2799
+Epoch 2/20, Loss: 2.0403, Acc: 0.3251
+Epoch 3/20, Loss: 1.9762, Acc: 0.3414
+Epoch 4/20, Loss: 1.9336, Acc: 0.3520
+Epoch 5/20, Loss: 1.9022, Acc: 0.3615
+Epoch 6/20, Loss: 1.8773, Acc: 0.3685
+Epoch 7/20, Loss: 1.8567, Acc: 0.3748
+Epoch 8/20, Loss: 1.8391, Acc: 0.3797
+Epoch 9/20, Loss: 1.8237, Acc: 0.3849
+Epoch 10/20, Loss: 1.8104, Acc: 0.3879
+Epoch 11/20, Loss: 1.7981, Acc: 0.3927
+Epoch 12/20, Loss: 1.7873, Acc: 0.3957
+Epoch 13/20, Loss: 1.7771, Acc: 0.3993
+Epoch 14/20, Loss: 1.7679, Acc: 0.4021
+Epoch 15/20, Loss: 1.7592, Acc: 0.4051
+Epoch 16/20, Loss: 1.7512, Acc: 0.4080
+Epoch 17/20, Loss: 1.7438, Acc: 0.4101
+Epoch 18/20, Loss: 1.7366, Acc: 0.4136
+Epoch 19/20, Loss: 1.7300, Acc: 0.4147
+Epoch 20/20, Loss: 1.7237, Acc: 0.4170
+Test Accuracy: 41.49%
+
+Testing: feature_maps=16, std_dev=0.01, kernel_size=5, lr=0.001, epochs=5
+Epoch 1/5, Loss: 2.2942, Acc: 0.1611
+Epoch 2/5, Loss: 2.2792, Acc: 0.2288
+Epoch 3/5, Loss: 2.2654, Acc: 0.2416
+Epoch 4/5, Loss: 2.2526, Acc: 0.2477
+Epoch 5/5, Loss: 2.2408, Acc: 0.2526
+Test Accuracy: 25.47%
+
+Testing: feature_maps=16, std_dev=0.01, kernel_size=5, lr=0.001, epochs=10
+Epoch 1/10, Loss: 2.2979, Acc: 0.1692
+Epoch 2/10, Loss: 2.2895, Acc: 0.2315
+Epoch 3/10, Loss: 2.2814, Acc: 0.2583
+Epoch 4/10, Loss: 2.2735, Acc: 0.2664
+Epoch 5/10, Loss: 2.2659, Acc: 0.2755
+Epoch 6/10, Loss: 2.2586, Acc: 0.2797
+Epoch 7/10, Loss: 2.2515, Acc: 0.2819
+Epoch 8/10, Loss: 2.2446, Acc: 0.2836
+Epoch 9/10, Loss: 2.2379, Acc: 0.2859
+Epoch 10/10, Loss: 2.2313, Acc: 0.2866
+Test Accuracy: 29.49%
+
+Testing: feature_maps=16, std_dev=0.01, kernel_size=5, lr=0.001, epochs=20
+Epoch 1/20, Loss: 2.2965, Acc: 0.1440
+Epoch 2/20, Loss: 2.2848, Acc: 0.1926
+Epoch 3/20, Loss: 2.2738, Acc: 0.2100
+Epoch 4/20, Loss: 2.2635, Acc: 0.2236
+Epoch 5/20, Loss: 2.2537, Acc: 0.2336
+Epoch 6/20, Loss: 2.2444, Acc: 0.2425
+Epoch 7/20, Loss: 2.2355, Acc: 0.2512
+Epoch 8/20, Loss: 2.2270, Acc: 0.2558
+Epoch 9/20, Loss: 2.2189, Acc: 0.2621
+Epoch 10/20, Loss: 2.2110, Acc: 0.2681
+Epoch 11/20, Loss: 2.2034, Acc: 0.2737
+Epoch 12/20, Loss: 2.1962, Acc: 0.2768
+Epoch 13/20, Loss: 2.1891, Acc: 0.2796
+Epoch 14/20, Loss: 2.1823, Acc: 0.2825
+Epoch 15/20, Loss: 2.1758, Acc: 0.2855
+Epoch 16/20, Loss: 2.1695, Acc: 0.2882
+Epoch 17/20, Loss: 2.1633, Acc: 0.2904
+Epoch 18/20, Loss: 2.1574, Acc: 0.2930
+Epoch 19/20, Loss: 2.1517, Acc: 0.2947
+Epoch 20/20, Loss: 2.1461, Acc: 0.2968
+Test Accuracy: 29.71%
+
+Testing: feature_maps=16, std_dev=0.01, kernel_size=5, lr=0.01, epochs=5
+Epoch 1/5, Loss: 2.2529, Acc: 0.2511
+Epoch 2/5, Loss: 2.1769, Acc: 0.2905
+Epoch 3/5, Loss: 2.1236, Acc: 0.3091
+Epoch 4/5, Loss: 2.0840, Acc: 0.3177
+Epoch 5/5, Loss: 2.0531, Acc: 0.3259
+Test Accuracy: 33.25%
+
+Testing: feature_maps=16, std_dev=0.01, kernel_size=5, lr=0.01, epochs=10
+Epoch 1/10, Loss: 2.2531, Acc: 0.2254
+Epoch 2/10, Loss: 2.1823, Acc: 0.2567
+Epoch 3/10, Loss: 2.1379, Acc: 0.2697
+Epoch 4/10, Loss: 2.1060, Acc: 0.2807
+Epoch 5/10, Loss: 2.0811, Acc: 0.2909
+Epoch 6/10, Loss: 2.0606, Acc: 0.2972
+Epoch 7/10, Loss: 2.0431, Acc: 0.3057
+Epoch 8/10, Loss: 2.0277, Acc: 0.3097
+Epoch 9/10, Loss: 2.0139, Acc: 0.3159
+Epoch 10/10, Loss: 2.0014, Acc: 0.3213
+Test Accuracy: 33.09%
+
+Testing: feature_maps=16, std_dev=0.01, kernel_size=5, lr=0.01, epochs=20
+Epoch 1/20, Loss: 2.2229, Acc: 0.2448
+Epoch 2/20, Loss: 2.1278, Acc: 0.2845
+Epoch 3/20, Loss: 2.0748, Acc: 0.2986
+Epoch 4/20, Loss: 2.0384, Acc: 0.3107
+Epoch 5/20, Loss: 2.0106, Acc: 0.3184
+Epoch 6/20, Loss: 1.9881, Acc: 0.3270
+Epoch 7/20, Loss: 1.9693, Acc: 0.3316
+Epoch 8/20, Loss: 1.9532, Acc: 0.3369
+Epoch 9/20, Loss: 1.9390, Acc: 0.3415
+Epoch 10/20, Loss: 1.9264, Acc: 0.3451
+Epoch 11/20, Loss: 1.9151, Acc: 0.3480
+Epoch 12/20, Loss: 1.9048, Acc: 0.3515
+Epoch 13/20, Loss: 1.8955, Acc: 0.3542
+Epoch 14/20, Loss: 1.8869, Acc: 0.3570
+Epoch 15/20, Loss: 1.8790, Acc: 0.3594
+Epoch 16/20, Loss: 1.8716, Acc: 0.3617
+Epoch 17/20, Loss: 1.8647, Acc: 0.3633
+Epoch 18/20, Loss: 1.8582, Acc: 0.3660
+Epoch 19/20, Loss: 1.8522, Acc: 0.3681
+Epoch 20/20, Loss: 1.8465, Acc: 0.3700
+Test Accuracy: 37.50%
+
+Testing: feature_maps=16, std_dev=0.01, kernel_size=5, lr=0.1, epochs=5
+Epoch 1/5, Loss: 2.0857, Acc: 0.2900
+Epoch 2/5, Loss: 1.9328, Acc: 0.3483
+Epoch 3/5, Loss: 1.8600, Acc: 0.3739
+Epoch 4/5, Loss: 1.8106, Acc: 0.3919
+Epoch 5/5, Loss: 1.7738, Acc: 0.4054
+Test Accuracy: 40.88%
+
+Testing: feature_maps=16, std_dev=0.01, kernel_size=5, lr=0.1, epochs=10
+Epoch 1/10, Loss: 2.0696, Acc: 0.2952
+Epoch 2/10, Loss: 1.9246, Acc: 0.3506
+Epoch 3/10, Loss: 1.8611, Acc: 0.3697
+Epoch 4/10, Loss: 1.8198, Acc: 0.3827
+Epoch 5/10, Loss: 1.7895, Acc: 0.3910
+Epoch 6/10, Loss: 1.7655, Acc: 0.3996
+Epoch 7/10, Loss: 1.7458, Acc: 0.4051
+Epoch 8/10, Loss: 1.7288, Acc: 0.4109
+Epoch 9/10, Loss: 1.7141, Acc: 0.4169
+Epoch 10/10, Loss: 1.7008, Acc: 0.4208
+Test Accuracy: 41.75%
+
+Testing: feature_maps=16, std_dev=0.01, kernel_size=5, lr=0.1, epochs=20
+Epoch 1/20, Loss: 2.0999, Acc: 0.2978
+Epoch 2/20, Loss: 1.9499, Acc: 0.3450
+Epoch 3/20, Loss: 1.8852, Acc: 0.3642
+Epoch 4/20, Loss: 1.8439, Acc: 0.3777
+Epoch 5/20, Loss: 1.8134, Acc: 0.3860
+Epoch 6/20, Loss: 1.7893, Acc: 0.3941
+Epoch 7/20, Loss: 1.7692, Acc: 0.4005
+Epoch 8/20, Loss: 1.7518, Acc: 0.4052
+Epoch 9/20, Loss: 1.7365, Acc: 0.4096
+Epoch 10/20, Loss: 1.7231, Acc: 0.4153
+Epoch 11/20, Loss: 1.7108, Acc: 0.4196
+Epoch 12/20, Loss: 1.6994, Acc: 0.4229
+Epoch 13/20, Loss: 1.6892, Acc: 0.4272
+Epoch 14/20, Loss: 1.6796, Acc: 0.4308
+Epoch 15/20, Loss: 1.6707, Acc: 0.4319
+Epoch 16/20, Loss: 1.6622, Acc: 0.4358
+Epoch 17/20, Loss: 1.6543, Acc: 0.4387
+Epoch 18/20, Loss: 1.6467, Acc: 0.4415
+Epoch 19/20, Loss: 1.6397, Acc: 0.4432
+Epoch 20/20, Loss: 1.6331, Acc: 0.4455
+Test Accuracy: 43.74%
+
+Testing: feature_maps=16, std_dev=0.1, kernel_size=3, lr=0.001, epochs=5
+Epoch 1/5, Loss: 2.1801, Acc: 0.2387
+Epoch 2/5, Loss: 2.0663, Acc: 0.2961
+Epoch 3/5, Loss: 2.0075, Acc: 0.3191
+Epoch 4/5, Loss: 1.9664, Acc: 0.3350
+Epoch 5/5, Loss: 1.9350, Acc: 0.3477
+Test Accuracy: 35.37%
+
+Testing: feature_maps=16, std_dev=0.1, kernel_size=3, lr=0.001, epochs=10
+Epoch 1/10, Loss: 2.1375, Acc: 0.2571
+Epoch 2/10, Loss: 2.0087, Acc: 0.3094
+Epoch 3/10, Loss: 1.9513, Acc: 0.3311
+Epoch 4/10, Loss: 1.9134, Acc: 0.3437
+Epoch 5/10, Loss: 1.8849, Acc: 0.3553
+Epoch 6/10, Loss: 1.8623, Acc: 0.3647
+Epoch 7/10, Loss: 1.8433, Acc: 0.3714
+Epoch 8/10, Loss: 1.8272, Acc: 0.3779
+Epoch 9/10, Loss: 1.8130, Acc: 0.3837
