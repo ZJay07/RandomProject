@@ -64,11 +64,11 @@ def experiment_hyperparameters():
     train_loader, test_loader = load_cifar10(batch_size=128)
     
     # Hyperparameter grid
-    feature_maps_options = [16, 32, 64, 128]
+    feature_maps_options = [64, 128]
     std_dev_options = [0.01, 0.1, 0.5, 1.0]
     kernel_size_options = [3, 5]
-    lr_options = [0.001, 0.01, 0.1]
-    epochs_options = [5, 10, 20]
+    lr_options = [0.01, 0.1]
+    epochs_options = [10, 20]
     
     # Results tracking
     results = []
@@ -259,6 +259,54 @@ def focused_experiment():
     
     return results
 
+def train_with_mixup(model, train_loader, mixup, lr=0.01, device="cpu", num_epochs=10):
+    model = model.to(device)
+    criterion = nn.CrossEntropyLoss()
+    trainable_params = [p for p in model.parameters() if p.requires_grad]
+    optimizer = optim.SGD(trainable_params, lr=lr)
+    
+    statistics = {
+        "train_loss": [],
+        "train_acc": []
+    }
+    
+    for epoch in range(num_epochs):
+        model.train()
+        train_loss = 0
+        correct = 0
+        total = 0
+        
+        for inputs, targets in train_loader:
+            inputs, targets = inputs.to(device), targets.to(device)
+            
+            # Apply MixUp
+            mixed_inputs, targets_a, targets_b, lam = mixup(inputs, targets, device)
+            
+            optimizer.zero_grad()
+            outputs = model(mixed_inputs)
+            
+            # Calculate mixed loss
+            loss = lam * criterion(outputs, targets_a) + (1 - lam) * criterion(outputs, targets_b)
+            loss.backward()
+            optimizer.step()
+            
+            train_loss += loss.item() * inputs.size(0)
+            
+            # For accuracy calculation (use original inputs)
+            with torch.no_grad():
+                outputs = model(inputs)
+                _, predicted = torch.max(outputs, 1)
+                total += targets.size(0)
+                correct += (predicted == targets).sum().item()
+        
+        epoch_loss = train_loss / total
+        epoch_acc = correct / total
+        statistics["train_loss"].append(epoch_loss)
+        statistics["train_acc"].append(epoch_acc)
+        
+        print(f"Epoch {epoch + 1}/{num_epochs}, Loss: {epoch_loss:.4f}, Acc: {epoch_acc:.4f}")
+    
+    return statistics
 if __name__ == "__main__":
     # Run focused experiment (faster)
     # focused_results = focused_experiment()
