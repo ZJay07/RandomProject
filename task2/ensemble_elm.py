@@ -5,7 +5,7 @@ import torch.nn as nn
 from task2.my_elm import MyExtremeLearningMachine
 
 class MyEnsembleELM(nn.Module):
-    def __init__(self, seed=42, n_models=5, num_feature_maps=32, std_dev=0.5):
+    def __init__(self, seed=42, n_models=5, num_feature_maps=32, std_dev=0.5, reproduce = True):
         """CIFAR-10 default values for kernel_size, num_feature_maps, std_dev"""
         super(MyEnsembleELM, self).__init__()
         # set seed for reproducibility
@@ -17,13 +17,19 @@ class MyEnsembleELM(nn.Module):
         self.n_models = n_models
 
         for i in range(n_models):
-            # diff seed for each model
-            model_seed = seed + i
-            torch.manual_seed(model_seed)
+            # set seed
+            if reproduce:
+                model_seed = seed + i
+                torch.manual_seed(model_seed)
+                np.random.seed(model_seed)
+            else:
+                model_seed = np.random.randint(0, 10000)
+                torch.manual_seed(model_seed)
+                np.random.seed(model_seed)
 
             # For CIFAR-10 images (32x32) with 3x3 kernel
-            h_out = 30  # 32 - 3 + 1
-            w_out = 30  # 32 - 3 + 1
+            h_out = 30
+            w_out = 30
             feature_size = num_feature_maps * h_out * w_out
             
             model = MyExtremeLearningMachine(

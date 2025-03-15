@@ -155,6 +155,47 @@ def experiment_hyperparameters():
           f"std_dev={best_config['std_dev']}, kernel_size={best_config['kernel_size']}, "
           f"lr={best_config['lr']}, epochs={best_config['num_epochs']}")
     
+    # saving the configs
+    os.makedirs("./models", exist_ok=True)
+    h_out = 32 - best_config['kernel_size'] + 1
+    w_out = 32 - best_config['kernel_size'] + 1
+    feature_size = best_config['num_feature_maps'] * h_out * w_out
+
+    best_model = MyExtremeLearningMachine(
+        num_feature_maps=best_config['num_feature_maps'],
+        num_classes=10,
+        std_dev=best_config['std_dev'],
+        feature_size=feature_size,
+        kernel_size=best_config['kernel_size']
+    )
+    best_model = best_model.to(device)
+
+    # Train model with best configuration
+    best_stats, best_metrics = fit_elm_sgd(
+        model=best_model,
+        train_loader=train_loader,
+        test_loader=test_loader,
+        lr=best_config['lr'],
+        device=device,
+        num_epochs=best_config['num_epochs']
+    )
+
+    # Save best model
+    best_model_path = os.path.join("./models", "best_hyperparameter_model.pth")
+    torch.save(best_model.state_dict(), best_model_path)
+    print(f"Best model saved to {best_model_path}")
+
+    # Save configs details for loading
+    best_config_path = os.path.join("./models", "best_hyperparameter_config.json")
+    with open(best_config_path, 'w') as f:
+        json.dump({
+            'num_feature_maps': best_config['num_feature_maps'],
+            'std_dev': best_config['std_dev'],
+            'kernel_size': best_config['kernel_size'],
+            'feature_size': feature_size
+        }, f, indent=4)
+    print(f"Best configuration saved to {best_config_path}")
+    
     return results
 
 # Focused experiment with a smaller grid
@@ -429,7 +470,6 @@ def experiment_regularization_methods(save_path="./models", plots_path="./plots"
     kernel_size = 3
     lr = 0.01
     num_epochs = 20
-    eval_every = 2
     
     # Calculate feature size for CIFAR-10
     h_out = 32 - kernel_size + 1
@@ -706,9 +746,9 @@ if __name__ == "__main__":
     # experiment_regularization_methods()
     # print("Accuracy provies an overall performance measure, especially useful when classes are balanced like in CIFAR-10")
     # print("Macro-F1 score balances precision and recall across all classes, detecting if certain classes are more challenging to classify regardless of their frequency.")
-    # full_results = experiment_hyperparameters()
+    full_results = experiment_hyperparameters()
     # Paths to model files
-    model_dir = "./models/ensemble_model"
-    config_file = "./models/ensemble_config.pth"
+    # model_dir = "./models/ensemble_model"
+    # config_file = "./models/ensemble_config.pth"
 
-    visualize_model_predictions(model_dir, config_file)
+    # visualize_model_predictions(model_dir, config_file)
