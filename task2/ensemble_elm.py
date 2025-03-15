@@ -1,21 +1,23 @@
 import torch
 import numpy as np
 import torch.nn.functional as F
+import torch.nn as nn
 from task2.my_elm import MyExtremeLearningMachine
 
-class MyEnsembleELM:
-    def __init__(self, seed=42, n_models=5, num_feature_maps =32, std_dev = 0.5):
+class MyEnsembleELM(nn.Module):
+    def __init__(self, seed=42, n_models=5, num_feature_maps=32, std_dev=0.5):
         """CIFAR-10 default values for kernel_size, num_feature_maps, std_dev"""
+        super(MyEnsembleELM, self).__init__()
         # set seed for reproducibility
         self.seed = seed
         np.random.seed(seed)
         torch.manual_seed(seed)
 
-        self.models = []
+        self.models = nn.ModuleList()
         self.n_models = n_models
 
         for i in range(n_models):
-            #  diff seed for each model
+            # diff seed for each model
             model_seed = seed + i
             torch.manual_seed(model_seed)
 
@@ -81,3 +83,7 @@ class MyEnsembleELM:
         
         accuracy = correct / total
         return accuracy
+    
+    def forward(self, x):
+        """Wrapper forward for pred in the ensemble"""
+        return self.pred(x)

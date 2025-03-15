@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+from task2.metrics import evaluate_metrics
 
 
 class MyExtremeLearningMachine(nn.Module):
@@ -52,43 +53,60 @@ class MyExtremeLearningMachine(nn.Module):
         return x
 
 
-def fit_elm_sgd(model, train_loader, lr=0.01, device="cpu", num_epochs=10):
+def fit_elm_sgd(model, train_loader, test_loader, lr=0.01, device="cpu", num_epochs=10, eval_every=1):
     """
-    Using a variant of the stochastic gradient descent algorithm to train the ELM
+    fit_elm_sgd with key metrics
     """
     model = model.to(device)
     criterion = nn.CrossEntropyLoss()
     trainable_params = [p for p in model.parameters() if p.requires_grad]
-    optimizer = optim.SGD(
-        trainable_params,
-        lr=lr,
-    )
-    statistic_dict = {
+    optimizer = optim.SGD(trainable_params, lr=lr)
+    
+    statistics = {
         "train_loss": [],
         "train_acc": [],
+        "test_acc": [],
+        "test_f1": [],
+        "epochs": []
     }
+    
     for epoch in range(num_epochs):
         model.train()
         train_loss = 0
-        train_correct = 0
-        train_total = 0
-
-        for i, (inputs, targets) in enumerate(train_loader, 0):
+        correct = 0
+        total = 0
+        
+        for inputs, targets in train_loader:
             inputs, targets = inputs.to(device), targets.to(device)
-            optimizer.zero_grad()  # zero the parameter gradients
+            
+            optimizer.zero_grad()
             outputs = model(inputs)
             loss = criterion(outputs, targets)
             loss.backward()
             optimizer.step()
+            
             train_loss += loss.item() * inputs.size(0)
-            _, predicted = torch.max(outputs, 1)
-            train_total += targets.size(0)
-            train_correct += (predicted == targets).sum().item()
-        epoch_loss = train_loss / train_total
-        epoch_acc = train_correct / train_total
-        statistic_dict["train_loss"].append(epoch_loss)
-        statistic_dict["train_acc"].append(epoch_acc)
-        print(
-            f"Epoch {epoch + 1}/{num_epochs}, Loss: {epoch_loss:.4f}, Acc: {epoch_acc:.4f}"
-        )
-    return statistic_dict
+            _, predicted = torch.max(outputs.data, 1)
+            total += targets.size(0)
+            correct += (predicted == targets).sum().item()
+        
+        epoch_loss = train_loss / total
+        epoch_acc = correct / total
+        statistics["train_loss"].append(epoch_loss)
+        statistics["train_acc"].append(epoch_acc)
+        
+        # eval with metrics
+        if (epoch + 1) % eval_every == 0 or epoch == num_epochs - 1:
+            metrics = evaluate_metrics(model, test_loader, device)
+            statistics["test_acc"].append(metrics['accuracy'])
+            statistics["test_f1"].append(metrics['macro_f1'])
+            statistics["epochs"].append(epoch + 1)
+            
+            print(f"Epoch {epoch + 1}/{num_epochs}, Loss: {epoch_loss:.4f}, Train Acc: {epoch_acc:.4f}, "
+                  f"Test Acc: {metrics['accuracy']:.2f}%, Test F1: {metrics['macro_f1']:.2f}%")
+        else:
+            print(f"Epoch {epoch + 1}/{num_epochs}, Loss: {epoch_loss:.4f}, Train Acc: {epoch_acc:.4f}")
+
+    final_metrics = evaluate_metrics(model, test_loader, device)
+    
+    return statistics, final_metrics

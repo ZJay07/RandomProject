@@ -6,6 +6,7 @@ For imbalanced datasets, the random baseline becomes the frequency of the most c
 Random guessing represents the minimum performance threshold any useful classifier must exceed.
 """
 
+import json
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -15,13 +16,23 @@ import numpy as np
 from PIL import Image, ImageDraw
 import os
 import sys
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from task2.mix_up import MyMixUp
+from task2.ensemble_elm import MyEnsembleELM
 from task2.my_elm import MyExtremeLearningMachine, fit_elm_sgd
+from task2.metrics import (
+    evaluate_metrics, 
+    compute_f1_score
+)
+from task2.summary_visulisation import summarize_metrics
+from task2.montage import visualize_model_predictions
 
 # Set random seed for reproducibility
 SEED = 42
 torch.manual_seed(SEED)
 np.random.seed(SEED)
+NUM_ENSEMBLE_MODELS = 10
 
 # CIFAR-10 Data Loading
 def load_cifar10(batch_size=128):
@@ -98,9 +109,10 @@ def experiment_hyperparameters():
                         model = model.to(device)
                         
                         # Train model
-                        stats = fit_elm_sgd(
+                        stats, final_metrics = fit_elm_sgd(
                             model=model, 
                             train_loader=train_loader,
+                            test_loader=test_loader,
                             lr=lr,
                             device=device,
                             num_epochs=num_epochs
@@ -191,6 +203,7 @@ def focused_experiment():
         stats = fit_elm_sgd(
             model=model, 
             train_loader=train_loader,
+            test_loader=test_loader,
             lr=config['lr'],
             device=device,
             num_epochs=config['num_epochs']
@@ -259,7 +272,10 @@ def focused_experiment():
     
     return results
 
-def train_with_mixup(model, train_loader, mixup, lr=0.01, device="cpu", num_epochs=10):
+def train_with_mixup(model, train_loader, test_loader, mixup, lr=0.01, device="cpu", num_epochs=10, eval_every=1):
+    """
+    Mix up with reporting key metrics
+    """
     model = model.to(device)
     criterion = nn.CrossEntropyLoss()
     trainable_params = [p for p in model.parameters() if p.requires_grad]
@@ -267,7 +283,10 @@ def train_with_mixup(model, train_loader, mixup, lr=0.01, device="cpu", num_epoc
     
     statistics = {
         "train_loss": [],
-        "train_acc": []
+        "train_acc": [],
+        "test_acc": [],
+        "test_f1": [],
+        "epochs": []
     }
     
     for epoch in range(num_epochs):
@@ -304,12 +323,392 @@ def train_with_mixup(model, train_loader, mixup, lr=0.01, device="cpu", num_epoc
         statistics["train_loss"].append(epoch_loss)
         statistics["train_acc"].append(epoch_acc)
         
-        print(f"Epoch {epoch + 1}/{num_epochs}, Loss: {epoch_loss:.4f}, Acc: {epoch_acc:.4f}")
+        # eval with metrics
+        if (epoch + 1) % eval_every == 0 or epoch == num_epochs - 1:
+            metrics = evaluate_metrics(model, test_loader, device)
+            statistics["test_acc"].append(metrics['accuracy'])
+            statistics["test_f1"].append(metrics['macro_f1'])
+            statistics["epochs"].append(epoch + 1)
+            
+            print(f"Epoch {epoch + 1}/{num_epochs}, Loss: {epoch_loss:.4f}, Train Acc: {epoch_acc:.4f}, "
+                  f"Test Acc: {metrics['accuracy']:.2f}%, Test F1: {metrics['macro_f1']:.2f}%")
+        else:
+            print(f"Epoch {epoch + 1}/{num_epochs}, Loss: {epoch_loss:.4f}, Train Acc: {epoch_acc:.4f}")
     
-    return statistics
+    final_metrics = evaluate_metrics(model, test_loader, device)
+    
+    return statistics, final_metrics
+
+def train_ensemble(ensemble_model, train_loader, test_loader, fit_function, lr=0.01, device="cpu", num_epochs=10, eval_every=1):
+    """
+    Train ensemble models while tracking metrics
+    """
+    ensemble_model = ensemble_model.to(device)
+    
+    statistics = {
+        "test_acc": [],
+        "test_f1": [],
+        "epochs": []
+    }
+    
+    # Train each model in the ensemble
+    for i, model in enumerate(ensemble_model.models):
+        print(f"Training ensemble model {i+1}/{ensemble_model.n_models}")
+        fit_function(
+            model=model,
+            train_loader=train_loader,
+            test_loader=test_loader,
+            lr=lr,
+            device=device,
+            num_epochs=num_epochs
+        )
+        
+        # Evaluate ensemble after each model is trained
+        if (i + 1) % eval_every == 0 or i == ensemble_model.n_models - 1:
+            # For ensemble evaluation, we need to use the ensemble's eval method
+            ensemble_acc = ensemble_model.eval(test_loader, device) * 100
+            
+            # Calculate F1 score
+            all_preds = []
+            all_targets = []
+            with torch.no_grad():
+                for inputs, targets in test_loader:
+                    inputs, targets = inputs.to(device), targets.to(device)
+                    outputs = ensemble_model(inputs)
+                    _, predicted = torch.max(outputs, 1)
+                    
+                    all_preds.extend(predicted.cpu().tolist())
+                    all_targets.extend(targets.cpu().tolist())
+            
+            ensemble_f1 = 100 * compute_f1_score(all_targets, all_preds, average='macro')
+            
+            statistics["test_acc"].append(ensemble_acc)
+            statistics["test_f1"].append(ensemble_f1)
+            statistics["epochs"].append((i + 1) * num_epochs)
+            
+            print(f"Ensemble Model ({i+1}/{ensemble_model.n_models}), Test Acc: {ensemble_acc:.2f}%, Test F1: {ensemble_f1:.2f}%")
+    
+    # final eval
+    final_ensemble_acc = ensemble_model.eval(test_loader, device) * 100
+    
+    all_preds = []
+    all_targets = []
+    with torch.no_grad():
+        for inputs, targets in test_loader:
+            inputs, targets = inputs.to(device), targets.to(device)
+            outputs = ensemble_model(inputs)
+            _, predicted = torch.max(outputs, 1)
+            
+            all_preds.extend(predicted.cpu().tolist())
+            all_targets.extend(targets.cpu().tolist())
+    
+    final_ensemble_f1 = 100 * compute_f1_score(all_targets, all_preds, average='macro')
+    
+    final_metrics = {
+        'accuracy': final_ensemble_acc, 
+        'macro_f1': final_ensemble_f1,
+    }
+
+    return statistics, final_metrics
+
+def experiment_regularization_methods(save_path="./models", plots_path="./plots"):
+    # Create directory for saving models if it doesn't exist
+    os.makedirs(save_path, exist_ok=True)
+    os.makedirs(plots_path, exist_ok=True)
+
+    # Device configuration
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    print(f"Using device: {device}")
+    
+    # Load data
+    train_loader, test_loader = load_cifar10(batch_size=128)
+    
+    # Good hyperparameters based on previous experiments
+    num_feature_maps = 128
+    std_dev = 0.1
+    kernel_size = 3
+    lr = 0.01
+    num_epochs = 20
+    eval_every = 2
+    
+    # Calculate feature size for CIFAR-10
+    h_out = 32 - kernel_size + 1
+    w_out = 32 - kernel_size + 1
+    feature_size = num_feature_maps * h_out * w_out
+    
+    # Initialize MixUp
+    mixup = MyMixUp(alpha=1.0, seed=SEED)
+    
+    results = {}
+    
+    # 1. Train a base ELM for comparison
+    print("\n=== Training Base ELM Model ===")
+    base_model = MyExtremeLearningMachine(
+        num_feature_maps=num_feature_maps,
+        num_classes=10,
+        std_dev=std_dev,
+        feature_size=feature_size,
+        kernel_size=kernel_size
+    )
+    base_model = base_model.to(device)
+    
+    base_stats, base_final_metrics = fit_elm_sgd(
+        model=base_model,
+        train_loader=train_loader,
+        test_loader=test_loader,
+        lr=lr,
+        device=device,
+        num_epochs=num_epochs
+    )
+    
+    base_accuracy = evaluate(base_model, test_loader, device)
+    print(f"Base Model Test Accuracy: {base_accuracy:.2f}%")
+    
+    # Save base model
+    base_model_path = os.path.join(save_path, "base_model.pth")
+    torch.save(base_model.state_dict(), base_model_path)
+    print(f"Base model saved to {base_model_path}")
+    results['base_model'] = {
+        'path': base_model_path,
+        'epochs': base_stats['epochs'],
+        'test_acc': base_stats['test_acc'],
+        'test_f1': base_stats['test_f1'],
+        'final_metrics': base_final_metrics
+    }
+    
+    # 2. Train a model using only MixUp
+    print("\n=== Training Model with MixUp ===")
+    mixup_model = MyExtremeLearningMachine(
+        num_feature_maps=num_feature_maps,
+        num_classes=10,
+        std_dev=std_dev,
+        feature_size=feature_size,
+        kernel_size=kernel_size
+    )
+    mixup_model = mixup_model.to(device)
+    
+    mixup_stats, mixup_final_metrics = train_with_mixup(
+        model=mixup_model,
+        train_loader=train_loader,
+        test_loader=test_loader,
+        mixup=mixup,
+        lr=lr,
+        device=device,
+        num_epochs=num_epochs
+    )
+    
+    mixup_accuracy = evaluate(mixup_model, test_loader, device)
+    print(f"MixUp Model Test Accuracy: {mixup_accuracy:.2f}%")
+    
+    # Save mixup model
+    mixup_model_path = os.path.join(save_path, "mixup_model.pth")
+    torch.save(mixup_model.state_dict(), mixup_model_path)
+    print(f"MixUp model saved to {mixup_model_path}")
+    results['mixup_model'] = {
+        'path': mixup_model_path,
+        'epochs': mixup_stats['epochs'],
+        'test_acc': mixup_stats['test_acc'],
+        'test_f1': mixup_stats['test_f1'],
+        'final_metrics': mixup_final_metrics
+    }
+
+    # 3. Train a model using only Ensemble ELM
+    print("\n=== Training Ensemble ELM Model ===")
+    ensemble_model = MyEnsembleELM(
+        seed=SEED,
+        n_models=NUM_ENSEMBLE_MODELS,
+        num_feature_maps=num_feature_maps,
+        std_dev=std_dev
+    )
+    ensemble_model = ensemble_model.to(device)
+    
+    # Train the ensemble
+    ensemble_stats, ensemble_final_metrics = train_ensemble(
+        ensemble_model=ensemble_model,
+        train_loader=train_loader,
+        test_loader=test_loader,
+        fit_function=fit_elm_sgd,
+        lr=lr,
+        device=device,
+        num_epochs=num_epochs,
+        eval_every=1
+    )
+    
+    ensemble_accuracy = ensemble_model.eval(test_loader, device) * 100
+    print(f"Ensemble ELM Test Accuracy: {ensemble_accuracy:.2f}%")
+    
+    # Save ensemble model
+    # For ensemble, we need to save each model in the ensemble
+    ensemble_dir = os.path.join(save_path, "ensemble_model")
+    os.makedirs(ensemble_dir, exist_ok=True)
+    for i, model in enumerate(ensemble_model.models):
+        model_path = os.path.join(ensemble_dir, f"model_{i}.pth")
+        torch.save(model.state_dict(), model_path)
+    
+    # Save ensemble configuration
+    ensemble_config_path = os.path.join(save_path, "ensemble_config.pth")
+    torch.save({
+        'n_models': ensemble_model.n_models,
+        'seed': ensemble_model.seed,
+        'num_feature_maps': num_feature_maps,
+        'std_dev': std_dev,
+        'kernel_size': kernel_size
+    }, ensemble_config_path)
+    print(f"Ensemble model saved to {ensemble_dir}")
+    results['ensemble_model'] = {
+        'dir': ensemble_dir,
+        'config': ensemble_config_path,
+        'epochs': ensemble_stats['epochs'],
+        'test_acc': ensemble_stats['test_acc'],
+        'test_f1': ensemble_stats['test_f1'],
+        'final_metrics': ensemble_final_metrics
+    }
+    
+    # 4. Train a model using both MixUp and Ensemble ELM
+    print("\n=== Training Model with MixUp and Ensemble ELM ===")
+    ensemble_mixup_model = MyEnsembleELM(
+        seed=SEED,
+        n_models=NUM_ENSEMBLE_MODELS,
+        num_feature_maps=num_feature_maps,
+        std_dev=std_dev
+    )
+    ensemble_mixup_model = ensemble_mixup_model.to(device)
+
+    ensemble_mixup_stats = {
+        'test_acc': [],
+        'test_f1': [],
+        'epochs': []
+    }
+    
+    # Train each model in the ensemble with MixUp
+    for i, model in enumerate(ensemble_mixup_model.models):
+        print(f"Training ensemble model {i+1}/{ensemble_mixup_model.n_models} with MixUp")
+        _, _ = train_with_mixup(
+            model=model,
+            train_loader=train_loader,
+            test_loader=test_loader,
+            mixup=mixup,
+            lr=lr,
+            device=device,
+            num_epochs=num_epochs,
+            eval_every=num_epochs
+        )
+        
+        # Evaluate the ensemble after each model is trained
+        ensemble_mixup_accuracy = ensemble_mixup_model.eval(test_loader, device) * 100
+        
+        # Calculate F1 score for the ensemble
+        all_preds = []
+        all_targets = []
+        with torch.no_grad():
+            for inputs, targets in test_loader:
+                inputs, targets = inputs.to(device), targets.to(device)
+                outputs = ensemble_mixup_model(inputs)
+                _, predicted = torch.max(outputs, 1)
+                
+                all_preds.extend(predicted.cpu().tolist())
+                all_targets.extend(targets.cpu().tolist())
+        
+        ensemble_mixup_f1 = 100 * compute_f1_score(all_targets, all_preds, average='macro')
+        
+        ensemble_mixup_stats['test_acc'].append(ensemble_mixup_accuracy)
+        ensemble_mixup_stats['test_f1'].append(ensemble_mixup_f1)
+        ensemble_mixup_stats['epochs'].append((i + 1) * num_epochs)
+        
+        print(f"Ensemble with MixUp ({i+1}/{ensemble_mixup_model.n_models}), Test Acc: {ensemble_mixup_accuracy:.2f}%, Test F1: {ensemble_mixup_f1:.2f}%")
+    
+    # Final evaluation for ensemble mixup
+    ensemble_mixup_acc = ensemble_mixup_model.eval(test_loader, device) * 100
+    
+    all_preds = []
+    all_targets = []
+    with torch.no_grad():
+        for inputs, targets in test_loader:
+            inputs, targets = inputs.to(device), targets.to(device)
+            outputs = ensemble_mixup_model(inputs)
+            _, predicted = torch.max(outputs, 1)
+            
+            all_preds.extend(predicted.cpu().tolist())
+            all_targets.extend(targets.cpu().tolist())
+    
+    ensemble_mixup_f1 = 100 * compute_f1_score(all_targets, all_preds, average='macro')
+    
+    ensemble_mixup_final_metrics = {
+        'accuracy': ensemble_mixup_acc,
+        'macro_f1': ensemble_mixup_f1,
+    }
+    
+    # Save ensemble mixup model
+    ensemble_mixup_dir = os.path.join(save_path, "ensemble_mixup_model")
+    os.makedirs(ensemble_mixup_dir, exist_ok=True)
+    for i, model in enumerate(ensemble_mixup_model.models):
+        model_path = os.path.join(ensemble_mixup_dir, f"model_{i}.pth")
+        torch.save(model.state_dict(), model_path)
+    
+    # Save ensemble mixup configuration
+    ensemble_mixup_config_path = os.path.join(save_path, "ensemble_mixup_config.pth")
+    torch.save({
+        'n_models': ensemble_mixup_model.n_models,
+        'seed': ensemble_mixup_model.seed,
+        'num_feature_maps': num_feature_maps,
+        'std_dev': std_dev,
+        'kernel_size': kernel_size,
+        'mixup_alpha': mixup.alpha
+    }, ensemble_mixup_config_path)
+    print(f"Ensemble MixUp model saved to {ensemble_mixup_dir}")
+
+    results['ensemble_mixup_model'] = {
+        'dir': ensemble_mixup_dir,
+        'config': ensemble_mixup_config_path,
+        'epochs': ensemble_mixup_stats['epochs'],
+        'test_acc': ensemble_mixup_stats['test_acc'],
+        'test_f1': ensemble_mixup_stats['test_f1'],
+        'final_metrics': ensemble_mixup_final_metrics
+    }
+
+    # Compare all results
+    print("\n=== Experiment Results ===")
+    print(f"Base Model Accuracy: {base_accuracy:.2f}%")
+    print(f"MixUp Model Accuracy: {mixup_accuracy:.2f}%")
+    print(f"Ensemble ELM Accuracy: {ensemble_accuracy:.2f}%")
+    print(f"Ensemble ELM with MixUp Accuracy: {ensemble_mixup_accuracy:.2f}%")
+    
+    # Save results summary as JSON
+    results_json = {}
+    for model_name, results in results.items():
+        model_results = {
+            'epochs': results['epochs'],
+            'test_acc': results['test_acc'],
+            'test_f1': results['test_f1'],
+            'final_accuracy': results['final_metrics']['accuracy'],
+            'final_f1': results['final_metrics']['macro_f1']
+        }
+        results_json[model_name] = model_results
+    
+    with open(os.path.join(save_path, "metrics_results.json"), 'w') as f:
+        json.dump(results_json, f, indent=4)
+    
+    # Viz for summary of report
+    json_file_path = os.path.join(save_path, "metrics_results.json")
+    
+    if os.path.exists(json_file_path):
+        print(f"Found metrics file: {json_file_path}")
+        # generate summary
+        summarize_metrics(json_file_path)
+    else:
+        print(f"Metrics file not found: {json_file_path}")
+        print("Please make sure you've run the experiments and generated the JSON file.")
+
+    return results
 if __name__ == "__main__":
     # Run focused experiment (faster)
     # focused_results = focused_experiment()
-    
-    # Alternatively, run full grid search (much slower)
-    full_results = experiment_hyperparameters()
+    # experiment_regularization_methods()
+    # print("Accuracy provies an overall performance measure, especially useful when classes are balanced like in CIFAR-10")
+    # print("Macro-F1 score balances precision and recall across all classes, detecting if certain classes are more challenging to classify regardless of their frequency.")
+    # full_results = experiment_hyperparameters()
+    # Paths to model files
+    model_dir = "./models/ensemble_model"
+    config_file = "./models/ensemble_config.pth"
+
+    visualize_model_predictions(model_dir, config_file)
