@@ -6,7 +6,7 @@ import sys
 import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from  task2.metrics import evaluate_metrics, evaluate_training_set
+from  task2.metrics import evaluate_metrics
 from task2.task import load_cifar10
 from task2.ensemble_elm import MyEnsembleELM
 from task2.my_elm import fit_elm_sgd
@@ -18,7 +18,7 @@ SEED = 42
 ENSEMBLE_SIZE = 10
 
 # TODO: Add new metrics, and consider adding loss as well for viz 
-def fit_elm_ls(model, train_loader, test_loader=None, lambda_reg=0.001, device="cpu", method="pinv"):
+def fit_elm_ls(model, train_loader, test_loader=None, lambda_reg=0.1, device="cpu", method="ridge"):
     """
     Using a variant of the least squares algorithm to train the ELM - ridge
     device should always be CPU due to the library constrains but just in case cuda is used
@@ -26,7 +26,10 @@ def fit_elm_ls(model, train_loader, test_loader=None, lambda_reg=0.001, device="
     """
     # Record training start time
     model = model.to(device)
+    model.eval()  # ensure fixed layers are in eval mode
     
+    H_list = []
+    T_list = []
     statistics = {
         "train_loss": [],
         "train_acc": [],
@@ -35,96 +38,38 @@ def fit_elm_ls(model, train_loader, test_loader=None, lambda_reg=0.001, device="
         "epochs": [1]
     }
     
-    # Step 1: Compute H^T*H and H^T*T incrementally batch-by-batc
-    print("Processing batches for least squares solution...")
-    
-    # Get first batch to determine dimensions
-    first_batch = next(iter(train_loader))
-    first_inputs, _ = first_batch
-    first_inputs = first_inputs.to(device)
-    
-    # Forward through fixed layers
-    with torch.no_grad():
-        x = model.conv(first_inputs)
-        x = F.relu(x)
-        x = x.view(x.size(0), -1)  # Flatten
-    
-    # Get dimension sizes
-    feature_dim = x.shape[1]
-    output_dim = model.num_classes
-    
-    print(f"Feature dimension: {feature_dim}, Output dimension: {output_dim}")
-    
-    # Initialize accumulators
-    if method == "ridge":
-        # For Ridge regression: calculate H^T*H and H^T*T
-        HtH = torch.zeros((feature_dim, feature_dim), device=device)
-        HtT = torch.zeros((feature_dim, output_dim), device=device)
-    else:  # pinv method - use normal equations approach to save memory
-        # For Pseudoinverse: also calculate H^T*H and H^T*T initially
-        HtH = torch.zeros((feature_dim, feature_dim), device=device)
-        HtT = torch.zeros((feature_dim, output_dim), device=device)
-    
-    # Process all batches
-    total_samples = 0
-    model.eval()  # Set model to evaluation mode
-    
+    # Accumulate the hidden features and one-hot encoded targets batch-by-batch
     with torch.no_grad():
         for inputs, targets in train_loader:
-            batch_size = inputs.shape[0]
-            total_samples += batch_size
-            
             inputs = inputs.to(device)
-            targets = targets.to(device)
             
-            # Forward pass through fixed layers only
+            # Forward pass through the fixed conv layers and ReLU
             x = model.conv(inputs)
             x = F.relu(x)
-            x = x.view(x.size(0), -1)  # Flatten features - shape: [batch_size, feature_dim]
+            x = x.view(x.size(0), -1)  # flatten to shape: [batch_size, feature_dim]
+            H_list.append(x)
             
-            # Create one-hot encoded targets
-            T_batch = torch.zeros(batch_size, output_dim, device=device)
-            T_batch.scatter_(1, targets.unsqueeze(1), 1)
-            
-            # Update accumulators
-            # H^T*H update: accumulate x^T * x (outer product)
-            HtH += x.t() @ x
-            
-            # H^T*T update: accumulate x^T * T_batch
-            HtT += x.t() @ T_batch
+            # Create one-hot encoded targets for this batch
+            batch_size = x.size(0)
+            T_batch = torch.zeros(batch_size, model.num_classes, device=device)
+            T_batch.scatter_(1, targets.to(device).unsqueeze(1), 1)
+            T_list.append(T_batch)
     
-    print(f"Processed a total of {total_samples} samples")
+    # Concatenate all batches: H: (N, d), T: (N, num_classes)
+    H = torch.cat(H_list, dim=0)
+    T = torch.cat(T_list, dim=0)
     
-    # Step 2: Compute solution based on chosen method
-    print(f"Computing solution using {method} method...")
+    N = H.shape[0]  # number of training samples
     
-    if method == "ridge":
-        # Ridge regression: β = (H^T*H + λI)^(-1) * H^T*T
-        reg_term = lambda_reg * torch.eye(feature_dim, device=device)
-        try:
-            # Try direct solution first
-            beta = torch.linalg.solve(HtH + reg_term, HtT)
-        except RuntimeError:
-            # If that fails, try solving with a more stable method
-            print("Direct solver failed, using LU decomposition...")
-            beta = torch.linalg.lstsq(HtH + reg_term, HtT).solution
+    # Compute the inverse of the smaller matrix: (H H^T + lambda_reg * I_N)
+    I_N = torch.eye(N, device=device)
+    inv_term = torch.linalg.inv(H @ H.T + lambda_reg * I_N)
     
-    else:  # pinv method using normal equations
-        # Alternative implementation of pseudoinverse using stabilized normal equations
-        # β = (H^T*H)^(-1) * H^T*T
-        
-        # Add a tiny regularization term for numerical stability
-        reg_term = 1e-10 * torch.eye(feature_dim, device=device)
-        
-        try:
-            # Try direct solution first
-            beta = torch.linalg.solve(HtH + reg_term, HtT)
-        except RuntimeError:
-            # Fallback to least squares solver which is more stable
-            print("Direct solver failed, using least squares solver...")
-            beta = torch.linalg.lstsq(HtH + reg_term, HtT).solution
+    # Compute beta using the Woodbury identity:
+    # beta = H^T * (H H^T + lambda_reg I_N)^(-1) * T
+    beta = H.T @ (inv_term @ T)
     
-    print(f"Solution weights shape: {beta.shape}")
+    print(f"Computed beta shape (weights): {beta.shape}")
     
     # Step 3: Set the computed weights to the output layer
     with torch.no_grad():
@@ -248,7 +193,7 @@ def comparison_duration_sgd_and_ls(feature_maps, std_dev, kernel_size,  lr, epoc
 
 
 def random_search_hyperparameter_ls(
-        num_steps = 30,
+        num_steps = 100,
         train_loader=None,
         test_loader=None,
         feature_maps_range=(64, 128),

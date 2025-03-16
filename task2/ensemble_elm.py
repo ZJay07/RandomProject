@@ -73,7 +73,11 @@ class MyEnsembleELM(nn.Module):
 
             return ensemble_output
 
-    def eval(self, test_loader, device='cpu'):
+    def eval(self, test_loader=None, device='cpu'):
+        if test_loader is None:
+            for model in self.models:
+                model.eval()
+            return
         # change device maybe?
         self.to(device)
         correct = 0

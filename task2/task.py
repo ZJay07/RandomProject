@@ -77,9 +77,9 @@ def experiment_hyperparameters():
     # Hyperparameter grid
     feature_maps_options = [64, 128]
     std_dev_options = [0.01, 0.1, 0.5, 1.0]
-    kernel_size_options = [3, 5]
+    kernel_size_options = [3, 5, 7]
     lr_options = [0.01, 0.1]
-    epochs_options = [10, 20]
+    epochs_options = [10, 20, 50]
     
     # Results tracking
     results = []
@@ -452,10 +452,9 @@ def train_ensemble(ensemble_model, train_loader, test_loader, fit_function, lr=0
 
     return statistics, final_metrics
 
-def experiment_regularization_methods(save_path="./models", plots_path="./plots"):
+def experiment_regularization_methods(save_path="./task2"):
     # Create directory for saving models if it doesn't exist
     os.makedirs(save_path, exist_ok=True)
-    os.makedirs(plots_path, exist_ok=True)
 
     # Device configuration
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
