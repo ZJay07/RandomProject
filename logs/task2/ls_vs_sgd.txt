@@ -1,0 +1,700 @@
+Comparing training duration for SGD and LS...
+Trying with third best parameters from previous experiments because top 2 causes CPU to crash
+Comparing ls and sgd training duration...
+Using device: cpu
+Files already downloaded and verified
+Files already downloaded and verified
+
+=== Training with Least Squares ===
+Training model 1/10 with LS
+
+Running fit elm ls with ridge
+Feature dimension: 21632
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.001)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.7671, Train Acc: 0.9569, Test Acc: 45.93%, Test F1: 45.84%
+This fit took 245.68486404418945 to complete!
+Training model 2/10 with LS
+
+Running fit elm ls with ridge
+Feature dimension: 21632
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.001)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.7659, Train Acc: 0.9572, Test Acc: 46.41%, Test F1: 46.35%
+This fit took 244.5146427154541 to complete!
+Training model 3/10 with LS
+
+Running fit elm ls with ridge
+Feature dimension: 21632
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.001)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.7651, Train Acc: 0.9591, Test Acc: 47.24%, Test F1: 47.14%
+This fit took 244.42422223091125 to complete!
+Training model 4/10 with LS
+
+Running fit elm ls with ridge
+Feature dimension: 21632
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.001)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.7648, Train Acc: 0.9578, Test Acc: 46.76%, Test F1: 46.75%
+This fit took 244.40582394599915 to complete!
+Training model 5/10 with LS
+
+Running fit elm ls with ridge
+Feature dimension: 21632
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.001)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.7651, Train Acc: 0.9582, Test Acc: 46.86%, Test F1: 46.87%
+This fit took 244.82028484344482 to complete!
+Training model 6/10 with LS
+
+Running fit elm ls with ridge
+Feature dimension: 21632
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.001)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.7666, Train Acc: 0.9570, Test Acc: 45.80%, Test F1: 45.69%
+This fit took 244.3653974533081 to complete!
+Training model 7/10 with LS
+
+Running fit elm ls with ridge
+Feature dimension: 21632
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.001)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.7671, Train Acc: 0.9557, Test Acc: 45.86%, Test F1: 45.84%
+This fit took 244.70387196540833 to complete!
+Training model 8/10 with LS
+
+Running fit elm ls with ridge
+Feature dimension: 21632
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.001)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.7670, Train Acc: 0.9580, Test Acc: 45.62%, Test F1: 45.60%
+This fit took 244.57611274719238 to complete!
+Training model 9/10 with LS
+
+Running fit elm ls with ridge
+Feature dimension: 21632
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.001)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.7673, Train Acc: 0.9578, Test Acc: 46.28%, Test F1: 46.30%
+This fit took 244.7539780139923 to complete!
+Training model 10/10 with LS
+
+Running fit elm ls with ridge
+Feature dimension: 21632
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.001)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.7652, Train Acc: 0.9569, Test Acc: 46.07%, Test F1: 46.07%
+This fit took 244.84671449661255 to complete!
+
+=== Training with SGD ===
+Training model 1/10 with SGD
+Epoch 1/50, Loss: 1.7738, Train Acc: 0.3834, Test Acc: 42.26%, Test F1: 41.38%
+Epoch 2/50, Loss: 1.5890, Train Acc: 0.4531, Test Acc: 45.57%, Test F1: 44.83%
+Epoch 3/50, Loss: 1.5120, Train Acc: 0.4844, Test Acc: 47.57%, Test F1: 46.32%
+Epoch 4/50, Loss: 1.4612, Train Acc: 0.5022, Test Acc: 48.16%, Test F1: 47.26%
+Epoch 5/50, Loss: 1.4226, Train Acc: 0.5111, Test Acc: 49.50%, Test F1: 49.59%
+Epoch 6/50, Loss: 1.3903, Train Acc: 0.5242, Test Acc: 50.17%, Test F1: 49.56%
+Epoch 7/50, Loss: 1.3648, Train Acc: 0.5362, Test Acc: 49.64%, Test F1: 49.36%
+Epoch 8/50, Loss: 1.3418, Train Acc: 0.5425, Test Acc: 51.62%, Test F1: 51.45%
+Epoch 9/50, Loss: 1.3232, Train Acc: 0.5501, Test Acc: 50.89%, Test F1: 50.22%
+Epoch 10/50, Loss: 1.3050, Train Acc: 0.5559, Test Acc: 52.84%, Test F1: 52.84%
+Epoch 11/50, Loss: 1.2879, Train Acc: 0.5619, Test Acc: 53.09%, Test F1: 52.49%
+Epoch 12/50, Loss: 1.2740, Train Acc: 0.5679, Test Acc: 52.99%, Test F1: 52.85%
+Epoch 13/50, Loss: 1.2612, Train Acc: 0.5710, Test Acc: 51.78%, Test F1: 51.35%
+Epoch 14/50, Loss: 1.2489, Train Acc: 0.5771, Test Acc: 52.79%, Test F1: 52.55%
+Epoch 15/50, Loss: 1.2371, Train Acc: 0.5810, Test Acc: 53.48%, Test F1: 52.49%
+Epoch 16/50, Loss: 1.2254, Train Acc: 0.5857, Test Acc: 52.61%, Test F1: 52.68%
+Epoch 17/50, Loss: 1.2160, Train Acc: 0.5904, Test Acc: 54.38%, Test F1: 54.18%
+Epoch 18/50, Loss: 1.2058, Train Acc: 0.5928, Test Acc: 54.07%, Test F1: 53.35%
+Epoch 19/50, Loss: 1.1962, Train Acc: 0.5959, Test Acc: 53.66%, Test F1: 53.66%
+Epoch 20/50, Loss: 1.1877, Train Acc: 0.6008, Test Acc: 53.26%, Test F1: 52.31%
+Epoch 21/50, Loss: 1.1795, Train Acc: 0.6034, Test Acc: 54.46%, Test F1: 54.05%
+Epoch 22/50, Loss: 1.1701, Train Acc: 0.6063, Test Acc: 54.12%, Test F1: 53.46%
+Epoch 23/50, Loss: 1.1637, Train Acc: 0.6111, Test Acc: 54.22%, Test F1: 53.72%
+Epoch 24/50, Loss: 1.1555, Train Acc: 0.6131, Test Acc: 54.81%, Test F1: 54.40%
+Epoch 25/50, Loss: 1.1487, Train Acc: 0.6151, Test Acc: 54.77%, Test F1: 54.43%
+Epoch 26/50, Loss: 1.1420, Train Acc: 0.6200, Test Acc: 54.27%, Test F1: 54.39%
+Epoch 27/50, Loss: 1.1367, Train Acc: 0.6206, Test Acc: 55.09%, Test F1: 54.58%
+Epoch 28/50, Loss: 1.1287, Train Acc: 0.6246, Test Acc: 55.33%, Test F1: 55.41%
+Epoch 29/50, Loss: 1.1224, Train Acc: 0.6275, Test Acc: 55.36%, Test F1: 55.41%
+Epoch 30/50, Loss: 1.1173, Train Acc: 0.6270, Test Acc: 55.91%, Test F1: 55.62%
+Epoch 31/50, Loss: 1.1107, Train Acc: 0.6305, Test Acc: 55.22%, Test F1: 54.80%
+Epoch 32/50, Loss: 1.1052, Train Acc: 0.6315, Test Acc: 55.64%, Test F1: 55.18%
+Epoch 33/50, Loss: 1.0994, Train Acc: 0.6335, Test Acc: 55.81%, Test F1: 56.04%
+Epoch 34/50, Loss: 1.0937, Train Acc: 0.6375, Test Acc: 55.45%, Test F1: 55.41%
+Epoch 35/50, Loss: 1.0879, Train Acc: 0.6407, Test Acc: 56.09%, Test F1: 55.48%
+Epoch 36/50, Loss: 1.0828, Train Acc: 0.6408, Test Acc: 55.48%, Test F1: 55.40%
+Epoch 37/50, Loss: 1.0779, Train Acc: 0.6429, Test Acc: 55.14%, Test F1: 54.69%
+Epoch 38/50, Loss: 1.0736, Train Acc: 0.6434, Test Acc: 55.05%, Test F1: 54.79%
+Epoch 39/50, Loss: 1.0687, Train Acc: 0.6477, Test Acc: 55.56%, Test F1: 55.33%
+Epoch 40/50, Loss: 1.0642, Train Acc: 0.6493, Test Acc: 55.90%, Test F1: 55.89%
+Epoch 41/50, Loss: 1.0597, Train Acc: 0.6499, Test Acc: 56.60%, Test F1: 56.26%
+Epoch 42/50, Loss: 1.0546, Train Acc: 0.6504, Test Acc: 56.43%, Test F1: 56.24%
+Epoch 43/50, Loss: 1.0510, Train Acc: 0.6550, Test Acc: 55.45%, Test F1: 55.18%
+Epoch 44/50, Loss: 1.0457, Train Acc: 0.6565, Test Acc: 55.93%, Test F1: 55.64%
+Epoch 45/50, Loss: 1.0419, Train Acc: 0.6581, Test Acc: 56.01%, Test F1: 55.45%
+Epoch 46/50, Loss: 1.0378, Train Acc: 0.6594, Test Acc: 55.99%, Test F1: 55.67%
+Epoch 47/50, Loss: 1.0341, Train Acc: 0.6588, Test Acc: 56.46%, Test F1: 56.21%
+Epoch 48/50, Loss: 1.0295, Train Acc: 0.6624, Test Acc: 56.60%, Test F1: 56.51%
+Epoch 49/50, Loss: 1.0260, Train Acc: 0.6650, Test Acc: 55.83%, Test F1: 55.59%
+Epoch 50/50, Loss: 1.0224, Train Acc: 0.6647, Test Acc: 56.40%, Test F1: 55.95%
+Training model 2/10 with SGD
+Epoch 1/50, Loss: 1.7806, Train Acc: 0.3800, Test Acc: 41.45%, Test F1: 39.73%
+Epoch 2/50, Loss: 1.5961, Train Acc: 0.4543, Test Acc: 46.54%, Test F1: 45.54%
+Epoch 3/50, Loss: 1.5170, Train Acc: 0.4803, Test Acc: 48.02%, Test F1: 47.49%
+Epoch 4/50, Loss: 1.4655, Train Acc: 0.5001, Test Acc: 48.91%, Test F1: 48.58%
+Epoch 5/50, Loss: 1.4248, Train Acc: 0.5146, Test Acc: 49.81%, Test F1: 49.35%
+Epoch 6/50, Loss: 1.3931, Train Acc: 0.5247, Test Acc: 49.78%, Test F1: 49.88%
+Epoch 7/50, Loss: 1.3675, Train Acc: 0.5341, Test Acc: 51.01%, Test F1: 50.18%
+Epoch 8/50, Loss: 1.3445, Train Acc: 0.5429, Test Acc: 51.26%, Test F1: 51.09%
+Epoch 9/50, Loss: 1.3236, Train Acc: 0.5520, Test Acc: 51.41%, Test F1: 50.61%
+Epoch 10/50, Loss: 1.3069, Train Acc: 0.5569, Test Acc: 52.55%, Test F1: 52.41%
+Epoch 11/50, Loss: 1.2893, Train Acc: 0.5629, Test Acc: 52.39%, Test F1: 51.68%
+Epoch 12/50, Loss: 1.2756, Train Acc: 0.5675, Test Acc: 52.15%, Test F1: 51.63%
+Epoch 13/50, Loss: 1.2612, Train Acc: 0.5762, Test Acc: 53.35%, Test F1: 53.24%
+Epoch 14/50, Loss: 1.2489, Train Acc: 0.5786, Test Acc: 52.95%, Test F1: 52.42%
+Epoch 15/50, Loss: 1.2370, Train Acc: 0.5834, Test Acc: 53.52%, Test F1: 52.80%
+Epoch 16/50, Loss: 1.2268, Train Acc: 0.5863, Test Acc: 53.20%, Test F1: 52.33%
+Epoch 17/50, Loss: 1.2160, Train Acc: 0.5902, Test Acc: 53.30%, Test F1: 52.65%
+Epoch 18/50, Loss: 1.2066, Train Acc: 0.5938, Test Acc: 53.99%, Test F1: 53.48%
+Epoch 19/50, Loss: 1.1969, Train Acc: 0.5961, Test Acc: 52.71%, Test F1: 52.41%
+Epoch 20/50, Loss: 1.1883, Train Acc: 0.6004, Test Acc: 54.32%, Test F1: 53.74%
+Epoch 21/50, Loss: 1.1796, Train Acc: 0.6036, Test Acc: 53.99%, Test F1: 54.21%
+Epoch 22/50, Loss: 1.1726, Train Acc: 0.6065, Test Acc: 54.46%, Test F1: 53.96%
+Epoch 23/50, Loss: 1.1642, Train Acc: 0.6110, Test Acc: 54.27%, Test F1: 54.08%
+Epoch 24/50, Loss: 1.1572, Train Acc: 0.6127, Test Acc: 54.82%, Test F1: 54.30%
+Epoch 25/50, Loss: 1.1495, Train Acc: 0.6169, Test Acc: 54.74%, Test F1: 54.69%
+Epoch 26/50, Loss: 1.1434, Train Acc: 0.6167, Test Acc: 54.84%, Test F1: 54.76%
+Epoch 27/50, Loss: 1.1366, Train Acc: 0.6206, Test Acc: 53.92%, Test F1: 53.33%
+Epoch 28/50, Loss: 1.1291, Train Acc: 0.6228, Test Acc: 55.55%, Test F1: 55.37%
+Epoch 29/50, Loss: 1.1240, Train Acc: 0.6255, Test Acc: 55.03%, Test F1: 54.78%
+Epoch 30/50, Loss: 1.1183, Train Acc: 0.6282, Test Acc: 55.55%, Test F1: 55.69%
+Epoch 31/50, Loss: 1.1115, Train Acc: 0.6303, Test Acc: 55.74%, Test F1: 55.46%
+Epoch 32/50, Loss: 1.1060, Train Acc: 0.6318, Test Acc: 55.27%, Test F1: 55.18%
+Epoch 33/50, Loss: 1.1011, Train Acc: 0.6356, Test Acc: 55.71%, Test F1: 55.28%
+Epoch 34/50, Loss: 1.0955, Train Acc: 0.6378, Test Acc: 56.14%, Test F1: 55.86%
+Epoch 35/50, Loss: 1.0903, Train Acc: 0.6401, Test Acc: 55.85%, Test F1: 55.41%
+Epoch 36/50, Loss: 1.0844, Train Acc: 0.6410, Test Acc: 55.73%, Test F1: 55.33%
+Epoch 37/50, Loss: 1.0807, Train Acc: 0.6433, Test Acc: 55.41%, Test F1: 54.97%
+Epoch 38/50, Loss: 1.0749, Train Acc: 0.6439, Test Acc: 55.88%, Test F1: 55.50%
+Epoch 39/50, Loss: 1.0704, Train Acc: 0.6461, Test Acc: 56.31%, Test F1: 55.76%
+Epoch 40/50, Loss: 1.0650, Train Acc: 0.6476, Test Acc: 56.25%, Test F1: 55.95%
+Epoch 41/50, Loss: 1.0607, Train Acc: 0.6492, Test Acc: 56.44%, Test F1: 56.41%
+Epoch 42/50, Loss: 1.0559, Train Acc: 0.6536, Test Acc: 56.28%, Test F1: 55.98%
+Epoch 43/50, Loss: 1.0522, Train Acc: 0.6548, Test Acc: 55.89%, Test F1: 55.60%
+Epoch 44/50, Loss: 1.0479, Train Acc: 0.6549, Test Acc: 55.80%, Test F1: 55.86%
+Epoch 45/50, Loss: 1.0433, Train Acc: 0.6578, Test Acc: 56.14%, Test F1: 55.86%
+Epoch 46/50, Loss: 1.0393, Train Acc: 0.6589, Test Acc: 55.95%, Test F1: 55.68%
+Epoch 47/50, Loss: 1.0357, Train Acc: 0.6602, Test Acc: 56.03%, Test F1: 55.55%
+Epoch 48/50, Loss: 1.0306, Train Acc: 0.6627, Test Acc: 56.14%, Test F1: 56.07%
+Epoch 49/50, Loss: 1.0275, Train Acc: 0.6640, Test Acc: 56.21%, Test F1: 56.02%
+Epoch 50/50, Loss: 1.0244, Train Acc: 0.6644, Test Acc: 56.35%, Test F1: 55.69%
+Training model 3/10 with SGD
+Epoch 1/50, Loss: 1.7698, Train Acc: 0.3827, Test Acc: 42.98%, Test F1: 41.03%
+Epoch 2/50, Loss: 1.5869, Train Acc: 0.4549, Test Acc: 46.15%, Test F1: 45.29%
+Epoch 3/50, Loss: 1.5153, Train Acc: 0.4792, Test Acc: 47.30%, Test F1: 45.89%
+Epoch 4/50, Loss: 1.4670, Train Acc: 0.4987, Test Acc: 48.90%, Test F1: 48.65%
+Epoch 5/50, Loss: 1.4298, Train Acc: 0.5140, Test Acc: 49.81%, Test F1: 49.52%
+Epoch 6/50, Loss: 1.3997, Train Acc: 0.5233, Test Acc: 50.30%, Test F1: 49.65%
+Epoch 7/50, Loss: 1.3734, Train Acc: 0.5312, Test Acc: 50.53%, Test F1: 50.29%
+Epoch 8/50, Loss: 1.3509, Train Acc: 0.5407, Test Acc: 50.96%, Test F1: 50.64%
+Epoch 9/50, Loss: 1.3321, Train Acc: 0.5484, Test Acc: 51.60%, Test F1: 50.75%
+Epoch 10/50, Loss: 1.3153, Train Acc: 0.5525, Test Acc: 52.30%, Test F1: 51.55%
+Epoch 11/50, Loss: 1.2966, Train Acc: 0.5622, Test Acc: 52.87%, Test F1: 52.78%
+Epoch 12/50, Loss: 1.2832, Train Acc: 0.5643, Test Acc: 53.43%, Test F1: 53.33%
+Epoch 13/50, Loss: 1.2696, Train Acc: 0.5711, Test Acc: 51.70%, Test F1: 50.75%
+Epoch 14/50, Loss: 1.2570, Train Acc: 0.5745, Test Acc: 52.71%, Test F1: 52.51%
+Epoch 15/50, Loss: 1.2451, Train Acc: 0.5795, Test Acc: 53.59%, Test F1: 52.96%
+Epoch 16/50, Loss: 1.2342, Train Acc: 0.5838, Test Acc: 53.55%, Test F1: 52.84%
+Epoch 17/50, Loss: 1.2227, Train Acc: 0.5887, Test Acc: 53.61%, Test F1: 52.95%
+Epoch 18/50, Loss: 1.2122, Train Acc: 0.5926, Test Acc: 53.54%, Test F1: 53.12%
+Epoch 19/50, Loss: 1.2024, Train Acc: 0.5973, Test Acc: 53.87%, Test F1: 53.23%
+Epoch 20/50, Loss: 1.1950, Train Acc: 0.6017, Test Acc: 54.24%, Test F1: 54.06%
+Epoch 21/50, Loss: 1.1861, Train Acc: 0.6026, Test Acc: 54.19%, Test F1: 54.00%
+Epoch 22/50, Loss: 1.1781, Train Acc: 0.6055, Test Acc: 53.96%, Test F1: 53.56%
+Epoch 23/50, Loss: 1.1692, Train Acc: 0.6092, Test Acc: 54.91%, Test F1: 54.11%
+Epoch 24/50, Loss: 1.1623, Train Acc: 0.6117, Test Acc: 54.91%, Test F1: 54.81%
+Epoch 25/50, Loss: 1.1551, Train Acc: 0.6162, Test Acc: 54.82%, Test F1: 54.47%
+Epoch 26/50, Loss: 1.1470, Train Acc: 0.6197, Test Acc: 53.92%, Test F1: 53.35%
+Epoch 27/50, Loss: 1.1408, Train Acc: 0.6215, Test Acc: 55.02%, Test F1: 54.56%
+Epoch 28/50, Loss: 1.1342, Train Acc: 0.6239, Test Acc: 54.96%, Test F1: 54.61%
+Epoch 29/50, Loss: 1.1277, Train Acc: 0.6267, Test Acc: 54.80%, Test F1: 54.16%
+Epoch 30/50, Loss: 1.1218, Train Acc: 0.6274, Test Acc: 55.64%, Test F1: 55.64%
+Epoch 31/50, Loss: 1.1170, Train Acc: 0.6304, Test Acc: 55.39%, Test F1: 55.31%
+Epoch 32/50, Loss: 1.1104, Train Acc: 0.6332, Test Acc: 54.66%, Test F1: 54.64%
+Epoch 33/50, Loss: 1.1052, Train Acc: 0.6339, Test Acc: 54.80%, Test F1: 54.16%
+Epoch 34/50, Loss: 1.0992, Train Acc: 0.6372, Test Acc: 55.45%, Test F1: 55.50%
+Epoch 35/50, Loss: 1.0936, Train Acc: 0.6381, Test Acc: 55.56%, Test F1: 55.50%
+Epoch 36/50, Loss: 1.0890, Train Acc: 0.6417, Test Acc: 56.01%, Test F1: 55.67%
+Epoch 37/50, Loss: 1.0842, Train Acc: 0.6416, Test Acc: 55.99%, Test F1: 55.94%
+Epoch 38/50, Loss: 1.0788, Train Acc: 0.6461, Test Acc: 56.05%, Test F1: 55.57%
+Epoch 39/50, Loss: 1.0736, Train Acc: 0.6458, Test Acc: 56.13%, Test F1: 55.54%
+Epoch 40/50, Loss: 1.0691, Train Acc: 0.6493, Test Acc: 55.21%, Test F1: 55.23%
+Epoch 41/50, Loss: 1.0646, Train Acc: 0.6514, Test Acc: 55.61%, Test F1: 55.14%
+Epoch 42/50, Loss: 1.0599, Train Acc: 0.6538, Test Acc: 56.14%, Test F1: 56.01%
+Epoch 43/50, Loss: 1.0554, Train Acc: 0.6530, Test Acc: 55.82%, Test F1: 54.97%
+Epoch 44/50, Loss: 1.0511, Train Acc: 0.6549, Test Acc: 56.40%, Test F1: 56.41%
+Epoch 45/50, Loss: 1.0471, Train Acc: 0.6571, Test Acc: 56.30%, Test F1: 56.01%
+Epoch 46/50, Loss: 1.0419, Train Acc: 0.6600, Test Acc: 56.09%, Test F1: 55.83%
+Epoch 47/50, Loss: 1.0384, Train Acc: 0.6598, Test Acc: 56.06%, Test F1: 55.69%
+Epoch 48/50, Loss: 1.0343, Train Acc: 0.6620, Test Acc: 56.24%, Test F1: 55.69%
+Epoch 49/50, Loss: 1.0303, Train Acc: 0.6651, Test Acc: 56.35%, Test F1: 55.92%
+Epoch 50/50, Loss: 1.0263, Train Acc: 0.6641, Test Acc: 55.96%, Test F1: 56.17%
+Training model 4/10 with SGD
+Epoch 1/50, Loss: 1.7764, Train Acc: 0.3865, Test Acc: 43.56%, Test F1: 43.00%
+Epoch 2/50, Loss: 1.5898, Train Acc: 0.4572, Test Acc: 46.55%, Test F1: 46.06%
+Epoch 3/50, Loss: 1.5129, Train Acc: 0.4839, Test Acc: 48.44%, Test F1: 47.84%
+Training model 4/10 with SGD
+Epoch 1/50, Loss: 1.7764, Train Acc: 0.3865, Test Acc: 43.56%, Test F1: 43.00%
+Epoch 2/50, Loss: 1.5898, Train Acc: 0.4572, Test Acc: 46.55%, Test F1: 46.06%
+Epoch 3/50, Loss: 1.5129, Train Acc: 0.4839, Test Acc: 48.44%, Test F1: 47.84%
+Epoch 4/50, Loss: 1.4613, Train Acc: 0.5023, Test Acc: 49.27%, Test F1: 48.64%
+Epoch 5/50, Loss: 1.4222, Train Acc: 0.5158, Test Acc: 50.37%, Test F1: 50.40%
+Epoch 6/50, Loss: 1.3906, Train Acc: 0.5278, Test Acc: 51.12%, Test F1: 50.53%
+Epoch 7/50, Loss: 1.3633, Train Acc: 0.5381, Test Acc: 51.67%, Test F1: 50.85%
+Epoch 8/50, Loss: 1.3403, Train Acc: 0.5462, Test Acc: 52.00%, Test F1: 51.99%
+Epoch 9/50, Loss: 1.3209, Train Acc: 0.5549, Test Acc: 52.20%, Test F1: 51.74%
+Epoch 10/50, Loss: 1.3020, Train Acc: 0.5613, Test Acc: 52.52%, Test F1: 52.24%
+Epoch 11/50, Loss: 1.2852, Train Acc: 0.5663, Test Acc: 53.26%, Test F1: 52.90%
+Epoch 12/50, Loss: 1.2701, Train Acc: 0.5720, Test Acc: 53.03%, Test F1: 52.49%
+Epoch 13/50, Loss: 1.2564, Train Acc: 0.5785, Test Acc: 53.44%, Test F1: 52.86%
+Epoch 14/50, Loss: 1.2435, Train Acc: 0.5816, Test Acc: 53.56%, Test F1: 53.03%
+Epoch 15/50, Loss: 1.2320, Train Acc: 0.5870, Test Acc: 53.70%, Test F1: 52.75%
+Epoch 16/50, Loss: 1.2202, Train Acc: 0.5910, Test Acc: 53.43%, Test F1: 52.83%
+Epoch 17/50, Loss: 1.2104, Train Acc: 0.5957, Test Acc: 53.76%, Test F1: 53.91%
+Epoch 18/50, Loss: 1.1999, Train Acc: 0.5987, Test Acc: 54.56%, Test F1: 54.27%
+Epoch 19/50, Loss: 1.1905, Train Acc: 0.6026, Test Acc: 54.11%, Test F1: 53.82%
+Epoch 20/50, Loss: 1.1819, Train Acc: 0.6060, Test Acc: 54.52%, Test F1: 54.16%
+Epoch 21/50, Loss: 1.1740, Train Acc: 0.6078, Test Acc: 53.94%, Test F1: 53.72%
+Epoch 22/50, Loss: 1.1647, Train Acc: 0.6095, Test Acc: 54.87%, Test F1: 54.86%
+Epoch 23/50, Loss: 1.1575, Train Acc: 0.6152, Test Acc: 54.67%, Test F1: 54.34%
+Epoch 24/50, Loss: 1.1501, Train Acc: 0.6175, Test Acc: 55.05%, Test F1: 54.65%
+Epoch 25/50, Loss: 1.1422, Train Acc: 0.6218, Test Acc: 55.00%, Test F1: 54.50%
+Epoch 26/50, Loss: 1.1350, Train Acc: 0.6222, Test Acc: 55.15%, Test F1: 54.63%
+Epoch 27/50, Loss: 1.1287, Train Acc: 0.6267, Test Acc: 55.23%, Test F1: 54.51%
+Epoch 28/50, Loss: 1.1216, Train Acc: 0.6289, Test Acc: 55.59%, Test F1: 55.35%
+Epoch 29/50, Loss: 1.1155, Train Acc: 0.6311, Test Acc: 55.14%, Test F1: 55.35%
+Epoch 30/50, Loss: 1.1097, Train Acc: 0.6332, Test Acc: 54.92%, Test F1: 54.63%
+Epoch 31/50, Loss: 1.1033, Train Acc: 0.6348, Test Acc: 55.12%, Test F1: 55.03%
+Epoch 32/50, Loss: 1.0975, Train Acc: 0.6388, Test Acc: 55.54%, Test F1: 55.43%
+Epoch 33/50, Loss: 1.0919, Train Acc: 0.6407, Test Acc: 56.12%, Test F1: 55.89%
+Epoch 34/50, Loss: 1.0861, Train Acc: 0.6406, Test Acc: 55.29%, Test F1: 54.99%
+Epoch 35/50, Loss: 1.0810, Train Acc: 0.6444, Test Acc: 56.18%, Test F1: 55.95%
+Epoch 36/50, Loss: 1.0758, Train Acc: 0.6484, Test Acc: 55.57%, Test F1: 55.48%
+Epoch 37/50, Loss: 1.0701, Train Acc: 0.6468, Test Acc: 55.54%, Test F1: 55.55%
+Epoch 38/50, Loss: 1.0651, Train Acc: 0.6514, Test Acc: 56.06%, Test F1: 55.79%
+Epoch 39/50, Loss: 1.0606, Train Acc: 0.6519, Test Acc: 55.65%, Test F1: 55.55%
+Epoch 40/50, Loss: 1.0555, Train Acc: 0.6536, Test Acc: 55.83%, Test F1: 55.73%
+Epoch 41/50, Loss: 1.0513, Train Acc: 0.6556, Test Acc: 56.19%, Test F1: 56.05%
+Epoch 42/50, Loss: 1.0459, Train Acc: 0.6579, Test Acc: 56.16%, Test F1: 56.34%
+Epoch 43/50, Loss: 1.0422, Train Acc: 0.6576, Test Acc: 56.49%, Test F1: 56.26%
+Epoch 44/50, Loss: 1.0376, Train Acc: 0.6610, Test Acc: 56.45%, Test F1: 56.14%
+Epoch 45/50, Loss: 1.0339, Train Acc: 0.6628, Test Acc: 56.25%, Test F1: 56.07%
+Epoch 46/50, Loss: 1.0296, Train Acc: 0.6645, Test Acc: 56.55%, Test F1: 56.55%
+Epoch 47/50, Loss: 1.0251, Train Acc: 0.6661, Test Acc: 56.61%, Test F1: 56.39%
+Epoch 48/50, Loss: 1.0217, Train Acc: 0.6669, Test Acc: 56.59%, Test F1: 56.35%
+Epoch 49/50, Loss: 1.0171, Train Acc: 0.6703, Test Acc: 56.74%, Test F1: 56.55%
+Epoch 50/50, Loss: 1.0139, Train Acc: 0.6701, Test Acc: 56.69%, Test F1: 56.72%
+Training model 5/10 with SGD
+Epoch 1/50, Loss: 1.7679, Train Acc: 0.3889, Test Acc: 42.49%, Test F1: 40.43%
+Epoch 2/50, Loss: 1.5794, Train Acc: 0.4596, Test Acc: 46.67%, Test F1: 45.72%
+Epoch 3/50, Loss: 1.5013, Train Acc: 0.4873, Test Acc: 48.89%, Test F1: 48.36%
+Epoch 4/50, Loss: 1.4494, Train Acc: 0.5078, Test Acc: 50.09%, Test F1: 49.63%
+Epoch 5/50, Loss: 1.4107, Train Acc: 0.5196, Test Acc: 50.96%, Test F1: 51.00%
+Epoch 6/50, Loss: 1.3797, Train Acc: 0.5293, Test Acc: 50.71%, Test F1: 50.04%
+Epoch 7/50, Loss: 1.3536, Train Acc: 0.5408, Test Acc: 50.84%, Test F1: 49.75%
+Epoch 8/50, Loss: 1.3311, Train Acc: 0.5496, Test Acc: 51.94%, Test F1: 51.41%
+Epoch 9/50, Loss: 1.3107, Train Acc: 0.5554, Test Acc: 52.09%, Test F1: 51.65%
+Epoch 10/50, Loss: 1.2932, Train Acc: 0.5623, Test Acc: 52.29%, Test F1: 51.72%
+Epoch 11/50, Loss: 1.2770, Train Acc: 0.5679, Test Acc: 52.48%, Test F1: 52.10%
+Epoch 12/50, Loss: 1.2626, Train Acc: 0.5737, Test Acc: 52.77%, Test F1: 52.38%
+Epoch 13/50, Loss: 1.2498, Train Acc: 0.5780, Test Acc: 54.03%, Test F1: 53.96%
+Epoch 14/50, Loss: 1.2366, Train Acc: 0.5836, Test Acc: 53.17%, Test F1: 52.31%
+Epoch 15/50, Loss: 1.2249, Train Acc: 0.5897, Test Acc: 54.24%, Test F1: 53.69%
+Epoch 16/50, Loss: 1.2139, Train Acc: 0.5896, Test Acc: 54.49%, Test F1: 54.13%
+Epoch 17/50, Loss: 1.2035, Train Acc: 0.5970, Test Acc: 54.35%, Test F1: 54.09%
+Epoch 18/50, Loss: 1.1941, Train Acc: 0.5986, Test Acc: 54.29%, Test F1: 54.25%
+Epoch 19/50, Loss: 1.1845, Train Acc: 0.6043, Test Acc: 54.70%, Test F1: 54.39%
+Epoch 20/50, Loss: 1.1756, Train Acc: 0.6064, Test Acc: 54.61%, Test F1: 54.43%
+Epoch 21/50, Loss: 1.1677, Train Acc: 0.6081, Test Acc: 54.97%, Test F1: 54.53%
+Epoch 22/50, Loss: 1.1598, Train Acc: 0.6141, Test Acc: 54.84%, Test F1: 54.55%
+Epoch 23/50, Loss: 1.1525, Train Acc: 0.6154, Test Acc: 55.31%, Test F1: 55.05%
+Epoch 24/50, Loss: 1.1447, Train Acc: 0.6189, Test Acc: 55.08%, Test F1: 54.45%
+Epoch 25/50, Loss: 1.1373, Train Acc: 0.6218, Test Acc: 53.87%, Test F1: 53.47%
+Epoch 26/50, Loss: 1.1314, Train Acc: 0.6243, Test Acc: 55.63%, Test F1: 55.51%
+Epoch 27/50, Loss: 1.1240, Train Acc: 0.6262, Test Acc: 55.95%, Test F1: 55.64%
+Epoch 28/50, Loss: 1.1173, Train Acc: 0.6309, Test Acc: 55.76%, Test F1: 55.46%
+Epoch 29/50, Loss: 1.1110, Train Acc: 0.6325, Test Acc: 55.71%, Test F1: 55.58%
+Epoch 30/50, Loss: 1.1051, Train Acc: 0.6340, Test Acc: 55.89%, Test F1: 55.76%
+Epoch 31/50, Loss: 1.0993, Train Acc: 0.6353, Test Acc: 55.38%, Test F1: 55.13%
+Epoch 32/50, Loss: 1.0930, Train Acc: 0.6387, Test Acc: 55.58%, Test F1: 55.02%
+Epoch 33/50, Loss: 1.0876, Train Acc: 0.6413, Test Acc: 55.47%, Test F1: 54.83%
+Epoch 34/50, Loss: 1.0820, Train Acc: 0.6432, Test Acc: 56.01%, Test F1: 55.93%
+Epoch 35/50, Loss: 1.0774, Train Acc: 0.6442, Test Acc: 55.93%, Test F1: 55.86%
+Epoch 36/50, Loss: 1.0721, Train Acc: 0.6471, Test Acc: 56.06%, Test F1: 55.69%
+Epoch 37/50, Loss: 1.0666, Train Acc: 0.6493, Test Acc: 56.01%, Test F1: 56.02%
+Epoch 38/50, Loss: 1.0622, Train Acc: 0.6503, Test Acc: 56.11%, Test F1: 55.99%
+Epoch 39/50, Loss: 1.0577, Train Acc: 0.6534, Test Acc: 56.13%, Test F1: 56.09%
+Epoch 40/50, Loss: 1.0526, Train Acc: 0.6554, Test Acc: 56.36%, Test F1: 55.74%
+Epoch 41/50, Loss: 1.0478, Train Acc: 0.6559, Test Acc: 56.61%, Test F1: 56.41%
+Epoch 42/50, Loss: 1.0432, Train Acc: 0.6585, Test Acc: 56.55%, Test F1: 56.50%
+Epoch 43/50, Loss: 1.0392, Train Acc: 0.6599, Test Acc: 56.68%, Test F1: 56.47%
+Epoch 44/50, Loss: 1.0353, Train Acc: 0.6600, Test Acc: 56.79%, Test F1: 56.68%
+Epoch 45/50, Loss: 1.0301, Train Acc: 0.6620, Test Acc: 56.54%, Test F1: 56.73%
+Epoch 46/50, Loss: 1.0267, Train Acc: 0.6628, Test Acc: 56.87%, Test F1: 56.83%
+Epoch 47/50, Loss: 1.0224, Train Acc: 0.6671, Test Acc: 56.16%, Test F1: 55.95%
+Epoch 48/50, Loss: 1.0185, Train Acc: 0.6677, Test Acc: 56.88%, Test F1: 56.42%
+Epoch 49/50, Loss: 1.0147, Train Acc: 0.6692, Test Acc: 56.42%, Test F1: 55.92%
+Epoch 50/50, Loss: 1.0100, Train Acc: 0.6707, Test Acc: 56.33%, Test F1: 55.41%
+Training model 6/10 with SGD
+Epoch 1/50, Loss: 1.7861, Train Acc: 0.3825, Test Acc: 42.54%, Test F1: 42.10%
+Epoch 2/50, Loss: 1.5987, Train Acc: 0.4523, Test Acc: 45.90%, Test F1: 45.55%
+Epoch 3/50, Loss: 1.5207, Train Acc: 0.4807, Test Acc: 47.44%, Test F1: 45.79%
+Epoch 4/50, Loss: 1.4696, Train Acc: 0.4953, Test Acc: 48.83%, Test F1: 48.45%
+Epoch 5/50, Loss: 1.4303, Train Acc: 0.5122, Test Acc: 49.00%, Test F1: 48.69%
+Epoch 6/50, Loss: 1.3989, Train Acc: 0.5229, Test Acc: 48.71%, Test F1: 48.45%
+Epoch 7/50, Loss: 1.3723, Train Acc: 0.5324, Test Acc: 50.06%, Test F1: 48.37%
+Epoch 8/50, Loss: 1.3502, Train Acc: 0.5397, Test Acc: 51.54%, Test F1: 51.00%
+Epoch 9/50, Loss: 1.3303, Train Acc: 0.5480, Test Acc: 52.25%, Test F1: 52.19%
+Epoch 10/50, Loss: 1.3120, Train Acc: 0.5517, Test Acc: 50.86%, Test F1: 49.24%
+Epoch 11/50, Loss: 1.2963, Train Acc: 0.5588, Test Acc: 52.58%, Test F1: 52.86%
+Epoch 12/50, Loss: 1.2818, Train Acc: 0.5645, Test Acc: 52.58%, Test F1: 52.07%
+Epoch 13/50, Loss: 1.2686, Train Acc: 0.5711, Test Acc: 51.95%, Test F1: 50.74%
+Epoch 14/50, Loss: 1.2546, Train Acc: 0.5762, Test Acc: 52.26%, Test F1: 51.49%
+Epoch 15/50, Loss: 1.2431, Train Acc: 0.5784, Test Acc: 52.98%, Test F1: 52.20%
+Epoch 16/50, Loss: 1.2321, Train Acc: 0.5838, Test Acc: 52.58%, Test F1: 52.54%
+Epoch 17/50, Loss: 1.2230, Train Acc: 0.5865, Test Acc: 53.63%, Test F1: 53.34%
+Epoch 18/50, Loss: 1.2124, Train Acc: 0.5908, Test Acc: 53.89%, Test F1: 52.88%
+Epoch 19/50, Loss: 1.2046, Train Acc: 0.5938, Test Acc: 52.87%, Test F1: 52.29%
+Epoch 20/50, Loss: 1.1948, Train Acc: 0.5991, Test Acc: 53.95%, Test F1: 54.07%
+Epoch 21/50, Loss: 1.1868, Train Acc: 0.5995, Test Acc: 53.67%, Test F1: 53.52%
+Epoch 22/50, Loss: 1.1796, Train Acc: 0.6035, Test Acc: 54.45%, Test F1: 54.40%
+Epoch 23/50, Loss: 1.1715, Train Acc: 0.6049, Test Acc: 54.21%, Test F1: 54.14%
+Epoch 24/50, Loss: 1.1629, Train Acc: 0.6094, Test Acc: 53.75%, Test F1: 53.57%
+Epoch 25/50, Loss: 1.1564, Train Acc: 0.6129, Test Acc: 54.08%, Test F1: 53.51%
+Epoch 26/50, Loss: 1.1512, Train Acc: 0.6170, Test Acc: 53.78%, Test F1: 53.12%
+Epoch 27/50, Loss: 1.1439, Train Acc: 0.6162, Test Acc: 54.66%, Test F1: 54.00%
+Epoch 28/50, Loss: 1.1368, Train Acc: 0.6195, Test Acc: 54.20%, Test F1: 53.59%
+Epoch 29/50, Loss: 1.1312, Train Acc: 0.6216, Test Acc: 52.83%, Test F1: 52.74%
+Epoch 30/50, Loss: 1.1243, Train Acc: 0.6246, Test Acc: 54.56%, Test F1: 54.09%
+Epoch 31/50, Loss: 1.1192, Train Acc: 0.6258, Test Acc: 55.02%, Test F1: 54.92%
+Epoch 32/50, Loss: 1.1134, Train Acc: 0.6281, Test Acc: 54.86%, Test F1: 54.27%
+Epoch 33/50, Loss: 1.1082, Train Acc: 0.6305, Test Acc: 54.91%, Test F1: 54.17%
+Epoch 34/50, Loss: 1.1030, Train Acc: 0.6317, Test Acc: 55.02%, Test F1: 54.55%
+Epoch 35/50, Loss: 1.0969, Train Acc: 0.6350, Test Acc: 55.18%, Test F1: 54.97%
+Epoch 36/50, Loss: 1.0921, Train Acc: 0.6362, Test Acc: 55.14%, Test F1: 54.74%
+Epoch 37/50, Loss: 1.0875, Train Acc: 0.6377, Test Acc: 55.66%, Test F1: 55.51%
+Epoch 38/50, Loss: 1.0814, Train Acc: 0.6408, Test Acc: 55.85%, Test F1: 55.55%
+Epoch 39/50, Loss: 1.0783, Train Acc: 0.6423, Test Acc: 55.29%, Test F1: 55.42%
+Epoch 40/50, Loss: 1.0728, Train Acc: 0.6447, Test Acc: 55.53%, Test F1: 54.91%
+Epoch 41/50, Loss: 1.0685, Train Acc: 0.6466, Test Acc: 55.70%, Test F1: 55.53%
+Epoch 42/50, Loss: 1.0634, Train Acc: 0.6489, Test Acc: 55.48%, Test F1: 55.00%
+Epoch 43/50, Loss: 1.0591, Train Acc: 0.6486, Test Acc: 55.31%, Test F1: 54.72%
+Epoch 44/50, Loss: 1.0556, Train Acc: 0.6512, Test Acc: 55.96%, Test F1: 55.76%
+Epoch 45/50, Loss: 1.0510, Train Acc: 0.6520, Test Acc: 55.79%, Test F1: 55.99%
+Epoch 46/50, Loss: 1.0468, Train Acc: 0.6541, Test Acc: 55.92%, Test F1: 55.56%
+Epoch 47/50, Loss: 1.0438, Train Acc: 0.6569, Test Acc: 56.64%, Test F1: 56.45%
+Epoch 48/50, Loss: 1.0389, Train Acc: 0.6579, Test Acc: 56.20%, Test F1: 55.67%
+Epoch 49/50, Loss: 1.0349, Train Acc: 0.6597, Test Acc: 55.90%, Test F1: 55.57%
+Epoch 50/50, Loss: 1.0310, Train Acc: 0.6606, Test Acc: 55.34%, Test F1: 54.60%
+Training model 7/10 with SGD
+Epoch 1/50, Loss: 1.7681, Train Acc: 0.3823, Test Acc: 41.36%, Test F1: 39.72%
+Epoch 2/50, Loss: 1.5815, Train Acc: 0.4552, Test Acc: 46.35%, Test F1: 45.36%
+Epoch 3/50, Loss: 1.5065, Train Acc: 0.4826, Test Acc: 47.62%, Test F1: 46.69%
+Epoch 4/50, Loss: 1.4567, Train Acc: 0.5026, Test Acc: 48.70%, Test F1: 48.23%
+Epoch 5/50, Loss: 1.4177, Train Acc: 0.5147, Test Acc: 50.04%, Test F1: 49.76%
+Epoch 6/50, Loss: 1.3863, Train Acc: 0.5258, Test Acc: 50.06%, Test F1: 49.27%
+Epoch 7/50, Loss: 1.3601, Train Acc: 0.5353, Test Acc: 50.56%, Test F1: 50.08%
+Epoch 8/50, Loss: 1.3380, Train Acc: 0.5460, Test Acc: 52.12%, Test F1: 51.98%
+Epoch 9/50, Loss: 1.3186, Train Acc: 0.5504, Test Acc: 51.84%, Test F1: 51.16%
+Epoch 10/50, Loss: 1.3005, Train Acc: 0.5569, Test Acc: 49.78%, Test F1: 48.24%
+Epoch 11/50, Loss: 1.2853, Train Acc: 0.5635, Test Acc: 52.98%, Test F1: 52.71%
+Epoch 12/50, Loss: 1.2700, Train Acc: 0.5696, Test Acc: 52.86%, Test F1: 52.28%
+Epoch 13/50, Loss: 1.2571, Train Acc: 0.5753, Test Acc: 51.95%, Test F1: 51.48%
+Epoch 14/50, Loss: 1.2437, Train Acc: 0.5778, Test Acc: 53.46%, Test F1: 53.10%
+Epoch 15/50, Loss: 1.2333, Train Acc: 0.5833, Test Acc: 51.71%, Test F1: 51.09%
+Epoch 16/50, Loss: 1.2217, Train Acc: 0.5879, Test Acc: 54.15%, Test F1: 53.89%
+Epoch 17/50, Loss: 1.2118, Train Acc: 0.5923, Test Acc: 53.65%, Test F1: 52.93%
+Epoch 18/50, Loss: 1.2016, Train Acc: 0.5950, Test Acc: 54.01%, Test F1: 53.57%
+Epoch 19/50, Loss: 1.1938, Train Acc: 0.5976, Test Acc: 53.58%, Test F1: 52.47%
+Epoch 20/50, Loss: 1.1832, Train Acc: 0.6011, Test Acc: 54.52%, Test F1: 54.28%
+Epoch 21/50, Loss: 1.1757, Train Acc: 0.6045, Test Acc: 54.33%, Test F1: 53.88%
+Epoch 22/50, Loss: 1.1684, Train Acc: 0.6089, Test Acc: 54.88%, Test F1: 54.61%
+Epoch 23/50, Loss: 1.1602, Train Acc: 0.6097, Test Acc: 54.14%, Test F1: 53.76%
+Epoch 24/50, Loss: 1.1540, Train Acc: 0.6126, Test Acc: 54.32%, Test F1: 53.35%
+Epoch 25/50, Loss: 1.1456, Train Acc: 0.6168, Test Acc: 55.08%, Test F1: 54.89%
+Epoch 26/50, Loss: 1.1374, Train Acc: 0.6187, Test Acc: 53.56%, Test F1: 52.91%
+Epoch 27/50, Loss: 1.1315, Train Acc: 0.6221, Test Acc: 55.13%, Test F1: 54.59%
+Epoch 28/50, Loss: 1.1259, Train Acc: 0.6233, Test Acc: 54.86%, Test F1: 54.41%
+Epoch 29/50, Loss: 1.1191, Train Acc: 0.6270, Test Acc: 54.58%, Test F1: 54.79%
+Epoch 30/50, Loss: 1.1137, Train Acc: 0.6285, Test Acc: 54.43%, Test F1: 53.41%
+Epoch 31/50, Loss: 1.1075, Train Acc: 0.6318, Test Acc: 55.71%, Test F1: 55.43%
+Epoch 32/50, Loss: 1.1027, Train Acc: 0.6337, Test Acc: 54.73%, Test F1: 54.42%
+Epoch 33/50, Loss: 1.0969, Train Acc: 0.6349, Test Acc: 55.15%, Test F1: 54.92%
+Epoch 34/50, Loss: 1.0910, Train Acc: 0.6373, Test Acc: 55.40%, Test F1: 54.86%
+Epoch 35/50, Loss: 1.0856, Train Acc: 0.6406, Test Acc: 55.88%, Test F1: 55.64%
+Epoch 36/50, Loss: 1.0812, Train Acc: 0.6396, Test Acc: 55.52%, Test F1: 55.56%
+Epoch 37/50, Loss: 1.0761, Train Acc: 0.6430, Test Acc: 55.63%, Test F1: 55.28%
+Epoch 38/50, Loss: 1.0708, Train Acc: 0.6444, Test Acc: 56.23%, Test F1: 55.90%
+Epoch 39/50, Loss: 1.0666, Train Acc: 0.6461, Test Acc: 55.65%, Test F1: 55.45%
+Epoch 40/50, Loss: 1.0618, Train Acc: 0.6485, Test Acc: 54.93%, Test F1: 54.71%
+Epoch 41/50, Loss: 1.0567, Train Acc: 0.6513, Test Acc: 55.77%, Test F1: 55.28%
+Epoch 42/50, Loss: 1.0521, Train Acc: 0.6525, Test Acc: 55.52%, Test F1: 55.39%
+Epoch 43/50, Loss: 1.0490, Train Acc: 0.6544, Test Acc: 56.38%, Test F1: 55.98%
+Epoch 44/50, Loss: 1.0437, Train Acc: 0.6552, Test Acc: 55.93%, Test F1: 55.58%
+Epoch 45/50, Loss: 1.0393, Train Acc: 0.6588, Test Acc: 56.21%, Test F1: 56.17%
+Epoch 46/50, Loss: 1.0354, Train Acc: 0.6590, Test Acc: 56.03%, Test F1: 55.83%
+Epoch 47/50, Loss: 1.0324, Train Acc: 0.6605, Test Acc: 55.55%, Test F1: 54.96%
+Epoch 48/50, Loss: 1.0271, Train Acc: 0.6624, Test Acc: 56.16%, Test F1: 55.74%
+Epoch 49/50, Loss: 1.0236, Train Acc: 0.6635, Test Acc: 56.03%, Test F1: 55.48%
+Epoch 50/50, Loss: 1.0195, Train Acc: 0.6664, Test Acc: 56.59%, Test F1: 56.46%
+Training model 8/10 with SGD
+Epoch 1/50, Loss: 1.7791, Train Acc: 0.3839, Test Acc: 42.38%, Test F1: 41.44%
+Epoch 2/50, Loss: 1.5948, Train Acc: 0.4532, Test Acc: 46.00%, Test F1: 44.76%
+Epoch 3/50, Loss: 1.5170, Train Acc: 0.4822, Test Acc: 48.84%, Test F1: 48.34%
+Epoch 4/50, Loss: 1.4655, Train Acc: 0.4994, Test Acc: 47.16%, Test F1: 45.74%
+Epoch 5/50, Loss: 1.4256, Train Acc: 0.5135, Test Acc: 50.08%, Test F1: 49.77%
+Epoch 6/50, Loss: 1.3947, Train Acc: 0.5270, Test Acc: 50.72%, Test F1: 50.29%
+Epoch 7/50, Loss: 1.3676, Train Acc: 0.5346, Test Acc: 50.76%, Test F1: 50.08%
+Epoch 8/50, Loss: 1.3463, Train Acc: 0.5419, Test Acc: 50.61%, Test F1: 49.40%
+Epoch 9/50, Loss: 1.3259, Train Acc: 0.5495, Test Acc: 51.72%, Test F1: 50.63%
+Epoch 10/50, Loss: 1.3072, Train Acc: 0.5583, Test Acc: 52.30%, Test F1: 51.79%
+Epoch 11/50, Loss: 1.2915, Train Acc: 0.5622, Test Acc: 52.77%, Test F1: 52.05%
+Epoch 12/50, Loss: 1.2763, Train Acc: 0.5690, Test Acc: 53.11%, Test F1: 52.44%
+Epoch 13/50, Loss: 1.2636, Train Acc: 0.5722, Test Acc: 53.42%, Test F1: 53.58%
+Epoch 14/50, Loss: 1.2508, Train Acc: 0.5783, Test Acc: 53.16%, Test F1: 52.91%
+Epoch 15/50, Loss: 1.2396, Train Acc: 0.5831, Test Acc: 53.43%, Test F1: 52.60%
+Epoch 16/50, Loss: 1.2279, Train Acc: 0.5872, Test Acc: 52.85%, Test F1: 52.54%
+Epoch 17/50, Loss: 1.2180, Train Acc: 0.5894, Test Acc: 54.12%, Test F1: 53.93%
+Epoch 18/50, Loss: 1.2081, Train Acc: 0.5938, Test Acc: 54.44%, Test F1: 54.29%
+Epoch 19/50, Loss: 1.1986, Train Acc: 0.5971, Test Acc: 54.59%, Test F1: 54.38%
+Epoch 20/50, Loss: 1.1902, Train Acc: 0.5996, Test Acc: 53.61%, Test F1: 52.70%
+Epoch 21/50, Loss: 1.1813, Train Acc: 0.6024, Test Acc: 53.89%, Test F1: 53.65%
+Epoch 22/50, Loss: 1.1739, Train Acc: 0.6064, Test Acc: 54.50%, Test F1: 54.16%
+Epoch 23/50, Loss: 1.1655, Train Acc: 0.6084, Test Acc: 54.23%, Test F1: 54.42%
+Epoch 24/50, Loss: 1.1590, Train Acc: 0.6114, Test Acc: 54.91%, Test F1: 54.61%
+Epoch 25/50, Loss: 1.1513, Train Acc: 0.6152, Test Acc: 54.54%, Test F1: 54.17%
+Epoch 26/50, Loss: 1.1453, Train Acc: 0.6176, Test Acc: 55.05%, Test F1: 54.71%
+Epoch 27/50, Loss: 1.1384, Train Acc: 0.6199, Test Acc: 54.31%, Test F1: 53.19%
+Epoch 28/50, Loss: 1.1303, Train Acc: 0.6237, Test Acc: 55.30%, Test F1: 55.40%
+Epoch 29/50, Loss: 1.1249, Train Acc: 0.6263, Test Acc: 56.00%, Test F1: 55.63%
+Epoch 30/50, Loss: 1.1198, Train Acc: 0.6264, Test Acc: 55.42%, Test F1: 54.88%
+Epoch 31/50, Loss: 1.1146, Train Acc: 0.6305, Test Acc: 54.80%, Test F1: 54.84%
+Epoch 32/50, Loss: 1.1087, Train Acc: 0.6319, Test Acc: 55.34%, Test F1: 55.09%
+Epoch 33/50, Loss: 1.1024, Train Acc: 0.6344, Test Acc: 55.58%, Test F1: 55.05%
+Epoch 34/50, Loss: 1.0968, Train Acc: 0.6350, Test Acc: 55.13%, Test F1: 54.72%
+Epoch 35/50, Loss: 1.0918, Train Acc: 0.6397, Test Acc: 55.45%, Test F1: 55.48%
+Epoch 36/50, Loss: 1.0867, Train Acc: 0.6401, Test Acc: 55.87%, Test F1: 55.16%
+Epoch 37/50, Loss: 1.0806, Train Acc: 0.6432, Test Acc: 55.51%, Test F1: 55.45%
+Epoch 38/50, Loss: 1.0758, Train Acc: 0.6437, Test Acc: 55.44%, Test F1: 55.59%
+Epoch 39/50, Loss: 1.0724, Train Acc: 0.6457, Test Acc: 56.35%, Test F1: 56.39%
+Epoch 40/50, Loss: 1.0670, Train Acc: 0.6490, Test Acc: 56.03%, Test F1: 55.64%
+Epoch 41/50, Loss: 1.0627, Train Acc: 0.6505, Test Acc: 56.02%, Test F1: 55.51%
+Epoch 42/50, Loss: 1.0586, Train Acc: 0.6526, Test Acc: 56.32%, Test F1: 56.12%
+Epoch 43/50, Loss: 1.0537, Train Acc: 0.6548, Test Acc: 55.75%, Test F1: 55.59%
+Epoch 44/50, Loss: 1.0496, Train Acc: 0.6549, Test Acc: 56.20%, Test F1: 56.20%
+Epoch 45/50, Loss: 1.0456, Train Acc: 0.6560, Test Acc: 55.99%, Test F1: 56.15%
+Epoch 46/50, Loss: 1.0408, Train Acc: 0.6600, Test Acc: 56.07%, Test F1: 55.93%
+Epoch 47/50, Loss: 1.0377, Train Acc: 0.6619, Test Acc: 56.50%, Test F1: 56.24%
+Epoch 48/50, Loss: 1.0325, Train Acc: 0.6629, Test Acc: 56.32%, Test F1: 55.91%
+Epoch 49/50, Loss: 1.0288, Train Acc: 0.6644, Test Acc: 56.63%, Test F1: 56.22%
+Epoch 50/50, Loss: 1.0255, Train Acc: 0.6658, Test Acc: 56.38%, Test F1: 55.97%
+Training model 9/10 with SGD
+Epoch 1/50, Loss: 1.7739, Train Acc: 0.3852, Test Acc: 43.04%, Test F1: 41.41%
+Epoch 2/50, Loss: 1.5904, Train Acc: 0.4550, Test Acc: 46.38%, Test F1: 45.99%
+Epoch 3/50, Loss: 1.5155, Train Acc: 0.4808, Test Acc: 47.85%, Test F1: 47.31%
+Epoch 4/50, Loss: 1.4635, Train Acc: 0.4991, Test Acc: 48.77%, Test F1: 48.64%
+Epoch 5/50, Loss: 1.4261, Train Acc: 0.5127, Test Acc: 49.37%, Test F1: 49.34%
+Epoch 6/50, Loss: 1.3945, Train Acc: 0.5251, Test Acc: 49.72%, Test F1: 49.03%
+Epoch 7/50, Loss: 1.3683, Train Acc: 0.5340, Test Acc: 50.64%, Test F1: 49.97%
+Epoch 8/50, Loss: 1.3447, Train Acc: 0.5432, Test Acc: 50.93%, Test F1: 50.41%
+Epoch 9/50, Loss: 1.3262, Train Acc: 0.5503, Test Acc: 51.93%, Test F1: 51.47%
+Epoch 10/50, Loss: 1.3079, Train Acc: 0.5562, Test Acc: 51.92%, Test F1: 51.34%
+Epoch 11/50, Loss: 1.2921, Train Acc: 0.5622, Test Acc: 52.27%, Test F1: 51.95%
+Epoch 12/50, Loss: 1.2769, Train Acc: 0.5680, Test Acc: 52.92%, Test F1: 52.33%
+Epoch 13/50, Loss: 1.2638, Train Acc: 0.5717, Test Acc: 53.29%, Test F1: 53.23%
+Epoch 14/50, Loss: 1.2506, Train Acc: 0.5772, Test Acc: 52.83%, Test F1: 52.42%
+Epoch 15/50, Loss: 1.2395, Train Acc: 0.5819, Test Acc: 53.02%, Test F1: 52.08%
+Epoch 16/50, Loss: 1.2277, Train Acc: 0.5863, Test Acc: 53.79%, Test F1: 53.79%
+Epoch 17/50, Loss: 1.2175, Train Acc: 0.5902, Test Acc: 53.99%, Test F1: 53.74%
+Epoch 18/50, Loss: 1.2074, Train Acc: 0.5936, Test Acc: 54.32%, Test F1: 53.84%
+Epoch 19/50, Loss: 1.1977, Train Acc: 0.5980, Test Acc: 53.79%, Test F1: 53.76%
+Epoch 20/50, Loss: 1.1888, Train Acc: 0.6025, Test Acc: 54.19%, Test F1: 54.01%
+Epoch 21/50, Loss: 1.1806, Train Acc: 0.6037, Test Acc: 54.57%, Test F1: 54.13%
+Epoch 22/50, Loss: 1.1721, Train Acc: 0.6069, Test Acc: 54.33%, Test F1: 53.56%
+Epoch 23/50, Loss: 1.1642, Train Acc: 0.6109, Test Acc: 54.16%, Test F1: 53.18%
+Epoch 24/50, Loss: 1.1571, Train Acc: 0.6127, Test Acc: 55.26%, Test F1: 54.93%
+Epoch 25/50, Loss: 1.1493, Train Acc: 0.6158, Test Acc: 54.82%, Test F1: 54.32%
+Epoch 26/50, Loss: 1.1421, Train Acc: 0.6198, Test Acc: 54.32%, Test F1: 53.55%
+Epoch 27/50, Loss: 1.1357, Train Acc: 0.6220, Test Acc: 54.86%, Test F1: 54.77%
+Epoch 28/50, Loss: 1.1297, Train Acc: 0.6240, Test Acc: 54.89%, Test F1: 54.71%
+Epoch 29/50, Loss: 1.1230, Train Acc: 0.6278, Test Acc: 54.97%, Test F1: 54.06%
+Epoch 30/50, Loss: 1.1175, Train Acc: 0.6285, Test Acc: 55.59%, Test F1: 55.12%
+Epoch 31/50, Loss: 1.1119, Train Acc: 0.6303, Test Acc: 55.11%, Test F1: 54.82%
+Epoch 32/50, Loss: 1.1060, Train Acc: 0.6321, Test Acc: 54.90%, Test F1: 54.55%
+Epoch 33/50, Loss: 1.1001, Train Acc: 0.6370, Test Acc: 54.95%, Test F1: 54.05%
+Epoch 34/50, Loss: 1.0952, Train Acc: 0.6375, Test Acc: 55.78%, Test F1: 54.97%
+Epoch 35/50, Loss: 1.0894, Train Acc: 0.6396, Test Acc: 55.78%, Test F1: 55.72%
+Epoch 36/50, Loss: 1.0841, Train Acc: 0.6412, Test Acc: 55.20%, Test F1: 55.30%
+Epoch 37/50, Loss: 1.0795, Train Acc: 0.6443, Test Acc: 56.11%, Test F1: 55.99%
+Epoch 38/50, Loss: 1.0746, Train Acc: 0.6458, Test Acc: 55.38%, Test F1: 55.33%
+Epoch 39/50, Loss: 1.0688, Train Acc: 0.6481, Test Acc: 56.07%, Test F1: 56.12%
+Epoch 40/50, Loss: 1.0648, Train Acc: 0.6482, Test Acc: 55.26%, Test F1: 54.99%
+Epoch 41/50, Loss: 1.0601, Train Acc: 0.6515, Test Acc: 55.53%, Test F1: 54.67%
+Epoch 42/50, Loss: 1.0551, Train Acc: 0.6538, Test Acc: 55.48%, Test F1: 55.29%
+Epoch 43/50, Loss: 1.0512, Train Acc: 0.6533, Test Acc: 55.89%, Test F1: 55.80%
+Epoch 44/50, Loss: 1.0468, Train Acc: 0.6562, Test Acc: 55.94%, Test F1: 56.05%
+Epoch 45/50, Loss: 1.0428, Train Acc: 0.6584, Test Acc: 55.56%, Test F1: 54.94%
+Epoch 46/50, Loss: 1.0379, Train Acc: 0.6602, Test Acc: 56.20%, Test F1: 56.16%
+Epoch 47/50, Loss: 1.0344, Train Acc: 0.6610, Test Acc: 56.39%, Test F1: 55.90%
+Epoch 48/50, Loss: 1.0301, Train Acc: 0.6620, Test Acc: 56.32%, Test F1: 56.16%
+Epoch 49/50, Loss: 1.0258, Train Acc: 0.6647, Test Acc: 56.53%, Test F1: 56.31%
+Epoch 50/50, Loss: 1.0221, Train Acc: 0.6658, Test Acc: 56.18%, Test F1: 56.11%
+Training model 10/10 with SGD
+Epoch 1/50, Loss: 1.7785, Train Acc: 0.3832, Test Acc: 41.54%, Test F1: 40.10%
+Epoch 2/50, Loss: 1.5922, Train Acc: 0.4539, Test Acc: 46.58%, Test F1: 45.46%
+Epoch 3/50, Loss: 1.5132, Train Acc: 0.4827, Test Acc: 47.75%, Test F1: 47.75%
+Epoch 4/50, Loss: 1.4617, Train Acc: 0.5011, Test Acc: 47.91%, Test F1: 46.99%
+Epoch 5/50, Loss: 1.4228, Train Acc: 0.5130, Test Acc: 49.90%, Test F1: 49.24%
+Epoch 6/50, Loss: 1.3914, Train Acc: 0.5269, Test Acc: 49.96%, Test F1: 49.69%
+Epoch 7/50, Loss: 1.3648, Train Acc: 0.5379, Test Acc: 50.24%, Test F1: 49.81%
+Epoch 8/50, Loss: 1.3421, Train Acc: 0.5458, Test Acc: 51.48%, Test F1: 51.05%
+Epoch 9/50, Loss: 1.3211, Train Acc: 0.5525, Test Acc: 51.35%, Test F1: 50.92%
+Epoch 10/50, Loss: 1.3038, Train Acc: 0.5573, Test Acc: 52.05%, Test F1: 51.63%
+Epoch 11/50, Loss: 1.2867, Train Acc: 0.5637, Test Acc: 52.07%, Test F1: 51.44%
+Epoch 12/50, Loss: 1.2727, Train Acc: 0.5715, Test Acc: 52.41%, Test F1: 51.94%
+Epoch 13/50, Loss: 1.2584, Train Acc: 0.5765, Test Acc: 53.06%, Test F1: 52.78%
+Epoch 14/50, Loss: 1.2463, Train Acc: 0.5797, Test Acc: 52.53%, Test F1: 52.78%
+Epoch 15/50, Loss: 1.2349, Train Acc: 0.5836, Test Acc: 54.27%, Test F1: 54.18%
+Epoch 16/50, Loss: 1.2226, Train Acc: 0.5893, Test Acc: 52.77%, Test F1: 52.15%
+Epoch 17/50, Loss: 1.2132, Train Acc: 0.5915, Test Acc: 53.77%, Test F1: 53.38%
+Epoch 18/50, Loss: 1.2026, Train Acc: 0.5980, Test Acc: 53.90%, Test F1: 53.03%
+Epoch 19/50, Loss: 1.1943, Train Acc: 0.6006, Test Acc: 54.50%, Test F1: 54.22%
+Epoch 20/50, Loss: 1.1848, Train Acc: 0.6027, Test Acc: 53.95%, Test F1: 53.54%
+Epoch 21/50, Loss: 1.1767, Train Acc: 0.6057, Test Acc: 53.99%, Test F1: 54.16%
+Epoch 22/50, Loss: 1.1672, Train Acc: 0.6099, Test Acc: 54.55%, Test F1: 54.65%
+Epoch 23/50, Loss: 1.1596, Train Acc: 0.6128, Test Acc: 54.51%, Test F1: 54.11%
+Epoch 24/50, Loss: 1.1523, Train Acc: 0.6159, Test Acc: 53.72%, Test F1: 52.64%
+Epoch 25/50, Loss: 1.1458, Train Acc: 0.6171, Test Acc: 54.76%, Test F1: 54.39%
+Epoch 26/50, Loss: 1.1382, Train Acc: 0.6217, Test Acc: 55.27%, Test F1: 54.77%
+Epoch 27/50, Loss: 1.1319, Train Acc: 0.6233, Test Acc: 54.98%, Test F1: 54.60%
+Epoch 28/50, Loss: 1.1244, Train Acc: 0.6254, Test Acc: 54.95%, Test F1: 54.45%
+Epoch 29/50, Loss: 1.1193, Train Acc: 0.6296, Test Acc: 55.37%, Test F1: 55.04%
+Epoch 30/50, Loss: 1.1128, Train Acc: 0.6318, Test Acc: 55.50%, Test F1: 55.46%
+Epoch 31/50, Loss: 1.1071, Train Acc: 0.6335, Test Acc: 55.71%, Test F1: 55.44%
+Epoch 32/50, Loss: 1.1009, Train Acc: 0.6349, Test Acc: 55.74%, Test F1: 55.44%
+Epoch 33/50, Loss: 1.0966, Train Acc: 0.6353, Test Acc: 55.85%, Test F1: 55.56%
+Epoch 34/50, Loss: 1.0899, Train Acc: 0.6400, Test Acc: 55.17%, Test F1: 54.67%
+Epoch 35/50, Loss: 1.0844, Train Acc: 0.6421, Test Acc: 55.99%, Test F1: 56.09%
+Epoch 36/50, Loss: 1.0801, Train Acc: 0.6428, Test Acc: 56.22%, Test F1: 56.04%
+Epoch 37/50, Loss: 1.0739, Train Acc: 0.6457, Test Acc: 56.17%, Test F1: 56.21%
+Epoch 38/50, Loss: 1.0689, Train Acc: 0.6478, Test Acc: 55.06%, Test F1: 54.86%
+Epoch 39/50, Loss: 1.0641, Train Acc: 0.6488, Test Acc: 56.24%, Test F1: 55.88%
+Epoch 40/50, Loss: 1.0595, Train Acc: 0.6537, Test Acc: 56.06%, Test F1: 55.38%
+Epoch 41/50, Loss: 1.0551, Train Acc: 0.6526, Test Acc: 56.09%, Test F1: 55.61%
+Epoch 42/50, Loss: 1.0503, Train Acc: 0.6560, Test Acc: 56.10%, Test F1: 56.03%
+Epoch 43/50, Loss: 1.0469, Train Acc: 0.6577, Test Acc: 56.44%, Test F1: 56.05%
+Epoch 44/50, Loss: 1.0415, Train Acc: 0.6593, Test Acc: 56.30%, Test F1: 55.59%
+Epoch 45/50, Loss: 1.0381, Train Acc: 0.6597, Test Acc: 56.26%, Test F1: 56.36%
+Epoch 46/50, Loss: 1.0334, Train Acc: 0.6606, Test Acc: 56.31%, Test F1: 55.86%
+Epoch 47/50, Loss: 1.0285, Train Acc: 0.6633, Test Acc: 56.58%, Test F1: 56.45%
+Epoch 48/50, Loss: 1.0257, Train Acc: 0.6656, Test Acc: 56.63%, Test F1: 56.03%
+Epoch 49/50, Loss: 1.0214, Train Acc: 0.6665, Test Acc: 56.73%, Test F1: 56.40%
+Epoch 50/50, Loss: 1.0177, Train Acc: 0.6688, Test Acc: 56.56%, Test F1: 56.11%
+
+=== Method Comparison ===
+Training time comparison between Least Squares and SGD:
+Least Squares Training Time: 2458.35s
+SGD Training Time: 7961.83s
+
+Metrics comparison:
+LS Test Acc: 59.21%, Test F1: 59.02%
+SGD Test Acc: 57.35%, Test F1: 57.07%
+Traceback (most recent call last):
+  File "/workspace/ADL/task2/task2a.py", line 467, in <module>
+    comparison_duration_sgd_and_ls(feature_maps = 128, std_dev = 0.01, kernel_size=7, lr = 0.1, epoch=50)
+  File "/workspace/ADL/task2/task2a.py", line 283, in comparison_duration_sgd_and_ls
+    json_path = os.path.join(save_path, json_filename)
+                             ^^^^^^^^^
+NameError: name 'save_path' is not defined
