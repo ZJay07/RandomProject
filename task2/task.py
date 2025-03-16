@@ -132,7 +132,6 @@ def experiment_hyperparameters():
                             'final_train_acc': stats['train_acc'][-1] * 100,
                             'test_acc': test_accuracy
                         })
-    
     # Sort results by test accuracy
     results.sort(key=lambda x: x['test_acc'], reverse=True)
     
@@ -195,6 +194,10 @@ def experiment_hyperparameters():
             'feature_size': feature_size
         }, f, indent=4)
     print(f"Best configuration saved to {best_config_path}")
+    results_json_path = os.path.join("./models", "hyperparameter_results.json")
+    with open(results_json_path, 'w') as f:
+        json.dump(results, f, indent=4)
+    print(f"Results saved to {results_json_path}")
     
     return results
 
@@ -740,8 +743,6 @@ def experiment_regularization_methods(save_path="./task2"):
 
     return results
 if __name__ == "__main__":
-    # Run focused experiment (faster)
-    # focused_results = focused_experiment()
     # experiment_regularization_methods()
     # print("Accuracy provies an overall performance measure, especially useful when classes are balanced like in CIFAR-10")
     # print("Macro-F1 score balances precision and recall across all classes, detecting if certain classes are more challenging to classify regardless of their frequency.")

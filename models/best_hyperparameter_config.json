@@ -1,0 +1,6 @@
+{
+    "num_feature_maps": 128,
+    "std_dev": 0.01,
+    "kernel_size": 7,
+    "feature_size": 86528
+}
