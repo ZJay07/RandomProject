@@ -14,10 +14,12 @@ class MyExtremeLearningMachine(nn.Module):
         feature_size,
         kernel_size=3,
         input_channels=3,
+        pooling = False
     ):
         """
         Init for fixed weights, hyperparameter to indicate the size of the hidden convolutional layer
         Feature maps to produce the multiclass prob vector suitable for image class
+        Pooling to make training faster
         """
         super(MyExtremeLearningMachine, self).__init__()
         # one convo layer non trainable weights
@@ -34,6 +36,7 @@ class MyExtremeLearningMachine(nn.Module):
         # fully connected layer with trainable weights
         self.fc = nn.Linear(feature_size, num_classes)
         self.num_classes = num_classes
+        self.pooling = pooling
 
     def initialise_fixed_layers(self, std):
         """
@@ -47,6 +50,8 @@ class MyExtremeLearningMachine(nn.Module):
     def forward(self, x):
         x = self.conv(x)
         x = F.relu(x)
+        if self.pooling:
+            x = F.avg_pool2d(x, 2) 
         x = x.view(x.size(0), -1)
 
         x = self.fc(x)

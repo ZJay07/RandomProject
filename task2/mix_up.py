@@ -23,10 +23,10 @@ class MyMixUp:
         else:
             lam = 1.0
         
-        # Create shuffled indices
+        # create shuffled indices
         index = torch.randperm(batch_size, device=x.device)
         
-        # Mix images: λ·x + (1-λ)·x[index]
+        # mix images: \lambda * x + (1-\lambda)·x[index]
         mixed_x = lam * x + (1 - lam) * x[index, :]
         
         # Return mixed images and both sets of labels with lambda
