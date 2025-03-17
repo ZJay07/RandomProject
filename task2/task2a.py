@@ -241,7 +241,7 @@ def comparison_duration_sgd_and_ls(feature_maps, std_dev, kernel_size,  lr, epoc
 
 
 def random_search_hyperparameter_ls(
-        num_steps = 50,
+        num_steps = 30,
         train_loader=None,
         test_loader=None,
         feature_maps_range=(32, 128),
@@ -251,7 +251,9 @@ def random_search_hyperparameter_ls(
         ensemble_size=(3, 10),
         seed = 42,
         use_pooling=True,
-        save_dir="./task2"
+        save_dir="./task2",
+        resume_from_step=0,
+        checkpoint_frequency=5
 ):
     """
     Using random search and ls to find best hyperparameters, similar to task2 hyperparamters tuned: std, feature maps, kernel size, lambda (for ls)
@@ -268,8 +270,46 @@ def random_search_hyperparameter_ls(
     best_acc = 0
     best_config = None
     best_ensemble = None
+    
+    # Check if we're resuming from a previous run
+    checkpoint_path = os.path.join(save_dir, 'elm_ls_hyperparameter_search_checkpoint.json')
+    if resume_from_step > 0 and os.path.exists(checkpoint_path):
+        try:
+            with open(checkpoint_path, 'r') as f:
+                checkpoint_data = json.load(f)
+                results = checkpoint_data.get('results', [])
+                best_acc = checkpoint_data.get('best_acc', 0)
+                best_config = checkpoint_data.get('best_config', None)
+                
+                # Find the best result so far to set best_acc
+                if results:
+                    for result in results:
+                        if result['accuracy'] > best_acc:
+                            best_acc = result['accuracy']
+                            best_config = result.copy()
+                
+                print(f"Resuming from step {resume_from_step}, loaded {len(results)} previous results")
+                print(f"Current best accuracy: {best_acc:.2f}%")
+        except Exception as e:
+            print(f"Error loading checkpoint: {e}")
+            print("Starting from scratch")
+            resume_from_step = 0
+    
+    # Do a first fast-forward through the RNG to match where we would be if we had run all previous steps
+    if resume_from_step > 0:
+        print(f"Fast-forwarding random number generator to step {resume_from_step}...")
+        for step in range(resume_from_step):
+            # These calls match exactly what would happen in the main loop
+            _ = int(np.random.uniform(ensemble_size[0], ensemble_size[1]))
+            _ = int(np.exp(np.random.uniform(np.log(feature_maps_range[0]), 
+                                            np.log(feature_maps_range[1]))))
+            _ = np.random.uniform(std_dev_range[0], std_dev_range[1])
+            _ = np.random.choice(kernel_sizes)
+            _ = np.exp(np.random.uniform(np.log(lambda_range[0]), 
+                                        np.log(lambda_range[1])))
 
-    for step in range(num_steps):
+    # Continue with the random search from the specified step
+    for step in range(resume_from_step, num_steps):
         # Randomly sample hyperparameters
         n_models = int(np.random.uniform(ensemble_size[0], ensemble_size[1]))
         num_feature_maps = int(np.exp(np.random.uniform(np.log(feature_maps_range[0]), 
@@ -350,10 +390,33 @@ def random_search_hyperparameter_ls(
                 best_config = result.copy()
                 best_ensemble = ensemble
                 print(f"New best model found! Accuracy: {best_acc:.2f}%")
+                
+                # Save best model whenever we find a new best
+                best_model_path = os.path.join(save_dir, "best_hyperparameter_model.pth")
+                torch.save(best_ensemble.state_dict(), best_model_path)
+                
+                # Save config details for loading
+                best_config_path = os.path.join(save_dir, "best_hyperparameter_config.json")
+                converted_config = convert_numpy_types(best_config)
+                with open(best_config_path, 'w') as f:
+                    json.dump(converted_config, f, indent=4)
         
         except Exception as e:
             print(f"Training failed: {e}")
             continue
+        
+        # Save checkpoint periodically
+        if (step + 1) % checkpoint_frequency == 0 or step == num_steps - 1:
+            checkpoint_data = {
+                'results': convert_numpy_types(results),
+                'best_acc': float(best_acc),
+                'best_config': convert_numpy_types(best_config) if best_config else None,
+                'completed_steps': step + 1
+            }
+            
+            with open(checkpoint_path, 'w') as f:
+                json.dump(checkpoint_data, f, indent=4)
+            print(f"Checkpoint saved at step {step+1}")
 
     # sort best results
     sorted_results = sorted(results, key=lambda x: x['accuracy'], reverse=True)
