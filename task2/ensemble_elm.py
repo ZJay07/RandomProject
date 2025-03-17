@@ -5,9 +5,20 @@ import torch.nn as nn
 from task2.my_elm import MyExtremeLearningMachine
 
 class MyEnsembleELM(nn.Module):
-    def __init__(self, seed=42, n_models=5, num_feature_maps=32, std_dev=0.5, reproduce = True):
-        """CIFAR-10 default values for kernel_size, num_feature_maps, std_dev"""
+    def __init__(self, seed=42, n_models=5, num_feature_maps=32, std_dev=0.5, feature_size=None, kernel_size=3, pooling=False, reproduce=True):
+        """CIFAR-10 default values for kernel_size, num_feature_maps, std_dev, pooling to speed up training"""
         super(MyEnsembleELM, self).__init__()
+        
+        # wranings
+        if n_models < 3 or n_models > 10:
+            print(f"Warning: n_models={n_models} is outside the recommended range [3, 10]")
+    
+        if num_feature_maps < 16 or num_feature_maps > 128:
+            print(f"Warning: num_feature_maps={num_feature_maps} is outside the recommended range [16, 128]")
+            
+        if std_dev < 0.01 or std_dev > 1.0:
+            print(f"Warning: std_dev={std_dev} is outside the recommended range [0.01, 1.0]")
+
         # set seed for reproducibility
         self.seed = seed
         np.random.seed(seed)
@@ -27,17 +38,22 @@ class MyEnsembleELM(nn.Module):
                 torch.manual_seed(model_seed)
                 np.random.seed(model_seed)
 
-            # For CIFAR-10 images (32x32) with 3x3 kernel
-            h_out = 30
-            w_out = 30
-            feature_size = num_feature_maps * h_out * w_out
+            # manual calculation for CIFAR-10 images (32x32) with 3x3 kernel
+            if feature_size is None:
+                h_out = 32 - kernel_size + 1
+                w_out = 32 - kernel_size + 1
+                if pooling:
+                    h_out = h_out // 2
+                    w_out = w_out // 2
+                feature_size = num_feature_maps * h_out * w_out
             
             model = MyExtremeLearningMachine(
                 num_feature_maps=num_feature_maps,
                 num_classes=10,
                 std_dev=std_dev,
                 feature_size=feature_size,
-                kernel_size=3
+                kernel_size=kernel_size,
+                pooling=pooling
             )
             self.models.append(model)
 

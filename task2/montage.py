@@ -5,10 +5,12 @@ from torch.utils.data import DataLoader
 from torchvision.utils import make_grid
 from PIL import Image, ImageDraw, ImageFont
 import os
+import sys
 
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from task2.ensemble_elm import MyEnsembleELM
 
-def visualize_model_predictions(model_path, config_path, save_path="result.png", num_images=36):
+def visualize_model_predictions(model_path, config_path, kernel_size, pooling = False, save_path="result.png", num_images=36):
     """
     viz method for ensemble model with annotations
     """
@@ -39,7 +41,9 @@ def visualize_model_predictions(model_path, config_path, save_path="result.png",
         seed=config['seed'],
         n_models=config['n_models'],
         num_feature_maps=config['num_feature_maps'],
-        std_dev=config['std_dev']
+        std_dev=config['std_dev'],
+        kernel_size=config['kernel_size'],
+        pooling=pooling,
     )
     
     # Load model weights
@@ -147,7 +151,9 @@ def visualize_model_predictions(model_path, config_path, save_path="result.png",
     draw.text((10, height + 10), title, fill='black', font=title_font)
 
     
-    # Save the image
+    # Save the image, create path if does not exist
+    if not os.path.exists(os.path.dirname(save_path)):
+        os.makedirs(os.path.dirname(save_path))
     result_img.save(save_path)
     print(f"Visualization saved to {save_path}")
     
@@ -159,8 +165,11 @@ def visualize_model_predictions(model_path, config_path, save_path="result.png",
 
 if __name__ == "__main__":
     # Paths to model files
-    model_dir = "./models/ensemble_model"
-    config_file = "./models/ensemble_config.pth"
+    model_dir = "./task2/models/ensemble_model"
+    config_file = "./task2/models/ensemble_config.pth"
     
-    # Choose visualization method
-    visualize_model_predictions(model_dir, config_file)
+    # viz for best regularisation method
+    visualize_model_predictions(model_dir, config_file, kernel_size=7, save_path="./task2/montage_result/result.png")
+
+    # viz for random search with fit_elm_ls
+    # visualize_model_predictions

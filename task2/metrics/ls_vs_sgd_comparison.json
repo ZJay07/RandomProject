@@ -1,0 +1,32 @@
+{
+    "hyperparameters": {
+        "feature_maps": 128,
+        "std_dev": 0.01,
+        "kernel_size": 7,
+        "ensemble_size": 5,
+        "ls_lambda": 0.001,
+        "sgd_lr": 0.1,
+        "sgd_epochs": 50,
+        "seed": 42
+    },
+    "ls": {
+        "accuracy": 57.55,
+        "macro_f1": 57.39970803260803,
+        "time": 822.8951706886292,
+        "pooling": true,
+        "feature_size": 21632
+    },
+    "sgd": {
+        "accuracy": 57.25,
+        "macro_f1": 57.02975392341614,
+        "time": 2993.318093061447,
+        "pooling": false,
+        "feature_size": 86528
+    },
+    "comparison": {
+        "time_ratio": 3.637544853442909,
+        "time_diff": -2170.422922372818,
+        "accuracy_diff": 0.29999999999999716,
+        "f1_diff": 0.36995410919189453
+    }
+}

@@ -2,7 +2,7 @@ import json
 
 def print_model_summary(model_name, metrics, sample_epochs=None):
     """
-    Print summary for a specific experiment model
+    Print summary for a specific experiment model, sgd specific
     """
     print(f"\n{model_name}")
     print("-" * len(model_name))
@@ -55,7 +55,7 @@ def print_comparison_summary(metrics_dict):
 
 def print_observations(metrics_dict):
     """
-    Print key observations about model performance
+    Print key observations about model performance sgd specific
     """
     print("\n===== Summary =====\n")
     print("1. All models significantly outperform random guessing (10% baseline)")
