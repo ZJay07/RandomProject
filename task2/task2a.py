@@ -347,19 +347,6 @@ def random_search_hyperparameter_ls(
             print(f"Error loading checkpoint: {e}")
             print("Starting from scratch")
             resume_from_step = 0
-    
-    # Do a first fast-forward through the RNG to match where we would be if we had run all previous steps
-    if resume_from_step > 0:
-        print(f"Fast-forwarding random number generator to step {resume_from_step}...")
-        for step in range(resume_from_step):
-            # These calls match exactly what would happen in the main loop
-            _ = int(np.random.uniform(ensemble_size[0], ensemble_size[1]))
-            _ = int(np.exp(np.random.uniform(np.log(feature_maps_range[0]), 
-                                            np.log(feature_maps_range[1]))))
-            _ = np.random.uniform(std_dev_range[0], std_dev_range[1])
-            _ = np.random.choice(kernel_sizes)
-            _ = np.exp(np.random.uniform(np.log(lambda_range[0]), 
-                                        np.log(lambda_range[1])))
 
     # Continue with the random search from the specified step
     for step in range(resume_from_step, num_steps):
@@ -376,8 +363,8 @@ def random_search_hyperparameter_ls(
         h_out = 32 - kernel_size + 1
         w_out = 32 - kernel_size + 1
         if use_pooling:
-            h_out = h_out // 2
-            w_out = w_out // 2
+            h_out //= 2
+            w_out //= 2
         feature_size = num_feature_maps * h_out * w_out
 
         print(f"Step {step+1}/{num_steps}:")
@@ -533,10 +520,9 @@ if __name__ == "__main__":
     print("Comparing training duration for SGD and LS...")
     print("Trying with best parameters from previous experiments")
     # Comparing duration fit_lm with fit_sgd
-    comparison_duration_sgd_and_ls(feature_maps = 128, std_dev = 0.01, kernel_size=7, lr = 0.1, epoch=50)
+    # comparison_duration_sgd_and_ls(feature_maps = 128, std_dev = 0.01, kernel_size=7, lr = 0.1, epoch=50)
 
 
     print("Preparing to run random search for hyperparameters...")
     # Comment out if not required, takes awhile to complete
-    # train_loader, test_loader = load_cifar10()
     # random_search_hyperparameter_ls(train_loader=train_loader, test_loader=test_loader)
