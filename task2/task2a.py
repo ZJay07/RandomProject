@@ -15,7 +15,7 @@ import json
 
 
 SEED = 42
-ENSEMBLE_SIZE = 10
+# ENSEMBLE_SIZE = 10
 
 def fit_elm_ls(model, train_loader, test_loader=None, lambda_reg=0.1, device="cpu", method="ridge"):
     """
