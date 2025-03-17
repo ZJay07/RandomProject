@@ -19,7 +19,7 @@ ENSEMBLE_SIZE = 10
 
 def fit_elm_ls(model, train_loader, test_loader=None, lambda_reg=0.1, device="cpu", method="ridge"):
     """
-    Using a variant of the least squares algorithm to train the ELM - ridge
+    Using a variant of the least squares algorithm to train the ELM - ridge regression
     device should always be CPU due to the library constrains but just in case cuda is used
     batch implementation to save memory
     """
@@ -156,7 +156,7 @@ def fit_elm_ls(model, train_loader, test_loader=None, lambda_reg=0.1, device="cp
         metrics = {"accuracy": 0, "macro_f1": 0}
         print(f"LS solution - Loss: {train_loss:.4f}, Train Acc: {train_acc:.4f}")
 
-    print(f"This fit took {start_time - time.time()} to complete!")
+    print(f"This fit took {time.time() - start_time} to complete!")
     return statistics, metrics
     
 
@@ -388,7 +388,7 @@ def random_search_hyperparameter_ls(
         json.dump(converted_config, f, indent=4)
     
     # Compare with previous best
-    previous_best = 54.89  # previous best ensemble accuracy
+    previous_best = 57.35  # previous best ensemble accuracy
     print(f"\nPrevious best Ensemble ELM: {previous_best:.2f}%")
     print(f"New best Ensemble ELM: {best_acc:.2f}%")
     print(f"Improvement: {best_acc - previous_best:.2f}%")
