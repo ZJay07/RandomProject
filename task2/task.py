@@ -386,10 +386,11 @@ def experiment_regularization_methods(
     lr=0.1,
     num_epochs=50,
     num_ensemble_models=5,
-    save_path="./task2/models",
+    save_dir="./task2/models",
+    metric_dir="./task2/metrics",
 ):
     # Create directory for saving models if it doesn't exist
-    os.makedirs(save_path, exist_ok=True)
+    os.makedirs(save_dir, exist_ok=True)
 
     # Device configuration
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -432,7 +433,7 @@ def experiment_regularization_methods(
     print(f"Base Model Test Accuracy: {base_accuracy:.2f}%")
 
     # Save base model
-    base_model_path = os.path.join(save_path, "base_model.pth")
+    base_model_path = os.path.join(save_dir, "base_model.pth")
     torch.save(base_model.state_dict(), base_model_path)
     print(f"Base model saved to {base_model_path}")
     results["base_model"] = {
@@ -468,7 +469,7 @@ def experiment_regularization_methods(
     print(f"MixUp Model Test Accuracy: {mixup_accuracy:.2f}%")
 
     # Save mixup model
-    mixup_model_path = os.path.join(save_path, "mixup_model.pth")
+    mixup_model_path = os.path.join(save_dir, "mixup_model.pth")
     torch.save(mixup_model.state_dict(), mixup_model_path)
     print(f"MixUp model saved to {mixup_model_path}")
     results["mixup_model"] = {
@@ -507,14 +508,14 @@ def experiment_regularization_methods(
 
     # Save ensemble model
     # For ensemble, we need to save each model in the ensemble
-    ensemble_dir = os.path.join(save_path, "ensemble_model")
+    ensemble_dir = os.path.join(save_dir, "ensemble_model")
     os.makedirs(ensemble_dir, exist_ok=True)
     for i, model in enumerate(ensemble_model.models):
         model_path = os.path.join(ensemble_dir, f"model_{i}.pth")
         torch.save(model.state_dict(), model_path)
 
     # Save ensemble configuration
-    ensemble_config_path = os.path.join(save_path, "ensemble_config.pth")
+    ensemble_config_path = os.path.join(save_dir, "ensemble_config.pth")
     torch.save(
         {
             "n_models": ensemble_model.n_models,
@@ -613,14 +614,14 @@ def experiment_regularization_methods(
     }
 
     # Save ensemble mixup model
-    ensemble_mixup_dir = os.path.join(save_path, "ensemble_mixup_model")
+    ensemble_mixup_dir = os.path.join(save_dir, "ensemble_mixup_model")
     os.makedirs(ensemble_mixup_dir, exist_ok=True)
     for i, model in enumerate(ensemble_mixup_model.models):
         model_path = os.path.join(ensemble_mixup_dir, f"model_{i}.pth")
         torch.save(model.state_dict(), model_path)
 
     # Save ensemble mixup configuration
-    ensemble_mixup_config_path = os.path.join(save_path, "ensemble_mixup_config.pth")
+    ensemble_mixup_config_path = os.path.join(save_dir, "ensemble_mixup_config.pth")
     torch.save(
         {
             "n_models": ensemble_mixup_model.n_models,
@@ -663,13 +664,13 @@ def experiment_regularization_methods(
         results_json[model_name] = model_results
 
     with open(
-        os.path.join(save_path, "metrics_results_regularasation_method.json"), "w"
+        os.path.join(metric_dir, "metrics_results_regularasation_method.json"), "w"
     ) as f:
         json.dump(results_json, f, indent=4)
 
     # Viz for summary of report
     json_file_path = os.path.join(
-        save_path, "metrics_results_regularasation_method.json"
+        metric_dir, "metrics_results_regularasation_method.json"
     )
 
     if os.path.exists(json_file_path):

@@ -329,6 +329,7 @@ def random_search_hyperparameter_ls(
     seed=42,
     use_pooling=True,
     save_dir="./task2/models",
+    metric_dir="./task2/metrics",
     resume_from_step=0,
     checkpoint_frequency=5,
 ):
@@ -350,7 +351,7 @@ def random_search_hyperparameter_ls(
 
     # Check if we're resuming from a previous run
     checkpoint_path = os.path.join(
-        save_dir, "elm_ls_hyperparameter_search_checkpoint.json"
+        metric_dir, "elm_ls_hyperparameter_search_checkpoint.json"
     )
     if resume_from_step > 0 and os.path.exists(checkpoint_path):
         try:
@@ -526,7 +527,7 @@ def random_search_hyperparameter_ls(
 
     # Save results to json
     results_json_path = os.path.join(
-        save_dir, "elm_ls_hyperparameter_search_results.json"
+        metric_dir, "elm_ls_hyperparameter_search_results.json"
     )
     converted_results = convert_numpy_types(sorted_results)
     with open(results_json_path, "w") as f:
