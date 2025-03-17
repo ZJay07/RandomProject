@@ -15,7 +15,6 @@ import json
 
 
 SEED = 42
-# ENSEMBLE_SIZE = 10
 
 def fit_elm_ls(model, train_loader, test_loader=None, lambda_reg=0.1, device="cpu", method="ridge"):
     """
@@ -284,7 +283,7 @@ def comparison_duration_sgd_and_ls(feature_maps, std_dev, kernel_size,  lr, epoc
     os.makedirs(save_dir, exist_ok=True)
 
     # Save results to JSON file
-    json_filename = f"ls_vs_sgd_comparison.json"
+    json_filename = "ls_vs_sgd_comparison.json"
     json_path = os.path.join(save_dir, json_filename)
     
     with open(json_path, 'w') as f:
@@ -305,7 +304,7 @@ def random_search_hyperparameter_ls(
         ensemble_size=(3, 10),
         seed = 42,
         use_pooling=True,
-        save_dir="./task2",
+        save_dir="./task2/models",
         resume_from_step=0,
         checkpoint_frequency=5
 ):
@@ -445,12 +444,15 @@ def random_search_hyperparameter_ls(
                 best_ensemble = ensemble
                 print(f"New best model found! Accuracy: {best_acc:.2f}%")
                 
-                # Save best model whenever we find a new best
-                best_model_path = os.path.join(save_dir, "best_hyperparameter_model.pth")
-                torch.save(best_ensemble.state_dict(), best_model_path)
+                # Save best ensemble models individually in a directory
+                best_ensemble_dir = os.path.join(save_dir, "best_hyperparameter_ls_model")
+                os.makedirs(best_ensemble_dir, exist_ok=True)
+                for i, model in enumerate(best_ensemble.models):
+                    model_file = os.path.join(best_ensemble_dir, f"model_{i}.pth")
+                    torch.save(model.state_dict(), model_file)
                 
-                # Save config details for loading
-                best_config_path = os.path.join(save_dir, "best_hyperparameter_config.json")
+                # Save config details for loading as JSON
+                best_config_path = os.path.join(save_dir, "best_hyperparameter_ls_model.json")
                 converted_config = convert_numpy_types(best_config)
                 with open(best_config_path, 'w') as f:
                     json.dump(converted_config, f, indent=4)

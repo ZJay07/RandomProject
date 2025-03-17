@@ -6,11 +6,14 @@ from torchvision.utils import make_grid
 from PIL import Image, ImageDraw, ImageFont
 import os
 import sys
+import json
+
+SEED = 42
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from task2.ensemble_elm import MyEnsembleELM
 
-def visualize_model_predictions(model_path, config_path, kernel_size, pooling = False, save_path="result.png", num_images=36):
+def visualize_model_predictions(model_path, config_path=None, config=None, pooling = False, save_path="result.png", num_images=36):
     """
     viz method for ensemble model with annotations
     """
@@ -32,18 +35,19 @@ def visualize_model_predictions(model_path, config_path, kernel_size, pooling = 
     
     # Create a dataloader without shuffling to maintain order
     test_loader = DataLoader(test_dataset, batch_size=num_images, shuffle=False)
-    
-    # Load ensemble configuration
-    config = torch.load(config_path, map_location=device)
+
+    if not config:
+        # Load ensemble configuration
+        config = torch.load(config_path, map_location=device)
     
     # Create ensemble model
     ensemble_model = MyEnsembleELM(
-        seed=config['seed'],
+        seed=config.get('seed', 42),
         n_models=config['n_models'],
         num_feature_maps=config['num_feature_maps'],
         std_dev=config['std_dev'],
         kernel_size=config['kernel_size'],
-        pooling=pooling,
+        pooling=config.get('pooling', pooling),
     )
     
     # Load model weights
@@ -165,11 +169,18 @@ def visualize_model_predictions(model_path, config_path, kernel_size, pooling = 
 
 if __name__ == "__main__":
     # Paths to model files
-    model_dir = "./task2/models/ensemble_model"
-    config_file = "./task2/models/ensemble_config.pth"
+    best_regularisation_model_dir = "./task2/models/ensemble_model"
+    best_regularisation_config_file = "./task2/models/ensemble_config.pth"
     
     # viz for best regularisation method
-    visualize_model_predictions(model_dir, config_file, kernel_size=7, save_path="./task2/montage_result/result.png")
+    #visualize_model_predictions(best_regularisation_model_dir, best_regularisation_config_file, save_path="./task2/montage_result/result.png")
 
     # viz for random search with fit_elm_ls
     # visualize_model_predictions
+    best_fit_elm_ls_model = "./task2/best_hyperparameter_model"
+    config_path = os.path.join("./task2/", "best_hyperparameter_config.json")
+
+    # Load the configuration as a Python dictionary
+    with open(config_path, 'r') as f:
+        config = json.load(f)
+    visualize_model_predictions(best_fit_elm_ls_model, config=config, save_path="./task2/montage_result/new_result.png")
