@@ -67,7 +67,7 @@ def evaluate(model, test_loader, device):
 
 
 # Hyperparameter Experimentation
-def experiment_hyperparameters():
+def experiment_hyperparameters(save_path="./task2/models/hyperprameters_for_sgd"):
     # Device configuration
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
@@ -187,12 +187,13 @@ def experiment_hyperparameters():
     )
 
     # Save best model
-    best_model_path = os.path.join("./models", "best_hyperparameter_model.pth")
+    os.mkdir(save_path)
+    best_model_path = os.path.join(save_path, "best_hyperparameter_model.pth")
     torch.save(best_model.state_dict(), best_model_path)
     print(f"Best model saved to {best_model_path}")
 
     # Save configs details for loading
-    best_config_path = os.path.join("./models", "best_hyperparameter_config.json")
+    best_config_path = os.path.join(save_path, "best_hyperparameter_config.json")
     with open(best_config_path, "w") as f:
         json.dump(
             {
@@ -205,7 +206,7 @@ def experiment_hyperparameters():
             indent=4,
         )
     print(f"Best configuration saved to {best_config_path}")
-    results_json_path = os.path.join("./models", "hyperparameter_results.json")
+    results_json_path = os.path.join(save_path, "hyperparameter_results.json")
     with open(results_json_path, "w") as f:
         json.dump(results, f, indent=4)
     print(f"Results saved to {results_json_path}")
