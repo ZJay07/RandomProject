@@ -161,17 +161,22 @@ def fit_elm_ls(model, train_loader, test_loader=None, lambda_reg=0.1, device="cp
     
 
 # TODO: Complete this, need to use best model configurations (ensemble ELM and best hyperparamters )
-def comparison_duration_sgd_and_ls(feature_maps, std_dev, kernel_size,  lr, epoch, ensemble_size = 10, ls_lambda = 0.001, device = 'cpu'):
+def comparison_duration_sgd_and_ls(feature_maps, std_dev, kernel_size,  lr, epoch, ensemble_size = 5, ls_lambda = 0.001, device = 'cpu', save_dir="./task2/metrics",):
     """Comparision with best model - ensemble ELM"""
 
     print("Comparing ls and sgd training duration...")
     print(f"Using device: {device}")
     
-
-    # globals
-    h_out = 32 - kernel_size + 1
-    w_out = 32 - kernel_size + 1
-    feature_size = feature_maps * h_out * w_out 
+    # Calculate feature sizes for both approaches
+    # For SGD (no pooling)
+    h_out_sgd = 32 - kernel_size + 1
+    w_out_sgd = 32 - kernel_size + 1
+    feature_size_sgd = feature_maps * h_out_sgd * w_out_sgd
+    
+    # For LS (with pooling)
+    h_out_ls = (32 - kernel_size + 1) // 2
+    w_out_ls = (32 - kernel_size + 1) // 2
+    feature_size_ls = feature_maps * h_out_ls * w_out_ls
 
     train_loader, test_loader = load_cifar10(batch_size=128)
 
@@ -184,7 +189,10 @@ def comparison_duration_sgd_and_ls(feature_maps, std_dev, kernel_size,  lr, epoc
         seed=SEED,
         n_models=ensemble_size,
         num_feature_maps=feature_maps,
-        std_dev=std_dev
+        std_dev=std_dev,
+        feature_size=feature_size_ls,
+        kernel_size=kernel_size,
+        pooling=True
     )
     ls_model.to(device)
 
@@ -207,7 +215,10 @@ def comparison_duration_sgd_and_ls(feature_maps, std_dev, kernel_size,  lr, epoc
         seed=SEED,
         n_models=ensemble_size,
         num_feature_maps=feature_maps,
-        std_dev=std_dev
+        std_dev=std_dev,
+        feature_size=feature_size_sgd,
+        kernel_size=kernel_size,
+        pooling=False
     )
 
     sgd_start = time.time()
@@ -234,11 +245,54 @@ def comparison_duration_sgd_and_ls(feature_maps, std_dev, kernel_size,  lr, epoc
     print(f"LS Test Acc: {ls_metrics['accuracy']:.2f}%, Test F1: {ls_metrics['macro_f1']:.2f}%")
     print(f"SGD Test Acc: {sgd_metrics['accuracy']:.2f}%, Test F1: {sgd_metrics['macro_f1']:.2f}%")
 
-    return {
-        "ls": {"accuracy": ls_metrics['accuracy'], "Test F1": ls_metrics['macro_f1'], "time": ls_time},
-        "sgd": {"accuracy": sgd_metrics['accuracy'], "Test F1": sgd_metrics['macro_f1'], "time": sgd_time}
+    # Prepare results dictionary
+    results = {
+        "hyperparameters": {
+            "feature_maps": feature_maps,
+            "std_dev": std_dev,
+            "kernel_size": kernel_size,
+            "ensemble_size": ensemble_size,
+            "ls_lambda": ls_lambda,
+            "sgd_lr": lr,
+            "sgd_epochs": epoch,
+            "seed": SEED
+        },
+        "ls": {
+            "accuracy": float(ls_metrics['accuracy']),  # Convert to float for JSON serialization
+            "macro_f1": float(ls_metrics['macro_f1']),
+            "time": float(ls_time),
+            "pooling": True,
+            "feature_size": feature_size_ls
+        },
+        "sgd": {
+            "accuracy": float(sgd_metrics['accuracy']),
+            "macro_f1": float(sgd_metrics['macro_f1']),
+            "time": float(sgd_time),
+            "pooling": False,
+            "feature_size": feature_size_sgd
+        },
+        "comparison": {
+            "time_ratio": float(sgd_time / ls_time),
+            "time_diff": float(ls_time - sgd_time),
+            "accuracy_diff": float(ls_metrics['accuracy'] - sgd_metrics['accuracy']),
+            "f1_diff": float(ls_metrics['macro_f1'] - sgd_metrics['macro_f1'])
+        }
     }
+    print(results)
+    
+    # Create save dir if not already
+    os.makedirs(save_dir, exist_ok=True)
 
+    # Save results to JSON file
+    json_filename = f"ls_vs_sgd_comparison.json"
+    json_path = os.path.join(save_dir, json_filename)
+    
+    with open(json_path, 'w') as f:
+        json.dump(results, f, indent=4)
+    
+    print(f"\nResults saved to {json_path}")
+
+    return results
 
 def random_search_hyperparameter_ls(
         num_steps = 30,
@@ -477,10 +531,10 @@ if __name__ == "__main__":
     print("Comparing training duration for SGD and LS...")
     print("Trying with best parameters from previous experiments")
     # Comparing duration fit_lm with fit_sgd
-
+    comparison_duration_sgd_and_ls(feature_maps = 128, std_dev = 0.01, kernel_size=7, lr = 0.1, epoch=50)
 
 
     print("Preparing to run random search for hyperparameters...")
     # Comment out if not required, takes awhile to complete
-    train_loader, test_loader = load_cifar10()
-    random_search_hyperparameter_ls(train_loader=train_loader, test_loader=test_loader)
+    # train_loader, test_loader = load_cifar10()
+    # random_search_hyperparameter_ls(train_loader=train_loader, test_loader=test_loader)
