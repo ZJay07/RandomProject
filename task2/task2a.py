@@ -161,12 +161,11 @@ def fit_elm_ls(model, train_loader, test_loader=None, lambda_reg=0.1, device="cp
     
 
 # TODO: Complete this, need to use best model configurations (ensemble ELM and best hyperparamters )
-def comparison_duration_sgd_and_ls(feature_maps, std_dev, kernel_size,  lr, epoch, ensemble_size = 10, ls_lambda = 0.001, device = 'cpu'):
+def comparison_duration_sgd_and_ls(feature_maps, std_dev, kernel_size,  lr, epoch, ensemble_size = 5, ls_lambda = 0.001, device = 'cpu'):
     """Comparision with best model - ensemble ELM"""
 
     print("Comparing ls and sgd training duration...")
     print(f"Using device: {device}")
-    
 
     # globals
     h_out = 32 - kernel_size + 1
