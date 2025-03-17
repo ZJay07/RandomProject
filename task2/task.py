@@ -132,7 +132,6 @@ def experiment_hyperparameters():
                             'final_train_acc': stats['train_acc'][-1] * 100,
                             'test_acc': test_accuracy
                         })
-    
     # Sort results by test accuracy
     results.sort(key=lambda x: x['test_acc'], reverse=True)
     
@@ -195,6 +194,10 @@ def experiment_hyperparameters():
             'feature_size': feature_size
         }, f, indent=4)
     print(f"Best configuration saved to {best_config_path}")
+    results_json_path = os.path.join("./models", "hyperparameter_results.json")
+    with open(results_json_path, 'w') as f:
+        json.dump(results, f, indent=4)
+    print(f"Results saved to {results_json_path}")
     
     return results
 

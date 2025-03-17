@@ -1,0 +1,1298 @@
+[
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.01,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 66.822,
+        "test_acc": 55.7
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.01,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 62.732,
+        "test_acc": 55.5
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.1,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 64.47,
+        "test_acc": 55.25
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.01,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 62.246,
+        "test_acc": 55.15
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.01,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 60.368,
+        "test_acc": 54.64
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.1,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 66.286,
+        "test_acc": 54.16
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.1,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 60.292,
+        "test_acc": 53.78
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.01,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 57.62199999999999,
+        "test_acc": 53.51
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.1,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 58.602,
+        "test_acc": 53.33
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.1,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 67.672,
+        "test_acc": 53.13
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.01,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 58.58,
+        "test_acc": 53.06
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.1,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 57.762,
+        "test_acc": 53.06
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.1,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 67.364,
+        "test_acc": 52.63
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.01,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 55.97,
+        "test_acc": 52.38
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 1.0,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 60.89,
+        "test_acc": 52.29
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.1,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 57.010000000000005,
+        "test_acc": 52.25
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.1,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 57.058,
+        "test_acc": 51.66
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.01,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 55.888000000000005,
+        "test_acc": 51.41
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.01,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 55.706,
+        "test_acc": 51.28
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.01,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 53.784,
+        "test_acc": 51.17
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 1.0,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 62.25000000000001,
+        "test_acc": 51.16
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.5,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 61.980000000000004,
+        "test_acc": 51.09
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.01,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 52.583999999999996,
+        "test_acc": 50.71
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.01,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 52.75,
+        "test_acc": 50.68
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.01,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 53.238,
+        "test_acc": 50.39
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.5,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 59.57599999999999,
+        "test_acc": 50.39
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.01,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 52.822,
+        "test_acc": 50.0
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 1.0,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 59.830000000000005,
+        "test_acc": 49.55
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.01,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 50.988,
+        "test_acc": 49.36
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.1,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 60.57599999999999,
+        "test_acc": 49.34
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.1,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 60.138000000000005,
+        "test_acc": 49.01
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.1,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 69.65,
+        "test_acc": 48.85
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.1,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 57.635999999999996,
+        "test_acc": 48.73
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.5,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 56.796,
+        "test_acc": 48.63
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.1,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 52.876,
+        "test_acc": 48.61
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.01,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 49.954,
+        "test_acc": 48.55
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 1.0,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 50.676,
+        "test_acc": 48.25
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.5,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 61.11600000000001,
+        "test_acc": 48.07
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.01,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 48.762,
+        "test_acc": 48.02
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 1.0,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 52.652,
+        "test_acc": 47.93
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.01,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 49.442,
+        "test_acc": 47.91
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.01,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 50.666,
+        "test_acc": 47.83
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.5,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 62.026,
+        "test_acc": 47.48
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.01,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 48.192,
+        "test_acc": 47.31
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 1.0,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 55.157999999999994,
+        "test_acc": 47.16
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 1.0,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 60.80799999999999,
+        "test_acc": 46.91
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.5,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 53.82599999999999,
+        "test_acc": 46.83
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.5,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 49.84,
+        "test_acc": 46.66
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.01,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 48.014,
+        "test_acc": 46.58
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.01,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 46.938,
+        "test_acc": 46.48
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.5,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 57.336,
+        "test_acc": 46.39
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.1,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 49.891999999999996,
+        "test_acc": 46.04
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.5,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 46.129999999999995,
+        "test_acc": 45.88
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.5,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 51.528,
+        "test_acc": 45.87
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 1.0,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 49.712,
+        "test_acc": 45.78
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.01,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 46.498,
+        "test_acc": 45.73
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.1,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 61.01,
+        "test_acc": 45.73
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.5,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 49.936,
+        "test_acc": 45.65
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.01,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 46.032000000000004,
+        "test_acc": 45.32
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.1,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 52.614000000000004,
+        "test_acc": 45.19
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.1,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 58.614,
+        "test_acc": 45.17
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.1,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 65.268,
+        "test_acc": 45.12
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 1.0,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 60.4,
+        "test_acc": 45.08
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.5,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 44.802,
+        "test_acc": 45.07
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.5,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 48.802,
+        "test_acc": 44.94
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 1.0,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 52.873999999999995,
+        "test_acc": 44.84
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.01,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 45.724,
+        "test_acc": 44.77
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.01,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 45.126,
+        "test_acc": 44.64
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 1.0,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 58.620000000000005,
+        "test_acc": 44.6
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.5,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 48.324,
+        "test_acc": 44.58
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.1,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 47.308,
+        "test_acc": 44.55
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.1,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 57.128,
+        "test_acc": 44.48
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.5,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 44.564,
+        "test_acc": 44.44
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.1,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 62.782000000000004,
+        "test_acc": 44.25
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.01,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 45.007999999999996,
+        "test_acc": 44.2
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 1.0,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 45.062000000000005,
+        "test_acc": 44.12
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.5,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 63.824000000000005,
+        "test_acc": 44.05
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.1,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 62.722,
+        "test_acc": 43.99
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.1,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 52.968,
+        "test_acc": 43.63
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 1.0,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 48.696,
+        "test_acc": 43.53
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.1,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 45.436,
+        "test_acc": 43.39
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 1.0,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 58.745999999999995,
+        "test_acc": 43.29
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 1.0,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 57.928000000000004,
+        "test_acc": 43.02
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.5,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 46.038000000000004,
+        "test_acc": 42.86
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 1.0,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 52.12,
+        "test_acc": 42.86
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 1.0,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 52.251999999999995,
+        "test_acc": 42.57
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.01,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 42.658,
+        "test_acc": 42.36
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 1.0,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 59.36,
+        "test_acc": 42.31
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.5,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 43.884,
+        "test_acc": 42.28
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.01,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 42.856,
+        "test_acc": 42.07
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.5,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 59.632,
+        "test_acc": 41.94
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.01,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 42.332,
+        "test_acc": 41.86
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.01,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 41.858000000000004,
+        "test_acc": 41.53
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.5,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 46.966,
+        "test_acc": 41.49
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 1.0,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 46.256,
+        "test_acc": 41.49
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.5,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 52.654,
+        "test_acc": 41.48
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 1.0,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 57.218,
+        "test_acc": 41.44
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.01,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 41.652,
+        "test_acc": 41.41
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 1.0,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 49.594,
+        "test_acc": 41.39
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.1,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 54.44,
+        "test_acc": 41.06
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 1.0,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 43.9,
+        "test_acc": 40.96
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.5,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 52.186,
+        "test_acc": 40.89
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.5,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 66.662,
+        "test_acc": 40.78
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 1.0,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 45.879999999999995,
+        "test_acc": 40.73
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 1.0,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 44.538,
+        "test_acc": 40.69
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.1,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 50.126000000000005,
+        "test_acc": 40.64
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.1,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 48.472,
+        "test_acc": 40.51
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 1.0,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 45.1,
+        "test_acc": 40.48
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 1.0,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 51.482000000000006,
+        "test_acc": 40.48
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 1.0,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 41.846,
+        "test_acc": 40.42
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.01,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 40.326,
+        "test_acc": 40.39
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 1.0,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 45.07,
+        "test_acc": 40.35
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.5,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 47.082,
+        "test_acc": 40.03
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.5,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 41.536,
+        "test_acc": 39.93
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 1.0,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 49.342000000000006,
+        "test_acc": 39.84
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.01,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 39.404,
+        "test_acc": 39.64
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.5,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 45.978,
+        "test_acc": 39.64
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 1.0,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 41.471999999999994,
+        "test_acc": 39.57
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.1,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 49.272,
+        "test_acc": 39.24
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.5,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 43.964,
+        "test_acc": 39.23
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 1.0,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 40.936,
+        "test_acc": 39.18
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.01,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 39.03,
+        "test_acc": 39.16
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.1,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 45.048,
+        "test_acc": 38.58
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.1,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 45.778,
+        "test_acc": 38.54
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.5,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 50.72,
+        "test_acc": 38.48
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.5,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 57.37799999999999,
+        "test_acc": 38.38
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.1,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 43.314,
+        "test_acc": 38.33
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.5,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 42.358000000000004,
+        "test_acc": 37.96
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 1.0,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 42.764,
+        "test_acc": 37.95
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 1.0,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 46.472,
+        "test_acc": 37.76
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.5,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 20,
+        "final_train_acc": 47.205999999999996,
+        "test_acc": 37.41
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.1,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 41.948,
+        "test_acc": 37.0
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.5,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 50,
+        "final_train_acc": 58.864000000000004,
+        "test_acc": 37.0
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.01,
+        "kernel_size": 3,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 36.004000000000005,
+        "test_acc": 36.57
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.5,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 46.256,
+        "test_acc": 36.56
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.5,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 42.446,
+        "test_acc": 35.67
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.5,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 45.68,
+        "test_acc": 35.52
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.1,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 45.896,
+        "test_acc": 35.49
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 1.0,
+        "kernel_size": 3,
+        "lr": 0.1,
+        "num_epochs": 50,
+        "final_train_acc": 56.114,
+        "test_acc": 35.46
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 1.0,
+        "kernel_size": 5,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 44.766,
+        "test_acc": 35.01
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 1.0,
+        "kernel_size": 5,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 45.629999999999995,
+        "test_acc": 34.99
+    },
+    {
+        "num_feature_maps": 64,
+        "std_dev": 0.5,
+        "kernel_size": 7,
+        "lr": 0.01,
+        "num_epochs": 10,
+        "final_train_acc": 42.708,
+        "test_acc": 34.26
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.1,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 20,
+        "final_train_acc": 49.916,
+        "test_acc": 33.7
+    },
+    {
+        "num_feature_maps": 128,
+        "std_dev": 0.1,
+        "kernel_size": 7,
+        "lr": 0.1,
+        "num_epochs": 10,
+        "final_train_acc": 45.382,
+        "test_acc": 29.75
+    }
+]
