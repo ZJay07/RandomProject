@@ -614,11 +614,11 @@ def experiment_regularization_methods(num_feature_maps=128, std_dev=0.01, kernel
         }
         results_json[model_name] = model_results
     
-    with open(os.path.join(save_path, "metrics_results.json"), 'w') as f:
+    with open(os.path.join(save_path, "metrics_results_regularasation_method.json"), 'w') as f:
         json.dump(results_json, f, indent=4)
     
     # Viz for summary of report
-    json_file_path = os.path.join(save_path, "metrics_results.json")
+    json_file_path = os.path.join(save_path, "metrics_results_regularasation_method.json")
     
     if os.path.exists(json_file_path):
         print(f"Found metrics file: {json_file_path}")

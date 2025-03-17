@@ -177,8 +177,6 @@ if __name__ == "__main__":
 
     # viz for random search with fit_elm_ls
     # visualize_model_predictions
-    best_fit_elm_ls_model = "./task2/models/best_hyperparameter_ls_model"
-    config_path = os.path.join("./task2/models", "best_hyperparameter_ls_model.json")
-    with open(config_path, 'r') as f:
-        config = json.load(f)
-    visualize_model_predictions(best_fit_elm_ls_model, config=config, save_path="./task2/montage_result/new_result.png")
+    best_fit_elm_ls_model_dir = "./task2/models/best_hyperparameter_ls_model"
+    best_fit_elm_ls_model_config_file = "./task2/models/best_hyperparameter_ls_model.pth"
+    visualize_model_predictions(best_fit_elm_ls_model_dir, best_fit_elm_ls_model_config_file, save_path="./task2/montage_result/new_result.png")
