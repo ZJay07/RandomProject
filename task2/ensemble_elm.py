@@ -16,7 +16,7 @@ class MyEnsembleELM(nn.Module):
         if num_feature_maps < 16 or num_feature_maps > 128:
             print(f"Warning: num_feature_maps={num_feature_maps} is outside the recommended range [16, 128]")
             
-        if std_dev < 0.1 or std_dev > 1.0:
+        if std_dev < 0.01 or std_dev > 1.0:
             print(f"Warning: std_dev={std_dev} is outside the recommended range [0.1, 1.0]")
 
         # set seed for reproducibility

@@ -481,75 +481,75 @@ def experiment_regularization_methods(num_feature_maps=128, std_dev=0.01, kernel
     results = {}
     
     # 1. Train a base ELM for comparison
-    # print("\n=== Training Base ELM Model ===")
-    # base_model = MyExtremeLearningMachine(
-    #     num_feature_maps=num_feature_maps,
-    #     num_classes=10,
-    #     std_dev=std_dev,
-    #     feature_size=feature_size,
-    #     kernel_size=kernel_size
-    # )
-    # base_model = base_model.to(device)
+    print("\n=== Training Base ELM Model ===")
+    base_model = MyExtremeLearningMachine(
+        num_feature_maps=num_feature_maps,
+        num_classes=10,
+        std_dev=std_dev,
+        feature_size=feature_size,
+        kernel_size=kernel_size
+    )
+    base_model = base_model.to(device)
     
-    # base_stats, base_final_metrics = fit_elm_sgd(
-    #     model=base_model,
-    #     train_loader=train_loader,
-    #     test_loader=test_loader,
-    #     lr=lr,
-    #     device=device,
-    #     num_epochs=num_epochs
-    # )
+    base_stats, base_final_metrics = fit_elm_sgd(
+        model=base_model,
+        train_loader=train_loader,
+        test_loader=test_loader,
+        lr=lr,
+        device=device,
+        num_epochs=num_epochs
+    )
     
-    # base_accuracy = evaluate(base_model, test_loader, device)
-    # print(f"Base Model Test Accuracy: {base_accuracy:.2f}%")
+    base_accuracy = evaluate(base_model, test_loader, device)
+    print(f"Base Model Test Accuracy: {base_accuracy:.2f}%")
     
-    # # Save base model
-    # base_model_path = os.path.join(save_path, "base_model.pth")
-    # torch.save(base_model.state_dict(), base_model_path)
-    # print(f"Base model saved to {base_model_path}")
-    # results['base_model'] = {
-    #     'path': base_model_path,
-    #     'epochs': base_stats['epochs'],
-    #     'test_acc': base_stats['test_acc'],
-    #     'test_f1': base_stats['test_f1'],
-    #     'final_metrics': base_final_metrics
-    # }
+    # Save base model
+    base_model_path = os.path.join(save_path, "base_model.pth")
+    torch.save(base_model.state_dict(), base_model_path)
+    print(f"Base model saved to {base_model_path}")
+    results['base_model'] = {
+        'path': base_model_path,
+        'epochs': base_stats['epochs'],
+        'test_acc': base_stats['test_acc'],
+        'test_f1': base_stats['test_f1'],
+        'final_metrics': base_final_metrics
+    }
     
-    # # 2. Train a model using only MixUp
-    # print("\n=== Training Model with MixUp ===")
-    # mixup_model = MyExtremeLearningMachine(
-    #     num_feature_maps=num_feature_maps,
-    #     num_classes=10,
-    #     std_dev=std_dev,
-    #     feature_size=feature_size,
-    #     kernel_size=kernel_size
-    # )
-    # mixup_model = mixup_model.to(device)
+    # 2. Train a model using only MixUp
+    print("\n=== Training Model with MixUp ===")
+    mixup_model = MyExtremeLearningMachine(
+        num_feature_maps=num_feature_maps,
+        num_classes=10,
+        std_dev=std_dev,
+        feature_size=feature_size,
+        kernel_size=kernel_size
+    )
+    mixup_model = mixup_model.to(device)
     
-    # mixup_stats, mixup_final_metrics = train_with_mixup(
-    #     model=mixup_model,
-    #     train_loader=train_loader,
-    #     test_loader=test_loader,
-    #     mixup=mixup,
-    #     lr=lr,
-    #     device=device,
-    #     num_epochs=num_epochs
-    # )
+    mixup_stats, mixup_final_metrics = train_with_mixup(
+        model=mixup_model,
+        train_loader=train_loader,
+        test_loader=test_loader,
+        mixup=mixup,
+        lr=lr,
+        device=device,
+        num_epochs=num_epochs
+    )
     
-    # mixup_accuracy = evaluate(mixup_model, test_loader, device)
-    # print(f"MixUp Model Test Accuracy: {mixup_accuracy:.2f}%")
+    mixup_accuracy = evaluate(mixup_model, test_loader, device)
+    print(f"MixUp Model Test Accuracy: {mixup_accuracy:.2f}%")
     
-    # # Save mixup model
-    # mixup_model_path = os.path.join(save_path, "mixup_model.pth")
-    # torch.save(mixup_model.state_dict(), mixup_model_path)
-    # print(f"MixUp model saved to {mixup_model_path}")
-    # results['mixup_model'] = {
-    #     'path': mixup_model_path,
-    #     'epochs': mixup_stats['epochs'],
-    #     'test_acc': mixup_stats['test_acc'],
-    #     'test_f1': mixup_stats['test_f1'],
-    #     'final_metrics': mixup_final_metrics
-    # }
+    # Save mixup model
+    mixup_model_path = os.path.join(save_path, "mixup_model.pth")
+    torch.save(mixup_model.state_dict(), mixup_model_path)
+    print(f"MixUp model saved to {mixup_model_path}")
+    results['mixup_model'] = {
+        'path': mixup_model_path,
+        'epochs': mixup_stats['epochs'],
+        'test_acc': mixup_stats['test_acc'],
+        'test_f1': mixup_stats['test_f1'],
+        'final_metrics': mixup_final_metrics
+    }
 
     # 3. Train a model using only Ensemble ELM
     print("\n=== Training Ensemble ELM Model ===")
@@ -557,6 +557,7 @@ def experiment_regularization_methods(num_feature_maps=128, std_dev=0.01, kernel
         seed=SEED,
         n_models=num_ensemble_models,
         num_feature_maps=num_feature_maps,
+        kernel_size=kernel_size,
         std_dev=std_dev
     )
     ensemble_model = ensemble_model.to(device)
@@ -609,6 +610,7 @@ def experiment_regularization_methods(num_feature_maps=128, std_dev=0.01, kernel
         seed=SEED,
         n_models=num_ensemble_models,
         num_feature_maps=num_feature_maps,
+        kernel_size=kernel_size,
         std_dev=std_dev
     )
     ensemble_mixup_model = ensemble_mixup_model.to(device)
