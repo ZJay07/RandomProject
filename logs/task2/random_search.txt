@@ -2880,3 +2880,217 @@ Training model 1/5
 Running fit elm ls with ridge
 Feature dimension: 19404
 Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.005229942933905357)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.7908, Train Acc: 0.9419, Test Acc: 48.52%, Test F1: 48.45%
+This fit took -218.16179943084717 to complete!
+  Ensemble accuracy after 1 models: 26.76%
+Training model 2/5
+
+Running fit elm ls with ridge
+Feature dimension: 19404
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.005229942933905357)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.7915, Train Acc: 0.9419, Test Acc: 47.84%, Test F1: 47.76%
+This fit took -212.72791266441345 to complete!
+  Ensemble accuracy after 2 models: 43.69%
+Training model 3/5
+
+Running fit elm ls with ridge
+Feature dimension: 19404
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.005229942933905357)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.7862, Train Acc: 0.9439, Test Acc: 48.61%, Test F1: 48.59%
+This fit took -216.0034101009369 to complete!
+  Ensemble accuracy after 3 models: 50.60%
+Training model 4/5
+
+Running fit elm ls with ridge
+Feature dimension: 19404
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.005229942933905357)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.7900, Train Acc: 0.9428, Test Acc: 48.00%, Test F1: 47.85%
+This fit took -214.20227146148682 to complete!
+  Ensemble accuracy after 4 models: 55.60%
+Training model 5/5
+
+Running fit elm ls with ridge
+Feature dimension: 19404
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.005229942933905357)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.7901, Train Acc: 0.9409, Test Acc: 48.56%, Test F1: 48.43%
+This fit took -214.08580255508423 to complete!
+  Ensemble accuracy after 5 models: 58.14%
+Results: Accuracy=58.14%, F1=57.93%, Time=1118.01s
+Step 29/50:
+Feature maps: 67, Std Dev: 0.2608300114047287, Kernel Size: 5, Lambda: 0.009682287345007437
+Training model 1/7
+
+Running fit elm ls with ridge
+Feature dimension: 13132
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.009682287345007437)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.8758, Train Acc: 0.8640, Test Acc: 50.48%, Test F1: 50.12%
+This fit took -96.84363985061646 to complete!
+  Ensemble accuracy after 1 models: 16.73%
+Training model 2/7
+
+Running fit elm ls with ridge
+Feature dimension: 13132
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.009682287345007437)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.8738, Train Acc: 0.8700, Test Acc: 51.37%, Test F1: 51.07%
+This fit took -98.36149668693542 to complete!
+  Ensemble accuracy after 2 models: 25.03%
+Training model 3/7
+
+Running fit elm ls with ridge
+Feature dimension: 13132
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.009682287345007437)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.8716, Train Acc: 0.8710, Test Acc: 51.01%, Test F1: 50.70%
+This fit took -99.52931332588196 to complete!
+  Ensemble accuracy after 3 models: 41.17%
+Running fit elm ls with ridge
+Feature dimension: 13132
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.009682287345007437)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.8767, Train Acc: 0.8655, Test Acc: 50.64%, Test F1: 50.41%
+This fit took -97.74508833885193 to complete!
+  Ensemble accuracy after 4 models: 47.49%
+Training model 5/7
+
+Running fit elm ls with ridge
+Feature dimension: 13132
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.009682287345007437)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.8735, Train Acc: 0.8696, Test Acc: 51.12%, Test F1: 50.74%
+This fit took -98.12208867073059 to complete!
+  Ensemble accuracy after 5 models: 52.55%
+Training model 6/7
+
+Running fit elm ls with ridge
+Feature dimension: 13132
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.009682287345007437)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.8731, Train Acc: 0.8708, Test Acc: 51.20%, Test F1: 50.89%
+This fit took -97.3383560180664 to complete!
+  Ensemble accuracy after 6 models: 55.44%
+Training model 7/7
+
+Running fit elm ls with ridge
+Feature dimension: 13132
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.009682287345007437)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
+Solving for classes 7-8/10
+Solving for classes 9-10/10
+Evaluating on training data...
+Evaluating on test data...
+LS solution - Loss: 1.8719, Train Acc: 0.8684, Test Acc: 52.68%, Test F1: 52.23%
+This fit took -97.4409818649292 to complete!
+  Ensemble accuracy after 7 models: 59.38%
+Results: Accuracy=59.38%, F1=58.96%, Time=702.82s
+New best model found! Accuracy: 59.38%
+Step 30/50:
+Feature maps: 99, Std Dev: 0.17402878604004732, Kernel Size: 5, Lambda: 0.005229942933905357
+Training model 1/5
+
+Running fit elm ls with ridge
+Feature dimension: 19404
+Accumulating H^T H and H^T T matrices...
+Adding regularization (lambda=0.005229942933905357)
+Solving linear system...
+Solving for classes 1-2/10
+Solving for classes 3-4/10
+Solving for classes 5-6/10
