@@ -672,7 +672,7 @@ def experiment_regularization_methods(
 
     if os.path.exists(json_file_path):
         print(f"Found metrics file: {json_file_path}")
-        # generate summary
+        # generate summary with helper function
         summarize_metrics(json_file_path)
     else:
         print(f"Metrics file not found: {json_file_path}")
@@ -684,20 +684,14 @@ def experiment_regularization_methods(
 
 
 if __name__ == "__main__":
-    # TODO: Reduce word count
-    print("""
-A random guess in multiclass classification means assigning labels by pure chance. With K equally probable classes, the expected accuracy is 1/K (10% for CIFAR-10). To test if a model performs better than random guessing,
-compare its accuracy to this baseline using statistical tests like chi-squared or binomial tests.
-Calculate if the observed accuracy significantly exceeds the expected random accuracy.
-For imbalanced datasets, the random baseline becomes the frequency of the most common class.
-Random guessing represents the minimum performance threshold any useful classifier must exceed.
-    """)
+    print("A random guess in multiclass classification involves assigning labels by pure chance, with equal probability across all classes. In balanced datasets with K classes, the expected accuracy is 1/K (e.g., 10% for 10 classes). For imbalanced datasets, the baseline becomes the frequency of the most common class. To test if a model performs better than random guessing, statistical tests (chi-squared, binomial) determine if the observed accuracy significantly exceeds this baseline. This represents the minimum performance threshold a useful classifier must surpass.")
     
     print("=== Hyperparameter Experimentation Without Regularisation ===")
     print("*Due to the nature of the search space, this may take awhile*")
     experiment_hyperparameters()
 
     print("=== Regularisation Methods Experimentation ===")
+    print("*pre-ran summary in 'task2/logs/summary_of_regularisation_methods.txt'*")
     experiment_regularization_methods()
     print("=== Metric justifications: ===")
     print("Accuracy provies an overall performance measure, especially useful when classes are balanced like in CIFAR-10")

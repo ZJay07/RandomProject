@@ -1,6 +1,7 @@
 import numpy as np
 import torch
 from torchvision.utils import make_grid
+from torchvision import datasets, transforms
 from PIL import Image
 
 
@@ -14,7 +15,7 @@ class MyMixUp:
     def __call__(self, x, y, device="cpu"):
         # x: input tensor Batch of images
         # y: target tensor Batch of labels
-        if device == "cuda": # for device flexibility
+        if device == "cuda":  # for device flexibility
             x = x.cuda()
             y = y.cuda()
 
@@ -95,7 +96,7 @@ class MyMixUp:
 
 
 if __name__ == "__main__":
-    from torchvision import datasets, transforms
+    print("=== Producing Mixup Visualization ===")
 
     # no normalization for clearer visualization
     transform = transforms.Compose([transforms.ToTensor()])

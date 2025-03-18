@@ -183,24 +183,3 @@ def visualize_model_predictions(
     correct = (predictions == labels).sum().item()
     accuracy = 100 * correct / num_images
     print(f"Accuracy on these {num_images} samples: {accuracy:.2f}%")
-
-
-if __name__ == "__main__":
-    # Paths to regularisation model file
-    best_regularisation_model_dir = "./task2/models/ensemble_model"
-    best_regularisation_config_file = "./task2/models/ensemble_config.pth"
-
-    # viz for best regularisation method
-    # visualize_model_predictions(best_regularisation_model_dir, best_regularisation_config_file, save_path="./task2/montage_result/result.png")
-
-    # viz for random search with fit_elm_ls
-    # Paths to best hyperparameter model file
-    best_fit_elm_ls_model_dir = "./task2/models/best_hyperparameter_ls_model"
-    best_fit_elm_ls_model_config_file = (
-        "./task2/models/best_hyperparameter_ls_model.pth"
-    )
-    visualize_model_predictions(
-        best_fit_elm_ls_model_dir,
-        best_fit_elm_ls_model_config_file,
-        save_path="./task2/montage_result/new_result.png",
-    )

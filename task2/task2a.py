@@ -574,11 +574,12 @@ if __name__ == "__main__":
         "./task2/models/best_hyperparameter_ls_model.pth"
     )
 
+    save_path="./task2/montage_result/new_result.png"
     visualize_model_predictions(
         best_fit_elm_ls_model_dir,
         best_fit_elm_ls_model_config_file,
-        save_path="./task2/montage_result/new_result.png",
+        save_path=save_path,
     )
-    print("Visualization saved to ./task2/montage_result/new_result.png")
+    print(f"Visualization saved to {save_path}")
     print("Task2a Done!")
 
