@@ -127,6 +127,10 @@ def fit_elm_ls(
             print(f"SVD approach failed: {e}")
             return None, None
 
+    # free up memory
+    HTH = None
+    HTT = None
+
     # Evaluate on training data
     model.eval()
     correct = 0
@@ -169,7 +173,6 @@ def fit_elm_ls(
     return statistics, metrics
 
 
-# TODO: Complete this, need to use best model configurations (ensemble ELM and best hyperparamters )
 def comparison_duration_sgd_and_ls(
     feature_maps,
     std_dev,
@@ -555,16 +558,23 @@ def random_search_hyperparameter_ls(
 
     return sorted_results, best_ensemble, best_config
 
+
 if __name__ == "__main__":
     print("=== Trying with best parameters from previous experiments ===")
-    print("Configs: feature_maps = 128, std_dev = 0.01, kernel_size=7, lr = 0.1, epoch=50")
+    print(
+        "Configs: feature_maps = 128, std_dev = 0.01, kernel_size=7, lr = 0.1, epoch=50"
+    )
 
     # Comparing duration fit_lm with fit_sgd
     print("\nComparing training duration for SGD and LS...")
-    comparison_duration_sgd_and_ls(feature_maps = 128, std_dev = 0.01, kernel_size=7, lr = 0.1, epoch=50)
+    comparison_duration_sgd_and_ls(
+        feature_maps=128, std_dev=0.01, kernel_size=7, lr=0.1, epoch=50
+    )
 
     print("=== Preparing to run random search for hyperparameters... ===")
-    print("**This will take a while to complete due to the large search space and num_steps**")
+    print(
+        "**This will take a while to complete due to the large search space and num_steps**"
+    )
     train_loader, test_loader = load_cifar10(batch_size=128)
     random_search_hyperparameter_ls(train_loader=train_loader, test_loader=test_loader)
 
@@ -574,7 +584,7 @@ if __name__ == "__main__":
         "./task2/models/best_hyperparameter_ls_model.pth"
     )
 
-    save_path="./task2/montage_result/new_result.png"
+    save_path = "./task2/montage_result/new_result.png"
     visualize_model_predictions(
         best_fit_elm_ls_model_dir,
         best_fit_elm_ls_model_config_file,
@@ -582,4 +592,3 @@ if __name__ == "__main__":
     )
     print(f"Visualization saved to {save_path}")
     print("Task2a Done!")
-
