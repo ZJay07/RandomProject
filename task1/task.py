@@ -7,14 +7,12 @@ from math import comb, sqrt
 def get_exp_combinations(D, M):
     # returns the list of all possible combinations of exponents for the polynomial features
     if D == 1:
-        return [
-            (M,)
-        ]  # base case: return only the highest order for the single variable
+        # base case: return only the highest order for the single variable
+        return [(M,)]
     exp = []
     for i in range(M + 1):
-        for j in get_exp_combinations(
-            D - 1, M - i
-        ):  # return all possible combinations for the remaining variables
+        for j in get_exp_combinations(D - 1, M - i):
+            # return all possible combinations for the remaining variables
             exp.append((i,) + j)
     return exp
 
