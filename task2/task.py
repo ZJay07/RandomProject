@@ -1,33 +1,30 @@
-"""
-A random guess in multiclass classification means assigning labels by pure chance. With K equally probable classes, the expected accuracy is 1/K (10% for CIFAR-10). To test if a model performs better than random guessing,
-compare its accuracy to this baseline using statistical tests like chi-squared or binomial tests.
-Calculate if the observed accuracy significantly exceeds the expected random accuracy.
-For imbalanced datasets, the random baseline becomes the frequency of the most common class.
-Random guessing represents the minimum performance threshold any useful classifier must exceed.
-"""
-
 import json
-import torch
-import torch.nn as nn
-import torch.optim as optim
-from torchvision import datasets, transforms
-from torch.utils.data import DataLoader
-import numpy as np
 import os
 import sys
 
+import numpy as np
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from torch.utils.data import DataLoader
+from torchvision import datasets, transforms
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from task2.mix_up import MyMixUp
+
 from task2.ensemble_elm import MyEnsembleELM
+from task2.metrics_and_visualisation import (
+    compute_f1_score,
+    evaluate_metrics,
+    summarize_metrics,
+)
+from task2.mix_up import MyMixUp
+from task2.montage import visualize_model_predictions
 from task2.my_elm import MyExtremeLearningMachine, fit_elm_sgd
-from task2.metrics import evaluate_metrics, compute_f1_score
-from task2.summary_visulisation import summarize_metrics
 
 # Set random seed for reproducibility
 SEED = 42
 torch.manual_seed(SEED)
 np.random.seed(SEED)
-# NUM_ENSEMBLE_MODELS = 10
 
 
 # CIFAR-10 Data Loading
@@ -687,14 +684,29 @@ def experiment_regularization_methods(
 
 
 if __name__ == "__main__":
-    # Run focused experiment (faster)
-    # focused_results = focused_experiment()
-    experiment_regularization_methods()
-    # print("Accuracy provies an overall performance measure, especially useful when classes are balanced like in CIFAR-10")
-    # print("Macro-F1 score balances precision and recall across all classes, detecting if certain classes are more challenging to classify regardless of their frequency.")
-    # full_results = experiment_hyperparameters()
-    # Paths to model files
-    # model_dir = "./models/ensemble_model"
-    # config_file = "./models/ensemble_config.pth"
+    print("""
+A random guess in multiclass classification means assigning labels by pure chance. With K equally probable classes, the expected accuracy is 1/K (10% for CIFAR-10). To test if a model performs better than random guessing,
+compare its accuracy to this baseline using statistical tests like chi-squared or binomial tests.
+Calculate if the observed accuracy significantly exceeds the expected random accuracy.
+For imbalanced datasets, the random baseline becomes the frequency of the most common class.
+Random guessing represents the minimum performance threshold any useful classifier must exceed.
+    """)
+    
+    print("Hyperparameter Experimentation Without Regularisation")
+    experiment_hyperparameters()
 
-    # visualize_model_predictions(model_dir, config_file)
+    print("Regularisation Methods Experimentation")
+    experiment_regularization_methods()
+    print("Metric justifications:")
+    print("Accuracy provies an overall performance measure, especially useful when classes are balanced like in CIFAR-10")
+    print("Macro-F1 score balances precision and recall across all classes, detecting if certain classes are more challenging to classify regardless of their frequency.")
+    
+    
+    # Paths to regularisation model file
+    best_regularisation_model_dir = "./task2/models/ensemble_model"
+    best_regularisation_config_file = "./task2/models/ensemble_config.pth"
+
+    # viz for best regularisation method
+    save_path = "./task2/montage_result/result.png"
+    visualize_model_predictions(best_regularisation_model_dir, best_regularisation_config_file, save_path=save_path)
+    print(f"Visualisation saved to {save_path}")

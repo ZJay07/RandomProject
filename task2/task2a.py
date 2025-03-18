@@ -1,18 +1,21 @@
+import os
+import sys
+import time
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import time
-import sys
-import os
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from task2.metrics import evaluate_metrics
-from task2.task import load_cifar10
-from task2.ensemble_elm import MyEnsembleELM
-from task2.my_elm import fit_elm_sgd
-import numpy as np
 import json
 
+import numpy as np
+
+from task2.ensemble_elm import MyEnsembleELM
+from task2.metrics_and_visualisation import convert_numpy_types, evaluate_metrics
+from task2.montage import visualize_model_predictions
+from task2.my_elm import fit_elm_sgd
+from task2.task import load_cifar10
 
 SEED = 42
 
@@ -552,29 +555,30 @@ def random_search_hyperparameter_ls(
 
     return sorted_results, best_ensemble, best_config
 
-
-def convert_numpy_types(obj):
-    """Convert numpy types to Python native types for JSON serialization"""
-    if isinstance(obj, dict):
-        return {k: convert_numpy_types(v) for k, v in obj.items()}
-    elif isinstance(obj, list):
-        return [convert_numpy_types(item) for item in obj]
-    elif isinstance(obj, np.integer):
-        return int(obj)
-    elif isinstance(obj, np.floating):
-        return float(obj)
-    elif isinstance(obj, np.ndarray):
-        return obj.tolist()
-    else:
-        return obj
-
-
 if __name__ == "__main__":
-    print("Comparing training duration for SGD and LS...")
-    print("Trying with best parameters from previous experiments")
+    print("=== Trying with best parameters from previous experiments ===")
+    print("Configs: feature_maps = 128, std_dev = 0.01, kernel_size=7, lr = 0.1, epoch=50")
+
     # Comparing duration fit_lm with fit_sgd
-    # comparison_duration_sgd_and_ls(feature_maps = 128, std_dev = 0.01, kernel_size=7, lr = 0.1, epoch=50)
+    print("\nComparing training duration for SGD and LS...")
+    comparison_duration_sgd_and_ls(feature_maps = 128, std_dev = 0.01, kernel_size=7, lr = 0.1, epoch=50)
 
     print("Preparing to run random search for hyperparameters...")
-    # Comment out if not required, takes awhile to complete
-    # random_search_hyperparameter_ls(train_loader=train_loader, test_loader=test_loader)
+    print("**This will take a while to complete due to the large search space and num_steps**")
+    train_loader, test_loader = load_cifar10(batch_size=128)
+    random_search_hyperparameter_ls(train_loader=train_loader, test_loader=test_loader)
+
+    print("Producing best fit_elm_ls results for visualization...")
+    best_fit_elm_ls_model_dir = "./task2/models/best_hyperparameter_ls_model"
+    best_fit_elm_ls_model_config_file = (
+        "./task2/models/best_hyperparameter_ls_model.pth"
+    )
+
+    visualize_model_predictions(
+        best_fit_elm_ls_model_dir,
+        best_fit_elm_ls_model_config_file,
+        save_path="./task2/montage_result/new_result.png",
+    )
+    print("Visualization saved to ./task2/montage_result/new_result.png")
+    print("Task2a Done!")
+
