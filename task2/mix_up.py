@@ -109,5 +109,7 @@ if __name__ == "__main__":
     # Create MixUp instance and visualize
     mixup = MyMixUp(alpha=1.0, seed=42)
 
+    save_path = "./task2/mixup.png"
     # Create grid visualization
-    mixup.visualize_mixup_grid(train_dataset, num_samples=16, save_path="mixup.png")
+    mixup.visualize_mixup_grid(train_dataset, num_samples=16, save_path=save_path)
+    print(f"Saved visualization to {save_path}")
