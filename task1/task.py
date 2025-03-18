@@ -141,6 +141,21 @@ def generate_sample(w, M, D):
     return x, t
 
 
+def compute_accuracy(predictions, ground_truth):
+    """Threshold predictions at 0.5 and compute accuracy"""
+    preds = (predictions >= 0.5).float()
+    return (preds == ground_truth).float().mean().item()
+
+
+def compute_true_labels(x_data, w_true, M_true):
+    """Compute true labels using the underlying true model (without noise)"""
+    labels = []
+    for x in x_data:
+        y = logistic_fun(w_true, M_true, x)
+        labels.append(1.0 if y.item() >= 0.5 else 0.0)
+    return torch.tensor(labels, dtype=torch.float32)
+
+
 def main():
     # setting the seed for reproducibility
     torch.manual_seed(42)
@@ -161,32 +176,30 @@ def main():
     # Generate 200 training samples
     N_train = 200
     train_samples = [generate_sample(W, M, D) for _ in range(N_train)]
-    x_train = torch.stack([s[0] for s in train_samples])  # shape: (200, D)
-    t_train = torch.tensor(
-        [s[1] for s in train_samples], dtype=torch.float32
-    ) 
+    x_train = torch.stack([s[0] for s in train_samples])
+    t_train = torch.tensor([s[1] for s in train_samples], dtype=torch.float32)
 
     # Generate 100 test samples:
     N_test = 100
     test_samples = [generate_sample(W, M, D) for _ in range(N_test)]
-    x_test = torch.stack([s[0] for s in test_samples])  # shape: (100, D)
-    t_test = torch.tensor(
-        [s[1] for s in test_samples], dtype=torch.float32
-    )
+    x_test = torch.stack([s[0] for s in test_samples])
 
-    print("Training set x_train shape:", x_train.shape)
-    print("Training set t_train shape:", t_train.shape)
-    print("Test set x_test shape:", x_test.shape)
-    print("Test set t_test shape:", t_test.shape)
+    # Generating the true labels for the training set
+    true_train = compute_true_labels(x_train, W, 2)
+    true_test = compute_true_labels(x_test, W, 2)
+    observed_acc_train = compute_accuracy(t_train, true_train)
 
-    # --- Optimization and Prediction for Different M Values with cross entropy and root mean square---
+    # The observed training data compared to the true classes
+    print("Observed training data accuracy: {:.2f}%".format(observed_acc_train * 100))
+
+    # Optimization and Prediction for Different M Values with cross entropy and root mean square
     loss_fns = [MyCrossEntropy(), MyRootMeanSquare()]
 
     for loss_fn in loss_fns:
-        print("\n --------------------------------------------------")
+        print("\n==================================================")
         print(f"Using loss function: {loss_fn.__class__.__name__}")
         for M_val in [1, 2, 3]:
-            print("--------------------------------------------------")
+            print("\n==================================================")
             print(f"Training with polynomial order M = {M_val}")
             w = fit_logistic_sgd(x_train, t_train, M_val, loss_fn)
             print("Optimized weight vector (first 5 elements):", w[:5])
@@ -197,35 +210,30 @@ def main():
             y_test_hat = torch.stack([logistic_fun(w, M_val, x) for x in x_test])
 
             # Compute accuracy using the underlying true labels.
-            true_train = compute_true_labels(x_train, W, 2)
             model_acc_train = compute_accuracy(y_train_hat, true_train)
-            observed_acc_train = compute_accuracy(t_train, true_train)
+            model_acc_test = compute_accuracy(y_test_hat, true_test)
 
-            print("Train predictions (first 10):", y_train_hat[:10])
-            print("Test predictions (first 10):", y_test_hat[:10])
-            print("Other metric appropriate for classificationn task: Accuracy")
-            print("Accuracy measures the proportion of correct predictions. It is intuitive, widely used for classification tasks, and effectively evaluates how well our logistic regression model assigns binary labels.")
-            print("\n --------------------------------------------------")
-            print("Accuracy analysis:")
+            print("\nAccuracy analysis:")
             # The model predictions compared to true classes
-            print("Model prediction accuracy on training set: {:.2f}%".format(model_acc_train * 100))
-            # The observed training data compared to the true classes
-            print("Observed training data accuracy: {:.2f}%".format(observed_acc_train * 100))
-            print("Comment: Model accuracy indicates how well the fitted model recovers the true classes, while observed accuracy shows the impact of label noise on training labels. A large gap suggests significant noise.")
-    
+            print(
+                "Model prediction accuracy on training set: {:.2f}%".format(
+                    model_acc_train * 100
+                )
+            )
+            print(
+                "Model prediction accuracy on test set: {:.2f}%".format(
+                    model_acc_test * 100
+                )
+            )
 
-def compute_accuracy(predictions, ground_truth):
-    """Threshold predictions at 0.5 and compute accuracy"""
-    preds = (predictions >= 0.5).float()
-    return (preds == ground_truth).float().mean().item()
-
-def compute_true_labels(x_data, w_true, M_true):
-    """Compute true labels using the underlying true model (without noise)"""
-    labels = []
-    for x in x_data:
-        y = logistic_fun(w_true, M_true, x)
-        labels.append(1.0 if y.item() >= 0.5 else 0.0)
-    return torch.tensor(labels, dtype=torch.float32)
 
 if __name__ == "__main__":
+    print("Other metric appropriate for classificationn task: Accuracy")
+    print(
+        "Accuracy measures the proportion of correct predictions. It is intuitive, widely used for classification tasks, and effectively evaluates how well our logistic regression model assigns binary labels."
+    )
+    print("=== Task 1 ===")
     main()
+    print(
+        "Comment: Accuracy from model predictions shows how well the fitted model recovers the true classes, while accuracy on observed training data reveals the effect of label noise. A significant gap between them indicates that noise substantially distorts the observed labels compared to the true underlying classes."
+    )

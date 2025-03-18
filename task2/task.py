@@ -684,6 +684,7 @@ def experiment_regularization_methods(
 
 
 if __name__ == "__main__":
+    # TODO: Reduce word count
     print("""
 A random guess in multiclass classification means assigning labels by pure chance. With K equally probable classes, the expected accuracy is 1/K (10% for CIFAR-10). To test if a model performs better than random guessing,
 compare its accuracy to this baseline using statistical tests like chi-squared or binomial tests.
@@ -692,12 +693,13 @@ For imbalanced datasets, the random baseline becomes the frequency of the most c
 Random guessing represents the minimum performance threshold any useful classifier must exceed.
     """)
     
-    print("Hyperparameter Experimentation Without Regularisation")
+    print("=== Hyperparameter Experimentation Without Regularisation ===")
+    print("*Due to the nature of the search space, this may take awhile*")
     experiment_hyperparameters()
 
-    print("Regularisation Methods Experimentation")
+    print("=== Regularisation Methods Experimentation ===")
     experiment_regularization_methods()
-    print("Metric justifications:")
+    print("=== Metric justifications: ===")
     print("Accuracy provies an overall performance measure, especially useful when classes are balanced like in CIFAR-10")
     print("Macro-F1 score balances precision and recall across all classes, detecting if certain classes are more challenging to classify regardless of their frequency.")
     

@@ -563,12 +563,12 @@ if __name__ == "__main__":
     print("\nComparing training duration for SGD and LS...")
     comparison_duration_sgd_and_ls(feature_maps = 128, std_dev = 0.01, kernel_size=7, lr = 0.1, epoch=50)
 
-    print("Preparing to run random search for hyperparameters...")
+    print("=== Preparing to run random search for hyperparameters... ===")
     print("**This will take a while to complete due to the large search space and num_steps**")
     train_loader, test_loader = load_cifar10(batch_size=128)
     random_search_hyperparameter_ls(train_loader=train_loader, test_loader=test_loader)
 
-    print("Producing best fit_elm_ls results for visualization...")
+    print("=== Producing best fit_elm_ls results for visualization... ===")
     best_fit_elm_ls_model_dir = "./task2/models/best_hyperparameter_ls_model"
     best_fit_elm_ls_model_config_file = (
         "./task2/models/best_hyperparameter_ls_model.pth"
