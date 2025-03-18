@@ -36,7 +36,7 @@ class MyEnsembleELM(nn.Module):
                 f"Warning: std_dev={std_dev} is outside the recommended range [0.01, 1.0]"
             )
 
-        # set seed for reproducibility
+        # set global seed for reproducibility
         self.seed = seed
         np.random.seed(seed)
         torch.manual_seed(seed)
@@ -45,7 +45,7 @@ class MyEnsembleELM(nn.Module):
         self.n_models = n_models
 
         for i in range(n_models):
-            # set seed
+            # set seed for each model, if reproduce=False, then random seed
             if reproduce:
                 model_seed = seed + i
                 torch.manual_seed(model_seed)
@@ -75,7 +75,7 @@ class MyEnsembleELM(nn.Module):
             self.models.append(model)
 
     def to(self, device):
-        """Move all models to specified device"""
+        """Custom move to move all models to specified device"""
         for model in self.models:
             model.to(device)
         return self
@@ -111,7 +111,7 @@ class MyEnsembleELM(nn.Module):
             for model in self.models:
                 model.eval()
             return
-        # change device maybe?
+
         self.to(device)
         correct = 0
         total = 0

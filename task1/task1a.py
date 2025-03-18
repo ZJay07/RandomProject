@@ -23,7 +23,6 @@ class FlexibleLogisticModel(nn.Module):
         self.w = nn.Parameter(torch.randn(self.total_features))
         
         # Learnable scalar for each polynomial order
-        # Initialize with decreasing importance for higher orders
         init_alphas = torch.ones(M_max+1)
         for m in range(1, M_max+1):
             init_alphas[m] = 1.0 / (2**m)  # Prior favoring lower orders
@@ -58,7 +57,7 @@ class FlexibleLogisticModel(nn.Module):
 
     def get_effective_M(self):
         """Return the highest polynomial order with significant weight"""
-        threshold = 0.1  # You can adjust this threshold
+        threshold = 0.1
         max_order = 0
         for m in range(self.M_max, -1, -1):
             if abs(self.alphas[m].item()) > threshold:
@@ -71,7 +70,7 @@ def experiment_with_learnable_M(x_train, t_train, x_test, t_test, W_true, M_true
     print("\n=== Experiment: Making M a Learnable Parameter ===")
     
     # Parameters
-    M_max = 5  # Maximum polynomial order to consider
+    M_max = 5
     model = FlexibleLogisticModel(D, M_max)
     loss_fn = MyCrossEntropy()
     optimizer = optim.SGD(model.parameters(), lr=0.01)
@@ -81,10 +80,8 @@ def experiment_with_learnable_M(x_train, t_train, x_test, t_test, W_true, M_true
     batch_size = 32
     N_train = len(x_train)
     
-    # Training loop
     for epoch in range(epochs):
-        # Shuffle data
-        perm = torch.randperm(N_train)
+        perm = torch.randperm(N_train) # Shuffle data
         x_shuffled = x_train[perm]
         t_shuffled = t_train[perm]
         
@@ -100,16 +97,13 @@ def experiment_with_learnable_M(x_train, t_train, x_test, t_test, W_true, M_true
             optimizer.zero_grad()
             y_preds = torch.stack([model(x) for x in x_batch])
             
-            # Compute loss
             loss = loss_fn(y_preds, t_batch)
             total_loss += loss.item()
             num_batches += 1
             
-            # Backward pass and optimize
             loss.backward()
             optimizer.step()
         
-        # Print progress
         if epoch % 20 == 0 or epoch == epochs - 1:
             avg_loss = total_loss / num_batches
             print(f"Epoch {epoch}, Loss: {avg_loss:.6f}")
@@ -117,9 +111,6 @@ def experiment_with_learnable_M(x_train, t_train, x_test, t_test, W_true, M_true
     
     # Get the effective polynomial order
     effective_M = model.get_effective_M()
-    print(f"\nTraining complete!")
-    print(f"Learned order weights (alphas): {model.alphas.data}")
-    print(f"Effective polynomial order M: {effective_M}")
     
     # Compute metrics
     y_train_preds = torch.stack([model(x) for x in x_train])
@@ -132,14 +123,17 @@ def experiment_with_learnable_M(x_train, t_train, x_test, t_test, W_true, M_true
     train_acc = compute_accuracy(y_train_preds, true_train)
     test_acc = compute_accuracy(y_test_preds, true_test)
     
+    # reporting the effective polynomial order and associated metric values 
+    print("\nTraining complete!")
+    print(f"Learned order weights (alphas): {model.alphas.data}")
+    print(f"Effective polynomial order M: {effective_M}")
     print(f"Model prediction accuracy on training set: {train_acc * 100:.2f}%")
     print(f"Model prediction accuracy on test set: {test_acc * 100:.2f}%")
-    
+
     return effective_M, train_acc, test_acc, model.alphas.data.tolist()
 
-# To use the code in task.py:
 if __name__ == "__main__":
-    # Setup and data generation (reusing code from task.py)
+    # Set random seed for reproducibility
     torch.manual_seed(42)
     M_data = 2
     D = 5

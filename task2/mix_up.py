@@ -14,7 +14,7 @@ class MyMixUp:
     def __call__(self, x, y, device="cpu"):
         # x: input tensor Batch of images
         # y: target tensor Batch of labels
-        if device == "cuda":
+        if device == "cuda": # for device flexibility
             x = x.cuda()
             y = y.cuda()
 
@@ -36,9 +36,8 @@ class MyMixUp:
     def visualize_mixup_grid(
         self, dataset, num_samples=16, save_path="mixup.png", seed=42
     ):
-        """
-        Visualize a grid of MixUp augmented images
-        """
+        """Visualize a grid of MixUp augmented images, creates mixup.png to see mixup results"""
+
         # Set random seed for reproducibility
         np.random.seed(seed)
 
@@ -98,7 +97,7 @@ class MyMixUp:
 if __name__ == "__main__":
     from torchvision import datasets, transforms
 
-    # Define transformation - no normalization for clearer visualization
+    # no normalization for clearer visualization
     transform = transforms.Compose([transforms.ToTensor()])
 
     # Load dataset

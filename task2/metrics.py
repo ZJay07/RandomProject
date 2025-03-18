@@ -2,6 +2,7 @@ import torch
 
 
 def compute_confusion_matrix(targets, predictions, num_classes=10):
+    """Helper function to compute confusion matrix"""
     if isinstance(targets, list):
         targets = torch.tensor(targets)
     if isinstance(predictions, list):
@@ -18,9 +19,8 @@ def compute_confusion_matrix(targets, predictions, num_classes=10):
 
 
 def compute_f1_score(targets, predictions, num_classes=10, average="macro"):
-    """
-    Compute F1 score
-    """
+    """Compute F1 score"""
+
     if isinstance(targets, list):
         targets = torch.tensor(targets)
     if isinstance(predictions, list):
@@ -49,9 +49,8 @@ def compute_f1_score(targets, predictions, num_classes=10, average="macro"):
 
 
 def evaluate_metrics(model, test_loader, device, num_classes=10):
-    """
-    Eval model performance with multiple metrics
-    """
+    """Eval model performance with multiple metrics"""
+
     model.eval()
     all_preds = []
     all_targets = []

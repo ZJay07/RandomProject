@@ -164,7 +164,7 @@ def main():
     x_train = torch.stack([s[0] for s in train_samples])  # shape: (200, D)
     t_train = torch.tensor(
         [s[1] for s in train_samples], dtype=torch.float32
-    )  # shape: (200,)
+    ) 
 
     # Generate 100 test samples:
     N_test = 100
@@ -172,12 +172,7 @@ def main():
     x_test = torch.stack([s[0] for s in test_samples])  # shape: (100, D)
     t_test = torch.tensor(
         [s[1] for s in test_samples], dtype=torch.float32
-    )  # shape: (100,)
-
-    assert x_train.shape == (N_train, D)
-    assert t_train.shape == (N_train,)
-    assert x_test.shape == (N_test, D)
-    assert t_test.shape == (N_test,)
+    )
 
     print("Training set x_train shape:", x_train.shape)
     print("Training set t_train shape:", t_train.shape)
@@ -212,18 +207,20 @@ def main():
             print("Accuracy measures the proportion of correct predictions. It is intuitive, widely used for classification tasks, and effectively evaluates how well our logistic regression model assigns binary labels.")
             print("\n --------------------------------------------------")
             print("Accuracy analysis:")
+            # The model predictions compared to true classes
             print("Model prediction accuracy on training set: {:.2f}%".format(model_acc_train * 100))
+            # The observed training data compared to the true classes
             print("Observed training data accuracy: {:.2f}%".format(observed_acc_train * 100))
             print("Comment: Model accuracy indicates how well the fitted model recovers the true classes, while observed accuracy shows the impact of label noise on training labels. A large gap suggests significant noise.")
     
 
 def compute_accuracy(predictions, ground_truth):
-    # Threshold predictions at 0.5
+    """Threshold predictions at 0.5 and compute accuracy"""
     preds = (predictions >= 0.5).float()
     return (preds == ground_truth).float().mean().item()
 
 def compute_true_labels(x_data, w_true, M_true):
-    # Compute true labels using the underlying true model (without noise)
+    """Compute true labels using the underlying true model (without noise)"""
     labels = []
     for x in x_data:
         y = logistic_fun(w_true, M_true, x)

@@ -21,10 +21,9 @@ def visualize_model_predictions(
     save_path="result.png",
     num_images=36,
 ):
-    """
-    viz method for ensemble model with annotations
-    """
-    # Force CPU for consistency
+    """viz method for ensemble model with annotations"""
+
+    # default is cpu, can be changed to cuda if available
     device = torch.device("cpu")
     print(f"Using device: {device}")
 
@@ -58,7 +57,7 @@ def visualize_model_predictions(
         # Load ensemble configuration
         config = torch.load(config_path, map_location=device)
 
-    # Create ensemble model
+    # Create ensemble model with specified configs
     ensemble_model = MyEnsembleELM(
         seed=config.get("seed", 42),
         n_models=config["n_models"],
@@ -71,11 +70,11 @@ def visualize_model_predictions(
     # Load model weights
     for i in range(config["n_models"]):
         model_file = os.path.join(model_path, f"model_{i}.pth")
-        # Ensure all weights are loaded to CPU
+        # Ensure all weights are loaded to device
         state_dict = torch.load(model_file, map_location=device)
         ensemble_model.models[i].load_state_dict(state_dict)
 
-    # Make sure all models are in eval mode
+    # make all models eval
     for model in ensemble_model.models:
         model.eval()
 
@@ -187,7 +186,7 @@ def visualize_model_predictions(
 
 
 if __name__ == "__main__":
-    # Paths to model files
+    # Paths to regularisation model file
     best_regularisation_model_dir = "./task2/models/ensemble_model"
     best_regularisation_config_file = "./task2/models/ensemble_config.pth"
 
@@ -195,7 +194,7 @@ if __name__ == "__main__":
     # visualize_model_predictions(best_regularisation_model_dir, best_regularisation_config_file, save_path="./task2/montage_result/result.png")
 
     # viz for random search with fit_elm_ls
-    # visualize_model_predictions
+    # Paths to best hyperparameter model file
     best_fit_elm_ls_model_dir = "./task2/models/best_hyperparameter_ls_model"
     best_fit_elm_ls_model_config_file = (
         "./task2/models/best_hyperparameter_ls_model.pth"
