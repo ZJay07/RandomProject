@@ -22,7 +22,27 @@ def visualize_model_predictions(
     num_images=36,
     device="cpu",
 ):
-    """viz method for ensemble model with annotations"""
+    """
+    Create a visualization grid showing model predictions on test images.
+    
+    This function loads an ensemble model, runs predictions on a sample of test images,
+    and creates an annotated grid showing the true and predicted labels for each image.
+    The grid is saved as an image file.
+    
+    Args:
+        model_path (str): Path to the directory containing model weight files
+        config_path (str, optional): Path to the model configuration file. Required if config is None.
+                                    Defaults to None.
+        config (dict, optional): Dictionary containing model configuration. Required if config_path is None.
+                                Defaults to None.
+        pooling (bool, optional): Whether to use pooling in the model. Defaults to False.
+        save_path (str, optional): Path to save the visualization image. Defaults to "result.png".
+        num_images (int, optional): Number of images to include in the visualization. Defaults to 36.
+        
+    Returns:
+        None: The function saves the visualization to disk but does not return any value
+              It also prints the accuracy on the visualized samples.
+    """
 
     # default is cpu, can be changed to cuda if available
     device = torch.device(device)

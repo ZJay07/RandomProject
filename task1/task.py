@@ -5,7 +5,17 @@ from math import comb, sqrt
 
 ## helper function for logistic_fun
 def get_exp_combinations(D, M):
-    # returns the list of all possible combinations of exponents for the polynomial features
+    """
+    Returns all possible combinations of exponents for polynomial features.
+    
+    Args:
+        D (int): Number of dimensions/variables
+        M (int): Maximum polynomial degree/order
+        
+    Returns:
+        list: List of tuples, where each tuple contains D integers representing 
+             exponent combinations that sum to at most M
+    """
     if D == 1:
         # base case: return only the highest order for the single variable
         return [(M,)]
@@ -18,7 +28,17 @@ def get_exp_combinations(D, M):
 
 
 def polynomial_features(x, M):
-    # returns the polynomial features of x
+    """
+    Computes polynomial features of input tensor up to degree M.
+    
+    Args:
+        x (torch.Tensor): Input tensor of shape (D,) where D is the number of dimensions.
+        M (int): Maximum polynomial degree.
+        
+    Returns:
+        torch.Tensor: Tensor of polynomial features with shape (N,) where N is the
+                      number of polynomial terms up to degree M.
+    """
     D = x.shape[0]
 
     all_exp = []
@@ -36,6 +56,17 @@ def polynomial_features(x, M):
 
 
 def logistic_fun(w, M, x):
+    """
+    Applies logistic function using polynomial features.
+    
+    Args:
+        w (torch.Tensor): Weight vector of shape (p,) where p is the number of polynomial features
+        M (int): Polynomial order/degree
+        x (torch.Tensor): Input data of shape (D,) where D is the number of dimensions
+        
+    Returns:
+        torch.Tensor: Probability value (sigmoid output) as a scalar tensor
+    """
     # Dimension means num variables, M is the polynomial order
     f = polynomial_features(x, M)
     f = w @ f
@@ -46,8 +77,24 @@ def logistic_fun(w, M, x):
 
 ## Loss functions
 class MyCrossEntropy:
-    # optinal param: epsilon for stability
+    """
+    Implements cross-entropy loss for binary classification.
+    
+    The loss is calculated as:
+    L = -mean(y_true * log(y_pred) + (1 - y_true) * log(1 - y_pred))
+    """
     def __call__(self, y_pred, y_true, epsilon=1e-7):
+        """
+        Compute cross-entropy loss between predictions and targets.
+        
+        Args:
+            y_pred (torch.Tensor): Predicted probabilities, shape (batch_size,)
+            y_true (torch.Tensor): Target values (0 or 1), shape (batch_size,)
+            epsilon (float, optional): Small constant for numerical stability. Default: 1e-7
+            
+        Returns:
+            torch.Tensor: Scalar tensor containing the mean cross-entropy loss
+        """
         # prevent log(0) by clipping the values
         y_pred = torch.clamp(y_pred, epsilon, 1 - epsilon)
         # cross-entropy loss
@@ -58,8 +105,22 @@ class MyCrossEntropy:
 
 
 class MyRootMeanSquare:
-    # compute the root-mean-square error between predicted class probabilities and targets.
+    """
+    Computes root mean square error between predictions and targets.
+    
+    The loss is calculated as sqrt(mean((y_pred - y_true)²))
+    """
     def __call__(self, y_pred, y_true):
+        """
+        Compute root mean square error between predictions and targets.
+        
+        Args:
+            y_pred (torch.Tensor): Predicted probabilities, shape (batch_size,)
+            y_true (torch.Tensor): Target values (0 or 1), shape (batch_size,)
+            
+        Returns:
+            torch.Tensor: Scalar tensor containing the root mean square error
+        """
         # square error
         squared_error = torch.square(y_pred - y_true)
         # mean square error
@@ -73,9 +134,20 @@ def fit_logistic_sgd(
     x_train, t_train, M, loss_fn, learning_rate=0.001, minibatch_size=32, epochs=100
 ):
     """
-    compute the optimum weight vector W~ using the training set, by
-    minimising the cross-entropy loss. Considering three hyperparameter values, M ele of {1,2,3}, for
-    each M, compute the predicted target values y~ for all x in both the training and test sets.
+    Computes the optimum weight vector using stochastic gradient descent by minimizing the specified loss function.
+    
+    Args:
+        x_train (torch.Tensor): Training features of shape (N, D) where N is the number of samples 
+                               and D is the number of dimensions
+        t_train (torch.Tensor): Training targets of shape (N,) with values 0 or 1
+        M (int): Polynomial order for feature expansion
+        loss_fn (callable): Loss function to minimize (e.g., MyCrossEntropy or MyRootMeanSquare)
+        learning_rate (float, optional): Learning rate for SGD. Defaults to 0.001.
+        minibatch_size (int, optional): Size of mini-batches for SGD. Defaults to 32.
+        epochs (int, optional): Number of training epochs. Defaults to 100.
+        
+    Returns:
+        torch.Tensor: Optimized weight vector w of shape (p,) where p is the number of polynomial features
     """
     N, D = x_train.shape
     # using combination formula to calculate the number of polynomial terms
@@ -118,11 +190,18 @@ def fit_logistic_sgd(
 
 def generate_sample(w, M, D):
     """
-    Generate one (x, t) pair.
-
-    x is uniformly sampled from [-5, 5]^D.
-    y is computed using logistic_fun(w, M, x).
-    Then a random Gaussian noise (std=1.0) is added to y and thresholded at 0.5 to produce t.
+    Generate one (x, t) pair of input features and target.
+    
+    Args:
+        w (torch.Tensor): Weight vector of shape (p,) where p is the number of polynomial features
+        M (int): Polynomial order/degree
+        D (int): Number of dimensions for the feature vector
+    
+    Returns:
+        tuple: A pair (x, t) where:
+            - x (torch.Tensor): Randomly sampled feature vector of shape (D,)
+            - t (float): Binary target (0.0 or 1.0) generated by adding noise to the logistic function 
+                        output and thresholding at 0.5
     """
     # Sample x uniformly from [-5, 5]^D:
     x = torch.empty(D).uniform_(-5.0, 5.0)
@@ -141,13 +220,34 @@ def generate_sample(w, M, D):
 
 ## helper functions for main()
 def compute_accuracy(predictions, ground_truth):
-    """Threshold predictions at 0.5 and compute accuracy"""
+    """
+    Threshold predictions at 0.5 and compute accuracy.
+    
+    Args:
+        predictions (torch.Tensor): Predicted probabilities, shape (batch_size,)
+        ground_truth (torch.Tensor): Target values (0 or 1), shape (batch_size,)
+        
+    Returns:
+        float: Classification accuracy as a value between 0 and 1
+    """
     preds = (predictions >= 0.5).float()
     return (preds == ground_truth).float().mean().item()
 
 
 def compute_true_labels(x_data, w_true, M_true):
-    """Compute true labels using the underlying true model (without noise)"""
+    """
+    Compute true binary labels using the underlying true model (without noise).
+    
+    Args:
+        x_data (torch.Tensor): Input features of shape (N, D) where N is the number of samples
+                              and D is the number of dimensions
+        w_true (torch.Tensor): True weight vector of shape (p,) where p is the number of polynomial features
+        M_true (int): True polynomial order/degree of the underlying model
+        
+    Returns:
+        torch.Tensor: Binary labels (0.0 or 1.0) of shape (N,) by applying the logistic function
+                     with the true weights and thresholding at 0.5
+    """
     labels = []
     for x in x_data:
         y = logistic_fun(w_true, M_true, x)
@@ -157,6 +257,12 @@ def compute_true_labels(x_data, w_true, M_true):
 
 ## Main loop
 def main():
+    """
+    Main function to run the logistic regression experiment.
+    
+    Generates synthetic data, trains logistic regression models with different
+    polynomial orders (M=1,2,3) and loss functions, and evaluates their performance.
+    """
     # setting the seed for reproducibility
     torch.manual_seed(42)
     np.random.seed(42)

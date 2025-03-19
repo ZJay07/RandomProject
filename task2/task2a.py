@@ -22,9 +22,23 @@ SEED = 42
 
 def fit_elm_ls(model, train_loader, test_loader=None, lambda_reg=0.1, device="cpu"):
     """
-    Using a variant of the least squares algorithm to train the ELM - ridge regression
-    device should always be CPU due to the library constrains but just in case cuda is used
-    batch implementation to save memory
+    Train an Extreme Learning Machine using least squares with ridge regularization.
+    
+    This implementation uses batch processing to efficiently solve the least squares 
+    problem: \beta = (H^T·H + \lambda·I)^(-1)·H^T·T where H is the hidden layer output and T is 
+    the target matrix.
+    
+    Args:
+        model (MyExtremeLearningMachine): The ELM model to train
+        train_loader (torch.utils.data.DataLoader): DataLoader for training data
+        test_loader (torch.utils.data.DataLoader, optional): DataLoader for test data. Defaults to None.
+        lambda_reg (float, optional): Regularization parameter for ridge regression. Defaults to 0.1.
+        device (str, optional): Device to train on ('cpu' or 'cuda'). Defaults to "cpu".
+        
+    Returns:
+        tuple: A tuple containing:
+            - statistics (dict): Dictionary with training metrics
+            - metrics (dict): Dictionary with final evaluation metrics
     """
     # Record training start time
     start_time = time.time()
@@ -183,7 +197,26 @@ def comparison_duration_sgd_and_ls(
     device="cpu",
     save_dir="./task2/metrics",
 ):
-    """Comparision with best model - ensemble ELM"""
+    """
+    Compare training duration and performance between SGD and least squares methods.
+    
+    Trains ensemble models with both SGD and least squares methods using the same
+    architecture and the best hyperparameters for SGD Ensemble ELM found in task2/task.py, then compares training time and accuracy.
+    
+    Args:
+        feature_maps (int): Number of feature maps in the convolutional layer
+        std_dev (float): Standard deviation for weight initialization
+        kernel_size (int): Size of the convolutional kernel
+        lr (float): Learning rate for SGD training
+        epoch (int): Number of epochs for SGD training
+        ensemble_size (int, optional): Number of models in ensemble. Defaults to 5.
+        ls_lambda (float, optional): Regularization parameter for least squares. Defaults to 0.001.
+        device (str, optional): Device to train on. Defaults to "cpu".
+        save_dir (str, optional): Directory to save results. Defaults to "./task2/metrics".
+        
+    Returns:
+        dict: Results dictionary with comparison metrics between SGD and LS methods
+    """
 
     print("Comparing ls and sgd training duration...")
     print(f"Using device: {device}")
@@ -340,8 +373,32 @@ def random_search_hyperparameter_ls(
     device="cpu",
 ):
     """
-    Using random search and ls to find best hyperparameters, similar to task2 hyperparamters tuned: std, feature maps, kernel size, lambda (for ls)
-    Using defined search space from hyperparameter arguments
+    Perform random hyperparameter search for ELM models trained with least squares.
+    
+    Randomly samples hyperparameter combinations within specified ranges and trains
+    ensemble models using least squares, tracking performance to find optimal settings.
+    
+    Args:
+        num_steps (int, optional): Number of random hyperparameter combinations to try. Defaults to 30.
+        train_loader (torch.utils.data.DataLoader, optional): DataLoader for training data. Defaults to None.
+        test_loader (torch.utils.data.DataLoader, optional): DataLoader for test data. Defaults to None.
+        feature_maps_range (tuple, optional): Range for number of feature maps. Defaults to (32, 128).
+        std_dev_range (tuple, optional): Range for standard deviation. Defaults to (0.01, 0.5).
+        kernel_sizes (list, optional): List of kernel sizes to sample from. Defaults to [3, 5, 7].
+        lambda_range (tuple, optional): Range for regularization parameter. Defaults to (0.001, 0.1).
+        ensemble_size (tuple, optional): Range for number of models in ensemble. Defaults to (3, 10).
+        seed (int, optional): Random seed for reproducibility. Defaults to 42.
+        use_pooling (bool, optional): Whether to use pooling in the models. Defaults to True.
+        save_dir (str, optional): Directory to save models. Defaults to "./task2/models".
+        metric_dir (str, optional): Directory to save metrics. Defaults to "./task2/metrics".
+        resume_from_step (int, optional): Step to resume search from. Defaults to 0.
+        checkpoint_frequency (int, optional): Frequency to save checkpoints. Defaults to 5.
+        
+    Returns:
+        tuple: A tuple containing:
+            - sorted_results (list): List of results sorted by accuracy
+            - best_ensemble (MyEnsembleELM): Best ensemble model found
+            - best_config (dict): Configuration of the best model
     """
     # default should be cpu due to environment constraints
     print(f"Using device: {device}")

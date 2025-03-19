@@ -6,15 +6,44 @@ from PIL import Image
 
 
 class MyMixUp:
+    """
+    Implements the MixUp data augmentation technique for image classification.
+    
+    MixUp creates new training samples by linearly interpolating between pairs of
+    images and their corresponding labels. The interpolation coefficient is sampled
+    from a Beta distribution controlled by the alpha parameter.
+    """
     def __init__(self, alpha=1.0, seed=42):
+        """
+        Initialize the MixUp augmentation.
+        
+        Args:
+            alpha (float, optional): Parameter for the Beta distribution used to sample
+                                    the mixing coefficient. Larger values create more
+                                    diverse mixtures. Defaults to 1.0.
+            seed (int, optional): Random seed for reproducibility. Defaults to 42.
+        """
         self.alpha = alpha
 
         self.random_state = np.random.RandomState(seed)
         torch.manual_seed(seed)
 
     def __call__(self, x, y, device="cpu"):
-        # x: input tensor Batch of images
-        # y: target tensor Batch of labels
+        """
+        Apply MixUp augmentation to a batch of images and labels.
+        
+        Args:
+            x (torch.Tensor): Batch of input images of shape (batch_size, channels, height, width)
+            y (torch.Tensor): Batch of corresponding labels of shape (batch_size,)
+            device (str, optional): Device to perform operations on. Defaults to "cpu".
+            
+        Returns:
+            tuple: A tuple containing:
+                - mixed_x (torch.Tensor): Mixed images of shape (batch_size, channels, height, width)
+                - targets_a (torch.Tensor): Original labels of shape (batch_size,)
+                - targets_b (torch.Tensor): Labels of shuffled images of shape (batch_size,)
+                - lam (float): Mixing coefficient from Beta distribution
+        """
         if device == "cuda":  # default is cpu but allowed cuda for flexibility
             x = x.cuda()
             y = y.cuda()
@@ -37,8 +66,22 @@ class MyMixUp:
     def visualize_mixup_grid(
         self, dataset, num_samples=16, save_path="mixup.png", seed=42
     ):
-        """Visualize a grid of MixUp augmented images, creates mixup.png to see mixup results"""
-
+        """
+        Visualize a grid of MixUp augmented images and save to a file.
+        
+        Args:
+            dataset (torch.utils.data.Dataset): Dataset containing images to visualize
+            num_samples (int, optional): Number of mixed images to generate. Defaults to 16.
+            save_path (str, optional): Path to save the visualization. Defaults to "mixup.png".
+            seed (int, optional): Random seed for reproducibility. Defaults to 42.
+            
+        Returns:
+            tuple: A tuple containing:
+                - mixed_images (torch.Tensor): Tensor of mixed images
+                - lambdas (list): List of lambda values used for mixing
+                - labels1 (list): List of first labels in the mix
+                - labels2 (list): List of second labels in the mix
+        """
         # Set random seed for reproducibility
         np.random.seed(seed)
 

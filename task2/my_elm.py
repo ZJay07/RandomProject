@@ -7,6 +7,13 @@ from task2.metrics_and_visualisation import evaluate_metrics
 
 
 class MyExtremeLearningMachine(nn.Module):
+    """
+    Implementation of Extreme Learning Machine (ELM) for image classification.
+    
+    An ELM consists of a single convolutional layer with fixed (non-trainable) weights
+    followed by a fully connected layer with trainable weights. The fixed weights are
+    initialized randomly and remain unchanged during training.
+    """
     def __init__(
         self,
         num_feature_maps,
@@ -18,9 +25,16 @@ class MyExtremeLearningMachine(nn.Module):
         pooling=False,
     ):
         """
-        Init for fixed weights, hyperparameter to indicate the size of the hidden convolutional layer
-        Feature maps to produce the multiclass prob vector suitable for image class
-        Pooling to make training faster
+        Initialize the Extreme Learning Machine model.
+        
+        Args:
+            num_feature_maps (int): Number of feature maps in the convolutional layer
+            num_classes (int): Number of output classes
+            std_dev (float): Standard deviation for weight initialization
+            feature_size (int): Size of the flattened feature vector after convolution
+            kernel_size (int, optional): Size of the convolutional kernel. Defaults to 3.
+            input_channels (int, optional): Number of input channels. Defaults to 3.
+            pooling (bool, optional): Whether to use average pooling. Defaults to False.
         """
         super(MyExtremeLearningMachine, self).__init__()
         # one convo layer non trainable weights
@@ -41,14 +55,31 @@ class MyExtremeLearningMachine(nn.Module):
 
     def initialise_fixed_layers(self, std):
         """
-        Function that init all the fixed weights in the convolution kernels
-        Random sampling from a Gaussian distribution with zero mean and a sd
+        Initialize fixed weights in the convolutional layer.
+        
+        Weights are randomly sampled from a Gaussian distribution with zero mean
+        and the specified standard deviation.
+        
+        Args:
+            std (float): Standard deviation for the Gaussian initialization
+            
+        Returns:
+            None
         """
         nn.init.normal_(self.conv.weight, mean=0.0, std=std)
         if self.conv.bias is not None:
             nn.init.zeros_(self.conv.bias)
 
     def forward(self, x):
+        """
+        Forward pass through the network.
+        
+        Args:
+            x (torch.Tensor): Input tensor of shape (batch_size, channels, height, width)
+            
+        Returns:
+            torch.Tensor: Output logits of shape (batch_size, num_classes)
+        """
         x = self.conv(x)
         x = F.relu(x)
         if self.pooling:
@@ -63,7 +94,24 @@ def fit_elm_sgd(
     model, train_loader, test_loader, lr=0.01, device="cpu", num_epochs=10, eval_every=1
 ):
     """
-    fit_elm_sgd with key metrics
+    Train an Extreme Learning Machine model using Stochastic Gradient Descent.
+    
+    Only the fully connected layer weights are updated during training.
+    The model is evaluated on the test set periodically to track performance.
+    
+    Args:
+        model (MyExtremeLearningMachine): The ELM model to train
+        train_loader (torch.utils.data.DataLoader): DataLoader for training data
+        test_loader (torch.utils.data.DataLoader): DataLoader for test data
+        lr (float, optional): Learning rate for SGD. Defaults to 0.01.
+        device (str, optional): Device to train on ('cpu' or 'cuda'). Defaults to "cpu".
+        num_epochs (int, optional): Number of training epochs. Defaults to 10.
+        eval_every (int, optional): Frequency of evaluation on test set. Defaults to 1.
+        
+    Returns:
+        tuple: A tuple containing:
+            - statistics (dict): Dictionary with training and testing metrics over time
+            - final_metrics (dict): Dictionary with final evaluation metrics
     """
     model = model.to(device)
     criterion = nn.CrossEntropyLoss()

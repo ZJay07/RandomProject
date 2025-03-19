@@ -28,7 +28,17 @@ np.random.seed(SEED)
 
 
 def load_cifar10(batch_size=128):
-    """CIFAR-10 Data Loading"""
+    """
+    Load and prepare CIFAR-10 dataset for training and testing.
+    
+    Args:
+        batch_size (int, optional): Batch size for DataLoaders. Defaults to 128.
+        
+    Returns:
+        tuple: A tuple containing:
+            - train_loader (torch.utils.data.DataLoader): DataLoader for training data
+            - test_loader (torch.utils.data.DataLoader): DataLoader for test data
+    """
     transform = transforms.Compose(
         [transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]
     )
@@ -47,7 +57,17 @@ def load_cifar10(batch_size=128):
 
 
 def evaluate(model, test_loader, device):
-    """Helper function to evaluate model"""
+    """
+    Evaluate a model's accuracy on test data.
+    
+    Args:
+        model (nn.Module): The model to evaluate
+        test_loader (torch.utils.data.DataLoader): DataLoader for test data
+        device (str or torch.device): Device to run evaluation on
+        
+    Returns:
+        float: Accuracy percentage on test data
+    """
     model.eval()
     correct = 0
     total = 0
@@ -64,7 +84,19 @@ def evaluate(model, test_loader, device):
 
 
 def experiment_hyperparameters(save_path="./task2/models/hyperprameters_for_sgd"):
-    """Hyperparameter Experimentation"""
+    """
+    Perform hyperparameter search for Extreme Learning Machine models.
+    
+    Systematically explores combinations of feature maps, standard deviation,
+    kernel size, learning rate, and training epochs to find optimal settings.
+    
+    Args:
+        save_path (str, optional): Directory to save best model and results.
+                                  Defaults to "./task2/models/hyperprameters_for_sgd".
+        
+    Returns:
+        list: Results of all hyperparameter combinations tested, sorted by test accuracy
+    """
     # Device configuration
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
@@ -221,7 +253,24 @@ def train_with_mixup(
     num_epochs=10,
     eval_every=1,
 ):
-    """Helper mix up with reporting key metrics"""
+    """
+    Train a model using MixUp data augmentation.
+    
+    Args:
+        model (nn.Module): The model to train
+        train_loader (torch.utils.data.DataLoader): DataLoader for training data
+        test_loader (torch.utils.data.DataLoader): DataLoader for test data
+        mixup (MyMixUp): MixUp augmentation instance
+        lr (float, optional): Learning rate for SGD. Defaults to 0.01.
+        device (str, optional): Device to train on. Defaults to "cpu".
+        num_epochs (int, optional): Number of training epochs. Defaults to 10.
+        eval_every (int, optional): Frequency of evaluation on test set. Defaults to 1.
+        
+    Returns:
+        tuple: A tuple containing:
+            - statistics (dict): Dictionary with training and testing metrics over time
+            - final_metrics (dict): Dictionary with final evaluation metrics
+    """
     model = model.to(device)
     criterion = nn.CrossEntropyLoss()
     trainable_params = [p for p in model.parameters() if p.requires_grad]
@@ -302,7 +351,27 @@ def train_ensemble(
     num_epochs=10,
     eval_every=1,
 ):
-    """Helper train ensemble models while tracking metrics"""
+    """
+    Train an ensemble of models while tracking metrics.
+    
+    Trains each model in the ensemble sequentially and evaluates ensemble
+    performance after each model is trained.
+    
+    Args:
+        ensemble_model (MyEnsembleELM): The ensemble model to train
+        train_loader (torch.utils.data.DataLoader): DataLoader for training data
+        test_loader (torch.utils.data.DataLoader): DataLoader for test data
+        fit_function (callable): Function used to train each model
+        lr (float, optional): Learning rate. Defaults to 0.01.
+        device (str, optional): Device to train on. Defaults to "cpu".
+        num_epochs (int, optional): Number of training epochs per model. Defaults to 10.
+        eval_every (int, optional): Frequency of ensemble evaluation. Defaults to 1.
+        
+    Returns:
+        tuple: A tuple containing:
+            - statistics (dict): Dictionary with ensemble metrics over time
+            - final_metrics (dict): Dictionary with final evaluation metrics
+    """
     ensemble_model = ensemble_model.to(device)
 
     statistics = {"test_acc": [], "test_f1": [], "epochs": []}
@@ -382,6 +451,28 @@ def experiment_regularization_methods(
     save_dir="./task2/models",
     metric_dir="./task2/metrics",
 ):
+    """
+    Experiment with different regularization techniques for ELM models.
+    
+    Compares performance of four approaches:
+    1. Base ELM (no regularization)
+    2. MixUp data augmentation
+    3. Ensemble ELM
+    4. Ensemble ELM with MixUp
+    
+    Args:
+        num_feature_maps (int, optional): Number of feature maps. Defaults to 128.
+        std_dev (float, optional): Standard deviation for weight initialization. Defaults to 0.01.
+        kernel_size (int, optional): Size of convolutional kernel. Defaults to 7.
+        lr (float, optional): Learning rate. Defaults to 0.1.
+        num_epochs (int, optional): Number of training epochs. Defaults to 50.
+        num_ensemble_models (int, optional): Number of models in ensemble. Defaults to 5.
+        save_dir (str, optional): Directory to save models. Defaults to "./task2/models".
+        metric_dir (str, optional): Directory to save metrics. Defaults to "./task2/metrics".
+        
+    Returns:
+        dict: Results dictionary with performance metrics for all methods
+    """
     # Create directory for saving models if it doesn't exist
     os.makedirs(save_dir, exist_ok=True)
 
