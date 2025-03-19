@@ -298,7 +298,7 @@ def main():
     observed_acc_train = compute_accuracy(t_train, true_train)
 
     # The observed training data compared to the true classes
-    print(f"Observed training data accuracy: {observed_acc_train * 100}%")
+    print(f"Observed training data accuracy: {observed_acc_train * 100:.2f}%")
 
     # Optimisation and Prediction for Different M Values with cross entropy and root mean square
     loss_fns = [MyCrossEntropy(), MyRootMeanSquare()]
@@ -323,8 +323,8 @@ def main():
 
             print("\nAccuracy analysis:")
             # The model predictions compared to true classes
-            print(f"Model prediction accuracy on training set: {model_acc_train * 100}%")
-            print(f"Model prediction accuracy on test set: {model_acc_test * 100}%")
+            print(f"Model prediction accuracy on training set: {model_acc_train * 100:.2f}%")
+            print(f"Model prediction accuracy on test set: {model_acc_test * 100:.2f}%")
 
 
 if __name__ == "__main__":
