@@ -8,15 +8,16 @@ from PIL import Image
 class MyMixUp:
     """
     Implements the MixUp data augmentation technique for image classification.
-    
+
     MixUp creates new training samples by linearly interpolating between pairs of
     images and their corresponding labels. The interpolation coefficient is sampled
     from a Beta distribution controlled by the alpha parameter.
     """
+
     def __init__(self, alpha=1.0, seed=42):
         """
         Initialize the MixUp augmentation.
-        
+
         Args:
             alpha (float, optional): Parameter for the Beta distribution used to sample
                                     the mixing coefficient. Larger values create more
@@ -31,12 +32,12 @@ class MyMixUp:
     def __call__(self, x, y, device="cpu"):
         """
         Apply MixUp augmentation to a batch of images and labels.
-        
+
         Args:
             x (torch.Tensor): Batch of input images of shape (batch_size, channels, height, width)
             y (torch.Tensor): Batch of corresponding labels of shape (batch_size,)
             device (str, optional): Device to perform operations on. Defaults to "cpu".
-            
+
         Returns:
             tuple: A tuple containing:
                 - mixed_x (torch.Tensor): Mixed images of shape (batch_size, channels, height, width)
@@ -63,18 +64,18 @@ class MyMixUp:
         # Return mixed images and both sets of labels with lambda
         return mixed_x, y, y[index], lam
 
-    def visualize_mixup_grid(
+    def visualise_mixup_grid(
         self, dataset, num_samples=16, save_path="mixup.png", seed=42
     ):
         """
-        Visualize a grid of MixUp augmented images and save to a file.
-        
+        Visualise a grid of MixUp augmented images and save to a file.
+
         Args:
-            dataset (torch.utils.data.Dataset): Dataset containing images to visualize
+            dataset (torch.utils.data.Dataset): Dataset containing images to visualise
             num_samples (int, optional): Number of mixed images to generate. Defaults to 16.
-            save_path (str, optional): Path to save the visualization. Defaults to "mixup.png".
+            save_path (str, optional): Path to save the visualisation. Defaults to "mixup.png".
             seed (int, optional): Random seed for reproducibility. Defaults to 42.
-            
+
         Returns:
             tuple: A tuple containing:
                 - mixed_images (torch.Tensor): Tensor of mixed images
@@ -88,7 +89,7 @@ class MyMixUp:
         # Get random samples from the dataset
         indices = np.random.choice(len(dataset), size=num_samples * 2, replace=False)
 
-        # Prepare for visualization
+        # Prepare for visualisation
         mixed_images = []
         lambdas = []
         labels1 = []
@@ -133,15 +134,15 @@ class MyMixUp:
         img = Image.fromarray(grid_np)
         img.save(save_path)
 
-        print(f"Grid visualization saved to {save_path}")
+        print(f"Grid visualisation saved to {save_path}")
 
         return mixed_images, lambdas, labels1, labels2
 
 
 if __name__ == "__main__":
-    print("=== Producing Mixup Visualization ===")
+    print("=== Producing Mixup Visualisation ===")
 
-    # no normalization for clearer visualization
+    # no normalization for clearer visualisation
     transform = transforms.Compose([transforms.ToTensor()])
 
     # Load dataset
@@ -149,10 +150,10 @@ if __name__ == "__main__":
         root="./data", train=True, download=True, transform=transform
     )
 
-    # Create MixUp instance and visualize
+    # Create MixUp instance and visualise
     mixup = MyMixUp(alpha=1.0, seed=42)
 
     save_path = "./task2/mixup.png"
-    # Create grid visualization
-    mixup.visualize_mixup_grid(train_dataset, num_samples=16, save_path=save_path)
-    print(f"Saved visualization to {save_path}")
+    # Create grid visualisation
+    mixup.visualise_mixup_grid(train_dataset, num_samples=16, save_path=save_path)
+    print(f"Saved visualisation to {save_path}")

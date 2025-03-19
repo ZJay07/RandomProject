@@ -13,7 +13,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from task2.ensemble_elm import MyEnsembleELM
 
 
-def visualize_model_predictions(
+def visualise_model_predictions(
     model_path,
     config_path=None,
     config=None,
@@ -23,12 +23,12 @@ def visualize_model_predictions(
     device="cpu",
 ):
     """
-    Create a visualization grid showing model predictions on test images.
-    
+    Create a visualisation grid showing model predictions on test images.
+
     This function loads an ensemble model, runs predictions on a sample of test images,
     and creates an annotated grid showing the true and predicted labels for each image.
     The grid is saved as an image file.
-    
+
     Args:
         model_path (str): Path to the directory containing model weight files
         config_path (str, optional): Path to the model configuration file. Required if config is None.
@@ -36,13 +36,13 @@ def visualize_model_predictions(
         config (dict, optional): Dictionary containing model configuration. Required if config_path is None.
                                 Defaults to None.
         pooling (bool, optional): Whether to use pooling in the model. Defaults to False.
-        save_path (str, optional): Path to save the visualization image. Defaults to "result.png".
-        num_images (int, optional): Number of images to include in the visualization. Defaults to 36.
+        save_path (str, optional): Path to save the visualisation image. Defaults to "result.png".
+        num_images (int, optional): Number of images to include in the visualisation. Defaults to 36.
         device (str, optional): Device to train on ('cpu' or 'cuda'). Defaults to "cpu".
-        
+
     Returns:
-        None: The function saves the visualization to disk but does not return any value
-              It also prints the accuracy on the visualized samples.
+        None: The function saves the visualisation to disk but does not return any value
+              It also prints the accuracy on the visualised samples.
     """
 
     # default is cpu, can be changed to cuda if available
@@ -63,7 +63,7 @@ def visualize_model_predictions(
         "truck",
     ]
 
-    # compact short codes for better visualization
+    # compact short codes for better visualisation
     class_codes = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
     # Load test dataset
@@ -80,7 +80,7 @@ def visualize_model_predictions(
 
     if not config:
         # Load ensemble configuration
-        config = torch.load(config_path, map_location=device)
+        config = torch.load(config_path, map_location=device, weights_only=True)
 
     # Create ensemble model with specified configs
     ensemble_model = MyEnsembleELM(
@@ -96,7 +96,7 @@ def visualize_model_predictions(
     for i in range(config["n_models"]):
         model_file = os.path.join(model_path, f"model_{i}.pth")
         # Ensure all weights are loaded to device
-        state_dict = torch.load(model_file, map_location=device)
+        state_dict = torch.load(model_file, map_location=device, weights_only=True)
         ensemble_model.models[i].load_state_dict(state_dict)
 
     # make all models eval
@@ -132,8 +132,6 @@ def visualize_model_predictions(
 
         # Create PIL image
         pil_img = Image.fromarray(img_np)
-
-        # Resize for better visibility of annotations (optional)
         pil_img = pil_img.resize((64, 64), Image.BILINEAR)
 
         # Create a new image with white border for annotation
@@ -167,15 +165,11 @@ def visualize_model_predictions(
         annotated_images.append(
             torch.tensor(np.transpose(np.array(annotated_img) / 255.0, (2, 0, 1)))
         )
-
-    # Stack the images
     annotated_images = torch.stack(annotated_images)
 
     # Create a grid
     grid_size = int(np.sqrt(num_images))
     grid = make_grid(annotated_images, nrow=grid_size, padding=2)
-
-    # Convert to numpy and adjust for PIL
     grid_np = (np.transpose(grid.numpy(), (1, 2, 0)) * 255).astype(np.uint8)
 
     # Create final image
@@ -190,9 +184,8 @@ def visualize_model_predictions(
         title_font = ImageFont.load_default()
         legend_font = ImageFont.load_default()
 
-    # Get dimensions for legend
     width, height = result_img.size
-    legend_height = 150  # More space for legend
+    legend_height = 150
     new_img = Image.new("RGB", (width, height + legend_height), color="white")
     new_img.paste(result_img, (0, 0))
     result_img = new_img
@@ -208,7 +201,7 @@ def visualize_model_predictions(
     draw.text((legend_x, legend_y), "Class codes:", fill="black", font=legend_font)
 
     # Create a clearer legend with full class names
-    col_width = width // 2  # Two columns
+    col_width = width // 2
     items_per_col = 5
     for i in range(len(class_names)):
         col = i // items_per_col
@@ -222,9 +215,53 @@ def visualize_model_predictions(
     if not os.path.exists(os.path.dirname(save_path)):
         os.makedirs(os.path.dirname(save_path))
     result_img.save(save_path)
-    print(f"Visualization saved to {save_path}")
+    print(f"Visualisation saved to {save_path}")
 
     # Calculate accuracy on these samples
     correct = (predictions == labels).sum().item()
     accuracy = 100 * correct / num_images
     print(f"Accuracy on these {num_images} samples: {accuracy:.2f}%")
+
+    # visualise each image with true and predicted labels on the terminal
+    pred_list = predictions.cpu().numpy().tolist()
+    label_list = labels.cpu().numpy().tolist()
+
+    # Print in a grid format to match the visualization
+    for row in range(grid_size):
+        row_labels = []
+        row_preds = []
+
+    for col in range(grid_size):
+        idx = row * grid_size + col
+        true_label = class_names[label_list[idx]]
+        pred_label = class_names[pred_list[idx]]
+
+        # Add to the row lists
+        row_labels.append(f"{true_label:10}")
+        row_preds.append(f"{pred_label:10}")
+
+    # Print the rows
+    print(f"True labels (row {row + 1}):  " + "  ".join(row_labels))
+    print(f"Predictions (row {row + 1}):  " + "  ".join(row_preds))
+    print("")
+    pred_list = predictions.cpu().numpy().tolist()
+    label_list = labels.cpu().numpy().tolist()
+
+    # Print in a grid format to match the resulted image
+    for row in range(grid_size):
+        row_labels = []
+        row_preds = []
+
+        for col in range(grid_size):
+            idx = row * grid_size + col
+            true_label = class_names[label_list[idx]]
+            pred_label = class_names[pred_list[idx]]
+
+            # Add to the row lists
+            row_labels.append(f"{true_label:10}")
+            row_preds.append(f"{pred_label:10}")
+
+        # Print the rows
+        print(f"True labels (row {row + 1}):  " + "  ".join(row_labels))
+        print(f"Predictions (row {row + 1}):  " + "  ".join(row_preds))
+        print("")

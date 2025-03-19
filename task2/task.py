@@ -18,7 +18,7 @@ from task2.metrics_and_visualisation import (
     summarize_metrics,
 )
 from task2.mix_up import MyMixUp
-from task2.montage import visualize_model_predictions
+from task2.montage import visualise_model_predictions
 from task2.my_elm import MyExtremeLearningMachine, fit_elm_sgd
 
 # Set random seed for reproducibility
@@ -30,10 +30,10 @@ np.random.seed(SEED)
 def load_cifar10(batch_size=128):
     """
     Load and prepare CIFAR-10 dataset for training and testing.
-    
+
     Args:
         batch_size (int, optional): Batch size for DataLoaders. Defaults to 128.
-        
+
     Returns:
         tuple: A tuple containing:
             - train_loader (torch.utils.data.DataLoader): DataLoader for training data
@@ -59,12 +59,12 @@ def load_cifar10(batch_size=128):
 def evaluate(model, test_loader, device):
     """
     Evaluate a model's accuracy on test data.
-    
+
     Args:
         model (nn.Module): The model to evaluate
         test_loader (torch.utils.data.DataLoader): DataLoader for test data
         device (str or torch.device): Device to run evaluation on
-        
+
     Returns:
         float: Accuracy percentage on test data
     """
@@ -86,14 +86,14 @@ def evaluate(model, test_loader, device):
 def experiment_hyperparameters(save_path="./task2/models/hyperprameters_for_sgd"):
     """
     Perform hyperparameter search for Extreme Learning Machine models.
-    
+
     Systematically explores combinations of feature maps, standard deviation,
     kernel size, learning rate, and training epochs to find optimal settings.
-    
+
     Args:
         save_path (str, optional): Directory to save best model and results.
                                   Defaults to "./task2/models/hyperprameters_for_sgd".
-        
+
     Returns:
         list: Results of all hyperparameter combinations tested, sorted by test accuracy
     """
@@ -255,7 +255,7 @@ def train_with_mixup(
 ):
     """
     Train a model using MixUp data augmentation.
-    
+
     Args:
         model (nn.Module): The model to train
         train_loader (torch.utils.data.DataLoader): DataLoader for training data
@@ -265,7 +265,7 @@ def train_with_mixup(
         device (str, optional): Device to train on. Defaults to "cpu".
         num_epochs (int, optional): Number of training epochs. Defaults to 10.
         eval_every (int, optional): Frequency of evaluation on test set. Defaults to 1.
-        
+
     Returns:
         tuple: A tuple containing:
             - statistics (dict): Dictionary with training and testing metrics over time
@@ -353,10 +353,10 @@ def train_ensemble(
 ):
     """
     Train an ensemble of models while tracking metrics.
-    
+
     Trains each model in the ensemble sequentially and evaluates ensemble
     performance after each model is trained.
-    
+
     Args:
         ensemble_model (MyEnsembleELM): The ensemble model to train
         train_loader (torch.utils.data.DataLoader): DataLoader for training data
@@ -366,7 +366,7 @@ def train_ensemble(
         device (str, optional): Device to train on. Defaults to "cpu".
         num_epochs (int, optional): Number of training epochs per model. Defaults to 10.
         eval_every (int, optional): Frequency of ensemble evaluation. Defaults to 1.
-        
+
     Returns:
         tuple: A tuple containing:
             - statistics (dict): Dictionary with ensemble metrics over time
@@ -453,13 +453,13 @@ def experiment_regularization_methods(
 ):
     """
     Experiment with different regularization techniques for ELM models.
-    
+
     Compares performance of four approaches:
     1. Base ELM (no regularization)
     2. MixUp data augmentation
     3. Ensemble ELM
     4. Ensemble ELM with MixUp
-    
+
     Args:
         num_feature_maps (int, optional): Number of feature maps. Defaults to 128.
         std_dev (float, optional): Standard deviation for weight initialization. Defaults to 0.01.
@@ -469,7 +469,7 @@ def experiment_regularization_methods(
         num_ensemble_models (int, optional): Number of models in ensemble. Defaults to 5.
         save_dir (str, optional): Directory to save models. Defaults to "./task2/models".
         metric_dir (str, optional): Directory to save metrics. Defaults to "./task2/metrics".
-        
+
     Returns:
         dict: Results dictionary with performance metrics for all methods
     """
@@ -752,7 +752,7 @@ def experiment_regularization_methods(
     ) as f:
         json.dump(results_json, f, indent=4)
 
-    # Viz for summary of report
+    # Vis for summary of report
     json_file_path = os.path.join(
         metric_dir, "metrics_results_regularasation_method.json"
     )
@@ -772,25 +772,34 @@ def experiment_regularization_methods(
 
 if __name__ == "__main__":
     print("=== What is considered 'random guess' in multiclass classification? ===")
-    print("A random guess in multiclass classification involves assigning labels by pure chance, with equal probability across all classes. In balanced datasets with K classes, the expected accuracy is 1/K (e.g., 10% for 10 classes). For imbalanced datasets, the baseline becomes the frequency of the most common class. To test if a model performs better than random guessing, statistical tests (chi-squared, binomial) determine if the observed accuracy significantly exceeds this baseline. This represents the minimum performance threshold a useful classifier must surpass.")
-    
-    print("=== Hyperparameter Experimentation Without Regularisation ===")
+    print(
+        "A random guess in multiclass classification involves assigning labels by pure chance, with equal probability across all classes. In balanced datasets with K classes, the expected accuracy is 1/K (e.g., 10% for 10 classes). For imbalanced datasets, the baseline becomes the frequency of the most common class. To test if a model performs better than random guessing, statistical tests (chi-squared, binomial) determine if the observed accuracy significantly exceeds this baseline. This represents the minimum performance threshold a useful classifier must surpass."
+    )
+
+    print("\n=== Hyperparameter Experimentation Without Regularisation ===")
     print("*Due to the nature of the search space, this may take awhile*")
     experiment_hyperparameters()
 
-    print("=== Regularisation Methods Experimentation ===")
+    print("\n=== Regularisation Methods Experimentation ===")
     print("*pre-ran summary in 'task2/logs/summary_of_regularisation_methods.txt'*")
     experiment_regularization_methods()
-    print("=== Metric justifications: ===")
-    print("Accuracy provies an overall performance measure, especially useful when classes are balanced like in CIFAR-10")
-    print("Macro-F1 score balances precision and recall across all classes, detecting if certain classes are more challenging to classify regardless of their frequency.")
-    
-    
+    print("\n=== Metric justifications: ===")
+    print(
+        "Accuracy provies an overall performance measure, especially useful when classes are balanced like in CIFAR-10"
+    )
+    print(
+        "Macro-F1 score balances precision and recall across all classes, detecting if certain classes are more challenging to classify regardless of their frequency."
+    )
+
     # Paths to regularisation model file
     best_regularisation_model_dir = "./task2/models/ensemble_model"
     best_regularisation_config_file = "./task2/models/ensemble_config.pth"
 
-    # viz for best regularisation method
+    # vis for best regularisation method
     save_path = "./task2/montage_result/result.png"
-    visualize_model_predictions(best_regularisation_model_dir, best_regularisation_config_file, save_path=save_path)
+    visualise_model_predictions(
+        best_regularisation_model_dir,
+        best_regularisation_config_file,
+        save_path=save_path,
+    )
     print(f"Visualisation saved to {save_path}")

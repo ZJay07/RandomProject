@@ -8,10 +8,11 @@ from task2.my_elm import MyExtremeLearningMachine
 class MyEnsembleELM(nn.Module):
     """
     Ensemble of Extreme Learning Machine models for improved classification performance.
-    
+
     Creates an ensemble of multiple independent ELM models and combines their outputs
     through soft voting (averaging probabilities) for final predictions.
     """
+
     def __init__(
         self,
         seed=42,
@@ -25,7 +26,7 @@ class MyEnsembleELM(nn.Module):
     ):
         """
         Initialize the Ensemble ELM model.
-        
+
         Args:
             seed (int, optional): Random seed for reproducibility. Defaults to 42.
             n_models (int, optional): Number of models in the ensemble. Defaults to 5.
@@ -95,10 +96,10 @@ class MyEnsembleELM(nn.Module):
     def to(self, device):
         """
         Move all models in the ensemble to the specified device.
-        
+
         Args:
             device (str or torch.device): Device to move models to (e.g., 'cpu', 'cuda')
-            
+
         Returns:
             MyEnsembleELM: Self reference for chaining operations
         """
@@ -109,12 +110,12 @@ class MyEnsembleELM(nn.Module):
     def train(self, train_loader, fit_function, **kwargs):
         """
         Train all models in the ensemble.
-        
+
         Args:
             train_loader (torch.utils.data.DataLoader): DataLoader for training data
             fit_function (callable): Function used to train each model
             **kwargs: Additional arguments to pass to the fit_function
-            
+
         Returns:
             None
         """
@@ -125,10 +126,10 @@ class MyEnsembleELM(nn.Module):
     def pred(self, x):
         """
         Combine predictions from all models in the ensemble (soft voting).
-        
+
         Args:
             x (torch.Tensor): Input data of shape (batch_size, channels, height, width)
-            
+
         Returns:
             torch.Tensor: Ensemble prediction probabilities of shape (batch_size, num_classes)
         """
@@ -153,12 +154,12 @@ class MyEnsembleELM(nn.Module):
     def eval(self, test_loader=None, device="cpu"):
         """
         Evaluate the ensemble on test data.
-        
+
         Args:
             test_loader (torch.utils.data.DataLoader, optional): DataLoader for test data.
                                                             If None, just sets models to eval mode. Defaults to None.
             device (str, optional): Device to run evaluation on. Defaults to "cpu".
-            
+
         Returns:
             float or None: Accuracy on test data if test_loader is provided, None otherwise
         """
@@ -185,10 +186,10 @@ class MyEnsembleELM(nn.Module):
     def forward(self, x):
         """
         Forward pass for the ensemble (wrapper for pred method).
-        
+
         Args:
             x (torch.Tensor): Input data of shape (batch_size, channels, height, width)
-            
+
         Returns:
             torch.Tensor: Ensemble prediction probabilities of shape (batch_size, num_classes)
         """

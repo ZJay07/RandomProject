@@ -13,7 +13,7 @@ import numpy as np
 
 from task2.ensemble_elm import MyEnsembleELM
 from task2.metrics_and_visualisation import convert_numpy_types, evaluate_metrics
-from task2.montage import visualize_model_predictions
+from task2.montage import visualise_model_predictions
 from task2.my_elm import fit_elm_sgd
 from task2.task import load_cifar10
 
@@ -23,18 +23,18 @@ SEED = 42
 def fit_elm_ls(model, train_loader, test_loader=None, lambda_reg=0.1, device="cpu"):
     """
     Train an Extreme Learning Machine using least squares with ridge regularization.
-    
-    This implementation uses batch processing to efficiently solve the least squares 
-    problem: \beta = (H^T·H + \lambda·I)^(-1)·H^T·T where H is the hidden layer output and T is 
+
+    This implementation uses batch processing to efficiently solve the least squares
+    problem: \\beta = (H^T·H + \\lambda·I)^(-1)·H^T·T where H is the hidden layer output and T is
     the target matrix.
-    
+
     Args:
         model (MyExtremeLearningMachine): The ELM model to train
         train_loader (torch.utils.data.DataLoader): DataLoader for training data
         test_loader (torch.utils.data.DataLoader, optional): DataLoader for test data. Defaults to None.
         lambda_reg (float, optional): Regularization parameter for ridge regression. Defaults to 0.1.
         device (str, optional): Device to train on ('cpu' or 'cuda'). Defaults to "cpu".
-        
+
     Returns:
         tuple: A tuple containing:
             - statistics (dict): Dictionary with training metrics
@@ -199,10 +199,10 @@ def comparison_duration_sgd_and_ls(
 ):
     """
     Compare training duration and performance between SGD and least squares methods.
-    
+
     Trains ensemble models with both SGD and least squares methods using the same
     architecture and the best hyperparameters for SGD Ensemble ELM found in task2/task.py, then compares training time and accuracy.
-    
+
     Args:
         feature_maps (int): Number of feature maps in the convolutional layer
         std_dev (float): Standard deviation for weight initialization
@@ -213,7 +213,7 @@ def comparison_duration_sgd_and_ls(
         ls_lambda (float, optional): Regularization parameter for least squares. Defaults to 0.001.
         device (str, optional): Device to train on. Defaults to "cpu".
         save_dir (str, optional): Directory to save results. Defaults to "./task2/metrics".
-        
+
     Returns:
         dict: Results dictionary with comparison metrics between SGD and LS methods
     """
@@ -374,10 +374,10 @@ def random_search_hyperparameter_ls(
 ):
     """
     Perform random hyperparameter search for ELM models trained with least squares.
-    
+
     Randomly samples hyperparameter combinations within specified ranges and trains
     ensemble models using least squares, tracking performance to find optimal settings.
-    
+
     Args:
         num_steps (int, optional): Number of random hyperparameter combinations to try. Defaults to 30.
         train_loader (torch.utils.data.DataLoader, optional): DataLoader for training data. Defaults to None.
@@ -393,7 +393,7 @@ def random_search_hyperparameter_ls(
         metric_dir (str, optional): Directory to save metrics. Defaults to "./task2/metrics".
         resume_from_step (int, optional): Step to resume search from. Defaults to 0.
         checkpoint_frequency (int, optional): Frequency to save checkpoints. Defaults to 5.
-        
+
     Returns:
         tuple: A tuple containing:
             - sorted_results (list): List of results sorted by accuracy
@@ -628,24 +628,24 @@ if __name__ == "__main__":
         feature_maps=128, std_dev=0.01, kernel_size=7, lr=0.1, epoch=50
     )
 
-    print("=== Preparing to run random search for hyperparameters... ===")
+    print("\n=== Preparing to run random search for hyperparameters... ===")
     print(
         "**This will take a while to complete due to the large search space and num_steps**"
     )
     train_loader, test_loader = load_cifar10(batch_size=128)
     random_search_hyperparameter_ls(train_loader=train_loader, test_loader=test_loader)
 
-    print("=== Producing best fit_elm_ls results for visualization... ===")
+    print("\n=== Producing best fit_elm_ls results for visualisation... ===")
     best_fit_elm_ls_model_dir = "./task2/models/best_hyperparameter_ls_model"
     best_fit_elm_ls_model_config_file = (
         "./task2/models/best_hyperparameter_ls_model.pth"
     )
 
     save_path = "./task2/montage_result/new_result.png"
-    visualize_model_predictions(
+    visualise_model_predictions(
         best_fit_elm_ls_model_dir,
         best_fit_elm_ls_model_config_file,
         save_path=save_path,
     )
-    print(f"Visualization saved to {save_path}")
+    print(f"Visualisation saved to {save_path}")
     print("Task2a Done!")

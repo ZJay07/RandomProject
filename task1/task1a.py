@@ -19,13 +19,13 @@ import numpy as np
 def continuous_polynomial_features(x, M):
     """
     Convert floating point M to int and use polynomial_features defined in task.py.
-    
+
     Args:
         x (torch.Tensor): Input tensor of shape (D,) where D is the number of dimensions
         M (float or torch.Tensor): Polynomial degree, can be float or tensor
-        
+
     Returns:
-        torch.Tensor: Tensor of polynomial features with shape (N,) where N is the number of 
+        torch.Tensor: Tensor of polynomial features with shape (N,) where N is the number of
                       polynomial terms up to degree int(round(M))
     """
     M_int = int(round(M.item() if isinstance(M, torch.Tensor) else M))
@@ -35,13 +35,13 @@ def continuous_polynomial_features(x, M):
 def continuous_logistic_fun(w, M, x):
     """
     Adapting logistic function to work with continuous M parameter.
-    
+
     Args:
-        w (torch.Tensor): Weight vector of shape (p_max,) where p_max is the maximum 
+        w (torch.Tensor): Weight vector of shape (p_max,) where p_max is the maximum
                           number of polynomial features possible
         M (float or torch.Tensor): Polynomial order/degree, can be float
         x (torch.Tensor): Input data of shape (D,) where D is the number of dimensions
-        
+
     Returns:
         torch.Tensor: Probability value (sigmoid output) as a scalar tensor
     """
@@ -63,9 +63,9 @@ def fit_logistic_sgd_with_learnable_m(
 ):
     """
     Train a logistic regression model with M as a learnable parameter.
-    
+
     Args:
-        x_train (torch.Tensor): Training features of shape (N, D) where N is number of samples 
+        x_train (torch.Tensor): Training features of shape (N, D) where N is number of samples
                                 and D is number of dimensions
         t_train (torch.Tensor): Training targets of shape (N,) with values 0 or 1
         loss_fn (callable): Loss function to minimize
@@ -73,7 +73,7 @@ def fit_logistic_sgd_with_learnable_m(
         minibatch_size (int, optional): Size of mini-batches. Defaults to 32.
         epochs (int, optional): Number of training epochs. Defaults to 100.
         m_init (float, optional): Initial value for the learnable M parameter. Defaults to 2.0.
-        
+
     Returns:
         tuple: A pair (w, M) where:
             - w (torch.Tensor): Optimized weight vector
@@ -173,14 +173,14 @@ def fit_logistic_sgd_with_learnable_m(
 def evaluate_learned_m_model(w, M, x_test, t_test, true_test=None):
     """
     Evaluate the model with learned M value on test data.
-    
+
     Args:
         w (torch.Tensor): Optimized weight vector
         M (float): Optimized polynomial order
         x_test (torch.Tensor): Test features of shape (N_test, D)
         t_test (torch.Tensor): Observed test labels of shape (N_test,)
         true_test (torch.Tensor, optional): True test labels (without noise) of shape (N_test,). Defaults to None.
-        
+
     Returns:
         float: Test accuracy against observed labels (percentage)
     """
@@ -208,11 +208,11 @@ def evaluate_learned_m_model(w, M, x_test, t_test, true_test=None):
 def experiment_with_learnable_m():
     """
     Main experiment function for learnable M.
-    
+
     Generates synthetic data with a known true model (M=2), then trains
     multiple models with different loss functions and M initializations.
     The goal is to recover the true model order M through optimization.
-    
+
     Returns:
         None
     """
