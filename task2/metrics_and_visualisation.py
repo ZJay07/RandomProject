@@ -4,7 +4,18 @@ import json
 
 
 def compute_confusion_matrix(targets, predictions, num_classes=10):
-    """Helper function to compute confusion matrix"""
+    """
+    Compute confusion matrix from targets and predictions.
+    
+    Args:
+        targets (list or torch.Tensor): True class labels
+        predictions (list or torch.Tensor): Predicted class labels
+        num_classes (int, optional): Number of classes in the dataset. Defaults to 10.
+        
+    Returns:
+        torch.Tensor: Confusion matrix of shape (num_classes, num_classes) where
+                     rows represent true classes and columns represent predicted classes
+    """
     if isinstance(targets, list):
         targets = torch.tensor(targets)
     if isinstance(predictions, list):
@@ -21,7 +32,20 @@ def compute_confusion_matrix(targets, predictions, num_classes=10):
 
 
 def compute_f1_score(targets, predictions, num_classes=10, average="macro"):
-    """Compute F1 score"""
+    """
+    Compute F1 score from targets and predictions.
+    
+    Args:
+        targets (list or torch.Tensor): True class labels
+        predictions (list or torch.Tensor): Predicted class labels
+        num_classes (int, optional): Number of classes in the dataset. Defaults to 10.
+        average (str, optional): Type of averaging - 'macro' to average over all classes,
+                                or anything else to return per-class F1 scores. Defaults to "macro".
+        
+    Returns:
+        float or torch.Tensor: If average='macro', returns scalar F1 score averaged across classes.
+                              Otherwise, returns tensor of per-class F1 scores.
+    """
 
     if isinstance(targets, list):
         targets = torch.tensor(targets)
@@ -51,7 +75,21 @@ def compute_f1_score(targets, predictions, num_classes=10, average="macro"):
 
 
 def evaluate_metrics(model, test_loader, device, num_classes=10):
-    """Eval model performance with multiple metrics"""
+    """
+    Evaluate model performance with multiple metrics including accuracy, F1-score, and confusion matrix.
+    
+    Args:
+        model (nn.Module): Model to evaluate
+        test_loader (torch.utils.data.DataLoader): DataLoader for test data
+        device (str or torch.device): Device to run evaluation on
+        num_classes (int, optional): Number of classes in the dataset. Defaults to 10.
+        
+    Returns:
+        dict: Dictionary containing evaluation metrics:
+            - "accuracy" (float): Percentage accuracy on test data
+            - "macro_f1" (float): Macro-averaged F1 score
+            - "conf_matrix" (torch.Tensor): Confusion matrix
+    """
 
     model.eval()
     all_preds = []
@@ -87,7 +125,18 @@ def evaluate_metrics(model, test_loader, device, num_classes=10):
     return {"accuracy": accuracy, "macro_f1": macro_f1, "conf_matrix": conf_matrix}
 
 def convert_numpy_types(obj):
-    """Convert numpy types to Python native types for JSON serialization"""
+    """
+    Convert NumPy data types to Python native types for JSON serialization.
+    
+    Recursively processes dictionaries, lists, and NumPy values to ensure
+    they can be properly serialized to JSON.
+    
+    Args:
+        obj (any): Object to convert, can be dict, list, NumPy type, or other
+        
+    Returns:
+        any: Same object structure with NumPy types converted to Python native types
+    """
     if isinstance(obj, dict):
         return {k: convert_numpy_types(v) for k, v in obj.items()}
     elif isinstance(obj, list):
@@ -104,7 +153,18 @@ def convert_numpy_types(obj):
 
 def print_model_summary(model_name, metrics, sample_epochs=None):
     """
-    Print summary for a specific experiment model, sgd specific
+    Print performance summary for a specific model.
+    
+    Displays final accuracy and F1-score, along with progression of metrics
+    over epochs for ensemble models or at sampled epochs for individual models.
+    
+    Args:
+        model_name (str): Name of the model for display
+        metrics (dict): Dictionary containing model performance metrics
+        sample_epochs (list, optional): List of specific epochs to show metrics for. Defaults to None.
+        
+    Returns:
+        None: This function only prints to console
     """
     print(f"\n{model_name}")
     print("-" * len(model_name))
@@ -138,7 +198,16 @@ def print_model_summary(model_name, metrics, sample_epochs=None):
 
 def print_comparison_summary(metrics_dict):
     """
-    Print comparison summary of all models
+    Print comparison summary of all model performances.
+    
+    Creates a tabular display of accuracy, F1-score, and improvement over random
+    baseline for all models in the metrics dictionary.
+    
+    Args:
+        metrics_dict (dict): Dictionary mapping model names to performance metrics
+        
+    Returns:
+        None: This function only prints to console
     """
     print("\n===== MODEL COMPARISON SUMMARY =====\n")
     print("Model               | Accuracy (%) | F1-Score (%) | Improvement over Random")
@@ -165,7 +234,16 @@ def print_comparison_summary(metrics_dict):
 
 def print_observations(metrics_dict):
     """
-    Print key observations about model performance sgd specific
+    Print key observations about model performance comparisons.
+    
+    Analyzes and summarizes the relative performance differences between models,
+    focusing on improvements from ensemble methods and MixUp augmentation.
+    
+    Args:
+        metrics_dict (dict): Dictionary mapping model names to performance metrics
+        
+    Returns:
+        None: This function only prints to console
     """
     print("\n===== Summary =====\n")
     print("1. All models significantly outperform random guessing (10% baseline)")
@@ -209,7 +287,16 @@ def print_observations(metrics_dict):
 
 def summarize_metrics(json_file):
     """
-    Read metrics from JSON file and print a summary
+    Read metrics from JSON file and print comprehensive performance summary.
+    
+    Loads metrics data from a JSON file and generates reports for each model,
+    comparative analysis, and key observations about model performance.
+    
+    Args:
+        json_file (str): Path to JSON file containing model metrics
+        
+    Returns:
+        None: This function only prints to console
     """
     # Load the JSON data
     with open(json_file, "r") as f:
