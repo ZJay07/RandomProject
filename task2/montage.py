@@ -38,6 +38,7 @@ def visualize_model_predictions(
         pooling (bool, optional): Whether to use pooling in the model. Defaults to False.
         save_path (str, optional): Path to save the visualization image. Defaults to "result.png".
         num_images (int, optional): Number of images to include in the visualization. Defaults to 36.
+        device (str, optional): Device to train on ('cpu' or 'cuda'). Defaults to "cpu".
         
     Returns:
         None: The function saves the visualization to disk but does not return any value
