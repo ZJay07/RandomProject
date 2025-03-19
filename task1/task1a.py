@@ -6,8 +6,8 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from task import (
     MyCrossEntropy,
-    generate_sample,
     MyRootMeanSquare,
+    generate_sample,
     compute_accuracy,
     compute_true_labels,
     polynomial_features,
@@ -15,6 +15,7 @@ from task import (
 import numpy as np
 
 
+## Adaptation of polynomial_features and logistic_fun to work with continuous M
 def continuous_polynomial_features(x, M):
     """
     Convert floating point M to int and use polynomial_features defined in task.py.
@@ -162,17 +163,18 @@ def evaluate_learned_m_model(w, M, x_test, t_test, true_test=None):
     return test_acc
 
 
+## Learnable M experiment
 def experiment_with_learnable_m():
     """
     Main experiment function for learnable M.
     """
-    # Set seed for reproducibility
+    # setting the seed for reproducibility
     torch.manual_seed(42)
     np.random.seed(42)
 
-    # Generate synthetic data (reusing code from main function)
-    M_true = 2  # True model order
-    D = 5  # Number of dimensions
+    # generate synthetic data
+    M_true = 2
+    D = 5
     p = sum(comb(D + m - 1, m) for m in range(M_true + 1))
 
     # Generate weights
@@ -203,7 +205,7 @@ def experiment_with_learnable_m():
     observed_acc_train = compute_accuracy(t_train, true_train)
     print(f"Observed training data accuracy: {observed_acc_train * 100:.2f}%")
 
-    # Try different loss functions and initializations
+    # Trying both loss functions
     loss_fns = [MyCrossEntropy(), MyRootMeanSquare()]
     initial_m_values = [1.0, 2.0, 3.0]
 

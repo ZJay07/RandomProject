@@ -17,8 +17,8 @@ python task2/mix_up.py
 python task2/task.py
 ```
 
-3. results.png is saved in the montage_results directory, can be reproduced within by running the command above for `task.py`
+3. `results.png is` saved in the `montage_results` directory, can be reproduced within by running the command above for `task.py`
 
-4. Running `python task2/task2a.py` will run task2a specific experiments, but pre ran metrics are already within the metric or logs directory
+4. Running `python task2/task2a.py` will run task2a specific experiments, but pre ran metrics are already within the metric or logs directory. Train model weights are in the `task2/models` directory
 
-5. new_results.png is in the montage_results directory as well, but can be reproduced in `task2a.py`
+5. `new_results.png` is in the `montage_results` directory as well, but can be reproduced in `task2a.py`

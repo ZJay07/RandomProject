@@ -36,7 +36,7 @@ class MyEnsembleELM(nn.Module):
                 f"Warning: std_dev={std_dev} is outside the recommended range [0.01, 1.0]"
             )
 
-        # set global seed for reproducibility
+        # set seed for reproducibility
         self.seed = seed
         np.random.seed(seed)
         torch.manual_seed(seed)

@@ -15,7 +15,7 @@ class MyMixUp:
     def __call__(self, x, y, device="cpu"):
         # x: input tensor Batch of images
         # y: target tensor Batch of labels
-        if device == "cuda":  # for device flexibility
+        if device == "cuda":  # default is cpu but allowed cuda for flexibility
             x = x.cuda()
             y = y.cuda()
 

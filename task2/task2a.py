@@ -20,9 +20,7 @@ from task2.task import load_cifar10
 SEED = 42
 
 
-def fit_elm_ls(
-    model, train_loader, test_loader=None, lambda_reg=0.1, device="cpu", method="ridge"
-):
+def fit_elm_ls(model, train_loader, test_loader=None, lambda_reg=0.1, device="cpu"):
     """
     Using a variant of the least squares algorithm to train the ELM - ridge regression
     device should always be CPU due to the library constrains but just in case cuda is used
@@ -31,7 +29,8 @@ def fit_elm_ls(
     # Record training start time
     start_time = time.time()
 
-    print(f"\nRunning fit elm ls with {method}")
+    print("\nRunning fit elm ls with ridge regression...")
+    print(f"Using device: {device}")
     model = model.to(device)
     model.eval()
 
@@ -50,7 +49,7 @@ def fit_elm_ls(
             x = model.conv(inputs)
             x = F.relu(x)
             if model.pooling:
-                x = F.avg_pool2d(x, 2)
+                x = F.avg_pool2d(x, 2)  # reducing dimensions
             x = x.view(x.size(0), -1)
             feature_dim = x.size(1)
             print(f"Feature dimension: {feature_dim}")
@@ -86,11 +85,11 @@ def fit_elm_ls(
     print(f"Adding regularization (lambda={lambda_reg})")
     HTH += lambda_reg * torch.eye(feature_dim, device=device)
 
-    # solve the system
+    # Solve the system
     print("Solving linear system...")
     try:
         # Process in batches of classes to save memory
-        class_batch_size = 2  # Process 2 classes at a time
+        class_batch_size = 2
         for start_idx in range(0, model.num_classes, class_batch_size):
             end_idx = min(start_idx + class_batch_size, model.num_classes)
             print(f"Solving for classes {start_idx + 1}-{end_idx}/{model.num_classes}")
@@ -106,7 +105,7 @@ def fit_elm_ls(
         print(f"Direct solve failed: {e}")
         print("Fall back: Using SVD approach for better numerical stability")
         try:
-            # potentially fail due to numerical stability, should be rare
+            # Potentially fail due to numerical stability, should be rare
             U, S, Vh = torch.linalg.svd(HTH, full_matrices=False)
             S_reg = 1.0 / (S + lambda_reg)
 
@@ -127,7 +126,7 @@ def fit_elm_ls(
             print(f"SVD approach failed: {e}")
             return None, None
 
-    # free up memory
+    # Free up memory
     HTH = None
     HTT = None
 
@@ -338,13 +337,14 @@ def random_search_hyperparameter_ls(
     metric_dir="./task2/metrics",
     resume_from_step=0,
     checkpoint_frequency=5,
+    device="cpu",
 ):
     """
     Using random search and ls to find best hyperparameters, similar to task2 hyperparamters tuned: std, feature maps, kernel size, lambda (for ls)
     Using defined search space from hyperparameter arguments
     """
     # default should be cpu due to environment constraints
-    device = "cpu"
+    print(f"Using device: {device}")
 
     # set seed for reproducibility
     torch.manual_seed(seed)
@@ -551,7 +551,7 @@ def random_search_hyperparameter_ls(
         json.dump(converted_config, f, indent=4)
 
     # Compare with previous best
-    previous_best = 57.35  # previous best ensemble accuracy
+    previous_best = 57.23  # previous best ensemble accuracy
     print(f"\nPrevious best Ensemble ELM: {previous_best:.2f}%")
     print(f"New best Ensemble ELM: {best_acc:.2f}%")
     print(f"Improvement: {best_acc - previous_best:.2f}%")

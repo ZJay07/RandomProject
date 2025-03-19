@@ -3,7 +3,7 @@ import torch
 from math import comb, sqrt
 
 
-# helper functions
+## helper function for logistic_fun
 def get_exp_combinations(D, M):
     # returns the list of all possible combinations of exponents for the polynomial features
     if D == 1:
@@ -139,6 +139,7 @@ def generate_sample(w, M, D):
     return x, t
 
 
+## helper functions for main()
 def compute_accuracy(predictions, ground_truth):
     """Threshold predictions at 0.5 and compute accuracy"""
     preds = (predictions >= 0.5).float()
@@ -154,6 +155,7 @@ def compute_true_labels(x_data, w_true, M_true):
     return torch.tensor(labels, dtype=torch.float32)
 
 
+## Main loop
 def main():
     # setting the seed for reproducibility
     torch.manual_seed(42)
@@ -182,7 +184,7 @@ def main():
     test_samples = [generate_sample(W, M, D) for _ in range(N_test)]
     x_test = torch.stack([s[0] for s in test_samples])
 
-    # Generating the true labels for the training set
+    # Compute true labels
     true_train = compute_true_labels(x_train, W, 2)
     true_test = compute_true_labels(x_test, W, 2)
     observed_acc_train = compute_accuracy(t_train, true_train)

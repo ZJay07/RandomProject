@@ -20,11 +20,12 @@ def visualize_model_predictions(
     pooling=False,
     save_path="result.png",
     num_images=36,
+    device="cpu",
 ):
     """viz method for ensemble model with annotations"""
 
     # default is cpu, can be changed to cuda if available
-    device = torch.device("cpu")
+    device = torch.device(device)
     print(f"Using device: {device}")
 
     # CIFAR-10 class names
@@ -40,6 +41,9 @@ def visualize_model_predictions(
         "ship",
         "truck",
     ]
+
+    # compact short codes for better visualization
+    class_codes = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
     # Load test dataset
     transform = transforms.Compose(
@@ -113,16 +117,16 @@ def visualize_model_predictions(
 
         # Create a new image with white border for annotation
         width, height = pil_img.size
-        annotated_img = Image.new("RGB", (width, height + 20), color="white")
+        annotated_img = Image.new("RGB", (width, height + 15), color="white")
         annotated_img.paste(pil_img, (0, 0))
 
         # Add draw capability
         draw = ImageDraw.Draw(annotated_img)
 
         # Get labels
-        true_label = class_names[labels[i]]
-        pred_label = class_names[predictions[i]]
-        is_correct = labels[i] == predictions[i]
+        true_label_idx = labels[i].item()
+        pred_label_idx = predictions[i].item()
+        is_correct = true_label_idx == pred_label_idx
 
         # Set text color based on correctness
         text_color = "green" if is_correct else "red"
@@ -133,8 +137,9 @@ def visualize_model_predictions(
         except IOError:
             font = ImageFont.load_default()
 
-        # Add text
-        text = f"T:{true_label} P:{pred_label}"
+        # Add text using just the class number
+        text = f"T:{class_codes[true_label_idx]} P:{class_codes[pred_label_idx]}"
+
         draw.text((2, height + 2), text, fill=text_color, font=font)
 
         # Add to list
@@ -155,23 +160,42 @@ def visualize_model_predictions(
     # Create final image
     result_img = Image.fromarray(grid_np)
 
-    # Add title
+    # Add title and legend
     draw = ImageDraw.Draw(result_img)
     try:
         title_font = ImageFont.truetype("arial.ttf", 16)
+        legend_font = ImageFont.truetype("arial.ttf", 12)
     except IOError:
         title_font = ImageFont.load_default()
+        legend_font = ImageFont.load_default()
 
-    # Add a title at the bottom
+    # Get dimensions for legend
     width, height = result_img.size
-    new_img = Image.new("RGB", (width, height + 40), color="white")
+    legend_height = 150  # More space for legend
+    new_img = Image.new("RGB", (width, height + legend_height), color="white")
     new_img.paste(result_img, (0, 0))
     result_img = new_img
 
-    # Add the title with proper positioning
+    # Add the title
     draw = ImageDraw.Draw(result_img)
     title = "Best Model (Ensemble ELM) - T: True Label, P: Predicted Label"
     draw.text((10, height + 10), title, fill="black", font=title_font)
+
+    # Add legend
+    legend_y = height + 40
+    legend_x = 10
+    draw.text((legend_x, legend_y), "Class codes:", fill="black", font=legend_font)
+
+    # Create a clearer legend with full class names
+    col_width = width // 2  # Two columns
+    items_per_col = 5
+    for i in range(len(class_names)):
+        col = i // items_per_col
+        row = i % items_per_col
+        x = legend_x + col * col_width
+        y = legend_y + 20 + row * 16
+        legend_text = f"{i}: {class_names[i]}"
+        draw.text((x, y), legend_text, fill="black", font=legend_font)
 
     # Save the image, create path if does not exist
     if not os.path.exists(os.path.dirname(save_path)):

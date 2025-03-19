@@ -27,8 +27,8 @@ torch.manual_seed(SEED)
 np.random.seed(SEED)
 
 
-# CIFAR-10 Data Loading
 def load_cifar10(batch_size=128):
+    """CIFAR-10 Data Loading"""
     transform = transforms.Compose(
         [transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]
     )
@@ -46,8 +46,8 @@ def load_cifar10(batch_size=128):
     return train_loader, test_loader
 
 
-# Function to evaluate model
 def evaluate(model, test_loader, device):
+    """Helper function to evaluate model"""
     model.eval()
     correct = 0
     total = 0
@@ -63,8 +63,8 @@ def evaluate(model, test_loader, device):
     return accuracy
 
 
-# Hyperparameter Experimentation
 def experiment_hyperparameters(save_path="./task2/models/hyperprameters_for_sgd"):
+    """Hyperparameter Experimentation"""
     # Device configuration
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
@@ -221,9 +221,7 @@ def train_with_mixup(
     num_epochs=10,
     eval_every=1,
 ):
-    """
-    Mix up with reporting key metrics
-    """
+    """Helper mix up with reporting key metrics"""
     model = model.to(device)
     criterion = nn.CrossEntropyLoss()
     trainable_params = [p for p in model.parameters() if p.requires_grad]
@@ -304,9 +302,7 @@ def train_ensemble(
     num_epochs=10,
     eval_every=1,
 ):
-    """
-    Train ensemble models while tracking metrics
-    """
+    """Helper train ensemble models while tracking metrics"""
     ensemble_model = ensemble_model.to(device)
 
     statistics = {"test_acc": [], "test_f1": [], "epochs": []}
@@ -684,6 +680,7 @@ def experiment_regularization_methods(
 
 
 if __name__ == "__main__":
+    print("=== What is considered 'random guess' in multiclass classification? ===")
     print("A random guess in multiclass classification involves assigning labels by pure chance, with equal probability across all classes. In balanced datasets with K classes, the expected accuracy is 1/K (e.g., 10% for 10 classes). For imbalanced datasets, the baseline becomes the frequency of the most common class. To test if a model performs better than random guessing, statistical tests (chi-squared, binomial) determine if the observed accuracy significantly exceeds this baseline. This represents the minimum performance threshold a useful classifier must surpass.")
     
     print("=== Hyperparameter Experimentation Without Regularisation ===")
