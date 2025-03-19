@@ -229,27 +229,6 @@ def visualise_model_predictions(
         row_labels = []
         row_preds = []
 
-    for col in range(grid_size):
-        idx = row * grid_size + col
-        true_label = class_names[label_list[idx]]
-        pred_label = class_names[pred_list[idx]]
-
-        # Add to the row lists
-        row_labels.append(f"{true_label:10}")
-        row_preds.append(f"{pred_label:10}")
-
-    # Print the rows
-    print(f"True labels (row {row + 1}):  " + "  ".join(row_labels))
-    print(f"Predictions (row {row + 1}):  " + "  ".join(row_preds))
-    print("")
-    pred_list = predictions.cpu().numpy().tolist()
-    label_list = labels.cpu().numpy().tolist()
-
-    # Print in a grid format to match the resulted image
-    for row in range(grid_size):
-        row_labels = []
-        row_preds = []
-
         for col in range(grid_size):
             idx = row * grid_size + col
             true_label = class_names[label_list[idx]]
