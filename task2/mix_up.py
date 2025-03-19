@@ -16,13 +16,13 @@ class MyMixUp:
 
     def __init__(self, alpha=1.0, seed=42):
         """
-        Initialize the MixUp augmentation.
+        Init the MixUp augmentation.
 
         Args:
             alpha (float, optional): Parameter for the Beta distribution used to sample
                                     the mixing coefficient. Larger values create more
-                                    diverse mixtures. Defaults to 1.0.
-            seed (int, optional): Random seed for reproducibility. Defaults to 42.
+                                    diverse mixtures with a default value of `1.0`
+            seed (int, optional): Random seed for reproducibility with a default value of `42`
         """
         self.alpha = alpha
 
@@ -36,7 +36,7 @@ class MyMixUp:
         Args:
             x (torch.Tensor): Batch of input images of shape (batch_size, channels, height, width)
             y (torch.Tensor): Batch of corresponding labels of shape (batch_size,)
-            device (str, optional): Device to perform operations on. Defaults to "cpu".
+            device (str, optional): Device to perform operations on with a default value of "cpu"
 
         Returns:
             tuple: A tuple containing:
@@ -72,9 +72,9 @@ class MyMixUp:
 
         Args:
             dataset (torch.utils.data.Dataset): Dataset containing images to visualise
-            num_samples (int, optional): Number of mixed images to generate. Defaults to 16.
-            save_path (str, optional): Path to save the visualisation. Defaults to "mixup.png".
-            seed (int, optional): Random seed for reproducibility. Defaults to 42.
+            num_samples (int, optional): Number of mixed images to generate with a default value of `16`
+            save_path (str, optional): Path to save the visualisation image with a default value of "mixup.png"
+            seed (int, optional): Random seed for reproducibility with a default value of `42`
 
         Returns:
             tuple: A tuple containing:
@@ -142,7 +142,7 @@ class MyMixUp:
 if __name__ == "__main__":
     print("=== Producing Mixup Visualisation ===")
 
-    # no normalization for clearer visualisation
+    # no normalisation for clearer visualisation
     transform = transforms.Compose([transforms.ToTensor()])
 
     # Load dataset

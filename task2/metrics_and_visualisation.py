@@ -10,7 +10,7 @@ def compute_confusion_matrix(targets, predictions, num_classes=10):
     Args:
         targets (list or torch.Tensor): True class labels
         predictions (list or torch.Tensor): Predicted class labels
-        num_classes (int, optional): Number of classes in the dataset. Defaults to 10.
+        num_classes (int, optional): Number of classes in the dataset with a default value of `10`
 
     Returns:
         torch.Tensor: Confusion matrix of shape (num_classes, num_classes) where
@@ -38,9 +38,9 @@ def compute_f1_score(targets, predictions, num_classes=10, average="macro"):
     Args:
         targets (list or torch.Tensor): True class labels
         predictions (list or torch.Tensor): Predicted class labels
-        num_classes (int, optional): Number of classes in the dataset. Defaults to 10.
+        num_classes (int, optional): Number of classes in the datasetwith a default value of `10`
         average (str, optional): Type of averaging - 'macro' to average over all classes,
-                                or anything else to return per-class F1 scores. Defaults to "macro".
+                                or anything else to return per-class F1 scores with a default value of "macro"
 
     Returns:
         float or torch.Tensor: If average='macro', returns scalar F1 score averaged across classes.
@@ -82,7 +82,7 @@ def evaluate_metrics(model, test_loader, device, num_classes=10):
         model (nn.Module): Model to evaluate
         test_loader (torch.utils.data.DataLoader): DataLoader for test data
         device (str or torch.device): Device to run evaluation on
-        num_classes (int, optional): Number of classes in the dataset. Defaults to 10.
+        num_classes (int, optional): Number of classes in the dataset with a default value of `10`
 
     Returns:
         dict: Dictionary containing evaluation metrics:
@@ -127,10 +127,10 @@ def evaluate_metrics(model, test_loader, device, num_classes=10):
 
 def convert_numpy_types(obj):
     """
-    Convert NumPy data types to Python native types for JSON serialization.
+    Convert NumPy data types to Python native types for JSON serialisation.
 
     Recursively processes dictionaries, lists, and NumPy values to ensure
-    they can be properly serialized to JSON.
+    they can be properly serialised to JSON.
 
     Args:
         obj (any): Object to convert, can be dict, list, NumPy type, or other
@@ -154,15 +154,15 @@ def convert_numpy_types(obj):
 
 def print_model_summary(model_name, metrics, sample_epochs=None):
     """
-    Print performance summary for a specific model.
+    Print performance summary for a specific model
 
     Displays final accuracy and F1-score, along with progression of metrics
-    over epochs for ensemble models or at sampled epochs for individual models.
+    over epochs for ensemble models or at sampled epochs for individual models
 
     Args:
         model_name (str): Name of the model for display
         metrics (dict): Dictionary containing model performance metrics
-        sample_epochs (list, optional): List of specific epochs to show metrics for. Defaults to None.
+        sample_epochs (list, optional): List of specific epochs to show metrics for with a default value of `None`
 
     Returns:
         None: This function only prints to console
@@ -237,7 +237,7 @@ def print_observations(metrics_dict):
     """
     Print key observations about model performance comparisons.
 
-    Analyzes and summarizes the relative performance differences between models,
+    Analyses and summarises the relative performance differences between models,
     focusing on improvements from ensemble methods and MixUp augmentation.
 
     Args:
@@ -286,7 +286,7 @@ def print_observations(metrics_dict):
             print(f"- Adding MixUp to Ensemble reduces accuracy by {abs(diff):.2f}%")
 
 
-def summarize_metrics(json_file):
+def summarise_metrics(json_file):
     """
     Read metrics from JSON file and print comprehensive performance summary.
 

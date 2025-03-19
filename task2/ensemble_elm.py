@@ -25,17 +25,17 @@ class MyEnsembleELM(nn.Module):
         reproduce=True,
     ):
         """
-        Initialize the Ensemble ELM model.
+        Init the Ensemble ELM model.
 
         Args:
-            seed (int, optional): Random seed for reproducibility. Defaults to 42.
-            n_models (int, optional): Number of models in the ensemble. Defaults to 5.
-            num_feature_maps (int, optional): Number of feature maps for each ELM model. Defaults to 32.
-            std_dev (float, optional): Standard deviation for weight initialization. Defaults to 0.5.
-            feature_size (int, optional): Size of feature vector. If None, calculated automatically. Defaults to None.
-            kernel_size (int, optional): Size of convolution kernel. Defaults to 3.
-            pooling (bool, optional): Whether to use pooling in the models. Defaults to False.
-            reproduce (bool, optional): Whether to use deterministic initialization. Defaults to True.
+            seed (int, optional): Random seed for reproducibility a default value of  `42`
+            n_models (int, optional): Number of models in the ensemble a default value of `5`
+            num_feature_maps (int, optional): Number of feature maps for each ELM model a default value of `32`
+            std_dev (float, optional): Standard deviation for weight initialisation with a default value of `0.5`
+            feature_size (int, optional): Size of feature vector. If None, calculated automatically a default value of `None`
+            kernel_size (int, optional): Size of convolution kernel a default value of `3`
+            pooling (bool, optional): Whether to use pooling in the models a default value of `False`
+            reproduce (bool, optional): Whether to use deterministic initialisation a default value of `True`
         """
         super(MyEnsembleELM, self).__init__()
 
@@ -157,8 +157,8 @@ class MyEnsembleELM(nn.Module):
 
         Args:
             test_loader (torch.utils.data.DataLoader, optional): DataLoader for test data.
-                                                            If None, just sets models to eval mode. Defaults to None.
-            device (str, optional): Device to run evaluation on. Defaults to "cpu".
+                                                            If None, just sets models to eval mode with a default value of `None`
+            device (str, optional): Device to run evaluation on with a default value of `cpu`
 
         Returns:
             float or None: Accuracy on test data if test_loader is provided, None otherwise

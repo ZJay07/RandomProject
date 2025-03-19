@@ -31,14 +31,12 @@ def visualise_model_predictions(
 
     Args:
         model_path (str): Path to the directory containing model weight files
-        config_path (str, optional): Path to the model configuration file. Required if config is None.
-                                    Defaults to None.
-        config (dict, optional): Dictionary containing model configuration. Required if config_path is None.
-                                Defaults to None.
-        pooling (bool, optional): Whether to use pooling in the model. Defaults to False.
-        save_path (str, optional): Path to save the visualisation image. Defaults to "result.png".
-        num_images (int, optional): Number of images to include in the visualisation. Defaults to 36.
-        device (str, optional): Device to train on ('cpu' or 'cuda'). Defaults to "cpu".
+        config_path (str, optional): Path to the model configuration file. Required if config is None with a default value of `None`
+        config (dict, optional): Dictionary containing model configuration. Required if config_path is None with a default value of `None`
+        pooling (bool, optional): Whether to use pooling in the model with a default value of `False`
+        save_path (str, optional): Path to save the visualisation image with a default value of "result.png"
+        num_images (int, optional): Number of images to include in the visualisation with a default value of `36`
+        device (str, optional): Device to train on ('cpu' or 'cuda') with a default value of "cpu"
 
     Returns:
         None: The function saves the visualisation to disk but does not return any value
@@ -124,7 +122,7 @@ def visualise_model_predictions(
         # Get image
         img = images[i]
 
-        # Denormalize
+        # Denormalise
         img = img * 0.5 + 0.5
 
         # Convert to numpy format for PIL
@@ -226,7 +224,7 @@ def visualise_model_predictions(
     pred_list = predictions.cpu().numpy().tolist()
     label_list = labels.cpu().numpy().tolist()
 
-    # Print in a grid format to match the visualization
+    # Print in a grid format to match the visualisation
     for row in range(grid_size):
         row_labels = []
         row_preds = []

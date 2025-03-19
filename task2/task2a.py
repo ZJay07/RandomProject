@@ -22,7 +22,7 @@ SEED = 42
 
 def fit_elm_ls(model, train_loader, test_loader=None, lambda_reg=0.1, device="cpu"):
     """
-    Train an Extreme Learning Machine using least squares with ridge regularization.
+    Train an Extreme Learning Machine using least squares with ridge regularisation.
 
     This implementation uses batch processing to efficiently solve the least squares
     problem: \\beta = (H^T·H + \\lambda·I)^(-1)·H^T·T where H is the hidden layer output and T is
@@ -31,9 +31,9 @@ def fit_elm_ls(model, train_loader, test_loader=None, lambda_reg=0.1, device="cp
     Args:
         model (MyExtremeLearningMachine): The ELM model to train
         train_loader (torch.utils.data.DataLoader): DataLoader for training data
-        test_loader (torch.utils.data.DataLoader, optional): DataLoader for test data. Defaults to None.
-        lambda_reg (float, optional): Regularization parameter for ridge regression. Defaults to 0.1.
-        device (str, optional): Device to train on ('cpu' or 'cuda'). Defaults to "cpu".
+        test_loader (torch.utils.data.DataLoader, optional): DataLoader for test data with a default value of `None`
+        lambda_reg (float, optional): Regularisation parameter for ridge regression with a default value of `0.1`
+        device (str, optional): Device to train on ('cpu' or 'cuda') with a default value of "cpu"
 
     Returns:
         tuple: A tuple containing:
@@ -69,11 +69,11 @@ def fit_elm_ls(model, train_loader, test_loader=None, lambda_reg=0.1, device="cp
             print(f"Feature dimension: {feature_dim}")
             break
 
-    # Initialize the solution components
-    HTH = torch.zeros(feature_dim, feature_dim, device=device)  # H^T H
-    HTT = torch.zeros(feature_dim, model.num_classes, device=device)  # H^T T
+    # create matrices for H^T·H and H^T·T
+    HTH = torch.zeros(feature_dim, feature_dim, device=device)  # H^T·H
+    HTT = torch.zeros(feature_dim, model.num_classes, device=device)  # H^T·T
 
-    # Process data in batches to calculate H^T H and H^T T
+    # Process data in batches to calculate H^T·H and H^T·T
     print("Accumulating H^T H and H^T T matrices...")
     with torch.no_grad():
         for inputs, targets in train_loader:
@@ -95,8 +95,8 @@ def fit_elm_ls(model, train_loader, test_loader=None, lambda_reg=0.1, device="cp
             HTH += H_batch.T @ H_batch
             HTT += H_batch.T @ T_batch
 
-    # Add regularization
-    print(f"Adding regularization (lambda={lambda_reg})")
+    # Add regularisation
+    print(f"Adding regularisation (lambda={lambda_reg})")
     HTH += lambda_reg * torch.eye(feature_dim, device=device)
 
     # Solve the system
@@ -209,10 +209,10 @@ def comparison_duration_sgd_and_ls(
         kernel_size (int): Size of the convolutional kernel
         lr (float): Learning rate for SGD training
         epoch (int): Number of epochs for SGD training
-        ensemble_size (int, optional): Number of models in ensemble. Defaults to 5.
-        ls_lambda (float, optional): Regularization parameter for least squares. Defaults to 0.001.
-        device (str, optional): Device to train on. Defaults to "cpu".
-        save_dir (str, optional): Directory to save results. Defaults to "./task2/metrics".
+        ensemble_size (int, optional): Number of models in ensemble with a default value of `5`
+        ls_lambda (float, optional): Regularisation parameter for least squares with a default value of `0.001`
+        device (str, optional): Device to train on ('cpu' or 'cuda') with a default value of "cpu"
+        save_dir (str, optional): Directory to save results in with a default value of "./task2/metrics"
 
     Returns:
         dict: Results dictionary with comparison metrics between SGD and LS methods
@@ -373,26 +373,27 @@ def random_search_hyperparameter_ls(
     device="cpu",
 ):
     """
-    Perform random hyperparameter search for ELM models trained with least squares.
+    Perform random hyperparameter search for ELM models trained with least squares
 
     Randomly samples hyperparameter combinations within specified ranges and trains
-    ensemble models using least squares, tracking performance to find optimal settings.
+    ensemble models using least squares, tracking performance to find optimal settings
+    The hyperparameter range defines the search space for the random search
 
     Args:
-        num_steps (int, optional): Number of random hyperparameter combinations to try. Defaults to 30.
-        train_loader (torch.utils.data.DataLoader, optional): DataLoader for training data. Defaults to None.
-        test_loader (torch.utils.data.DataLoader, optional): DataLoader for test data. Defaults to None.
-        feature_maps_range (tuple, optional): Range for number of feature maps. Defaults to (32, 128).
-        std_dev_range (tuple, optional): Range for standard deviation. Defaults to (0.01, 0.5).
-        kernel_sizes (list, optional): List of kernel sizes to sample from. Defaults to [3, 5, 7].
-        lambda_range (tuple, optional): Range for regularization parameter. Defaults to (0.001, 0.1).
-        ensemble_size (tuple, optional): Range for number of models in ensemble. Defaults to (3, 10).
-        seed (int, optional): Random seed for reproducibility. Defaults to 42.
-        use_pooling (bool, optional): Whether to use pooling in the models. Defaults to True.
-        save_dir (str, optional): Directory to save models. Defaults to "./task2/models".
-        metric_dir (str, optional): Directory to save metrics. Defaults to "./task2/metrics".
-        resume_from_step (int, optional): Step to resume search from. Defaults to 0.
-        checkpoint_frequency (int, optional): Frequency to save checkpoints. Defaults to 5.
+        num_steps (int, optional): Number of random hyperparameter combinations to try with a default value of `30`
+        train_loader (torch.utils.data.DataLoader, optional): DataLoader for training data with a default value of `None`
+        test_loader (torch.utils.data.DataLoader, optional): DataLoader for test data with a default value of `None`
+        feature_maps_range (tuple, optional): Range for number of feature maps with a default value of `(32, 128)`
+        std_dev_range (tuple, optional): Range for standard deviation of weight initialisation with a default value of `(0.01, 0.5)`
+        kernel_sizes (list, optional): List of kernel sizes to sample from  with a default value of `[3, 5, 7]`
+        lambda_range (tuple, optional): Range for regularisation parameter with a default value of `(0.001, 0.1)`
+        ensemble_size (tuple, optional): Range for number of models in ensemble with a default value of `(3, 10)`
+        seed (int, optional): Random seed for reproducibility with a default value of `42`
+        use_pooling (bool, optional): Whether to use pooling in the models with a default value of `True`
+        save_dir (str, optional): Directory to save models with a default value of "./task2/models"
+        metric_dir (str, optional): Directory to save metrics with a default value of "./task2/metrics"
+        resume_from_step (int, optional): Step to resume search from with a default value of `0`
+        checkpoint_frequency (int, optional): Frequency to save checkpoints with a default value of `5`
 
     Returns:
         tuple: A tuple containing:

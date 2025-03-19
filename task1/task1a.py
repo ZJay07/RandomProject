@@ -18,7 +18,7 @@ import numpy as np
 ## Adaptation of polynomial_features and logistic_fun to work with continuous M
 def continuous_polynomial_features(x, M):
     """
-    Convert floating point M to int and use polynomial_features defined in task.py.
+    Convert floating point M to int and use polynomial_features defined in task.py
 
     Args:
         x (torch.Tensor): Input tensor of shape (D,) where D is the number of dimensions
@@ -34,7 +34,7 @@ def continuous_polynomial_features(x, M):
 
 def continuous_logistic_fun(w, M, x):
     """
-    Adapting logistic function to work with continuous M parameter.
+    Adapting logistic function to work with continuous M parameter
 
     Args:
         w (torch.Tensor): Weight vector of shape (p_max,) where p_max is the maximum
@@ -62,22 +62,22 @@ def fit_logistic_sgd_with_learnable_m(
     m_init=2.0,
 ):
     """
-    Train a logistic regression model with M as a learnable parameter.
+    Train a logistic regression model with M as a learnable parameter
 
     Args:
         x_train (torch.Tensor): Training features of shape (N, D) where N is number of samples
                                 and D is number of dimensions
         t_train (torch.Tensor): Training targets of shape (N,) with values 0 or 1
-        loss_fn (callable): Loss function to minimize
-        learning_rate (float, optional): Learning rate for Adam optimizer. Defaults to 0.001.
-        minibatch_size (int, optional): Size of mini-batches. Defaults to 32.
-        epochs (int, optional): Number of training epochs. Defaults to 100.
-        m_init (float, optional): Initial value for the learnable M parameter. Defaults to 2.0.
+        loss_fn (callable): Loss function to minimise
+        learning_rate (float, optional): Learning rate for Adam optimiser with a default value of `0.001`
+        minibatch_size (int, optional): Size of mini-batches with a default value of `32`
+        epochs (int, optional): Number of training epochs with a default value of `100`
+        m_init (float, optional): Initial value for the learnable M parameter with a default value of `2.0`
 
     Returns:
         tuple: A pair (w, M) where:
-            - w (torch.Tensor): Optimized weight vector
-            - M (float): Optimized polynomial order as a float value
+            - w (torch.Tensor): Optimised weight vector
+            - M (float): Optimised polynomial order as a float value
     """
     N, D = x_train.shape
 
@@ -91,7 +91,7 @@ def fit_logistic_sgd_with_learnable_m(
     w = torch.zeros(p_max, requires_grad=True)
     M = torch.tensor(m_init, requires_grad=True)
 
-    # Adam optimizer for better convergence
+    # Adam optimiser for better convergence
     optimizer = torch.optim.Adam([w, M], lr=learning_rate)
 
     for epoch in range(epochs):
@@ -120,7 +120,7 @@ def fit_logistic_sgd_with_learnable_m(
             batch_loss = loss_fn(y_preds, t_batch)
             batch_losses.append(batch_loss.item())
 
-            # small regularization to prevent extreme M values
+            # small regularisation to prevent extreme M values
             m_reg = 0.01 * M**2
             total_loss = batch_loss + m_reg
 
@@ -155,7 +155,7 @@ def fit_logistic_sgd_with_learnable_m(
 
     # Final evaluation
     print("\n========== Final Results ==========")
-    print(f"Optimized M value: {M.item():.4f}")
+    print(f"Optimised M value: {M.item():.4f}")
 
     # Compute full training set accuracy
     y_train_preds = []
@@ -172,14 +172,14 @@ def fit_logistic_sgd_with_learnable_m(
 
 def evaluate_learned_m_model(w, M, x_test, t_test, true_test=None):
     """
-    Evaluate the model with learned M value on test data.
+    Evaluate the model with learned M value on test data
 
     Args:
-        w (torch.Tensor): Optimized weight vector
-        M (float): Optimized polynomial order
+        w (torch.Tensor): Optimised weight vector
+        M (float): Optimised polynomial order
         x_test (torch.Tensor): Test features of shape (N_test, D)
         t_test (torch.Tensor): Observed test labels of shape (N_test,)
-        true_test (torch.Tensor, optional): True test labels (without noise) of shape (N_test,). Defaults to None.
+        true_test (torch.Tensor, optional): True test labels (without noise) of shape (N_test,) with a default value of None
 
     Returns:
         float: Test accuracy against observed labels (percentage)
@@ -207,11 +207,11 @@ def evaluate_learned_m_model(w, M, x_test, t_test, true_test=None):
 ## Learnable M experiment
 def experiment_with_learnable_m():
     """
-    Main experiment function for learnable M.
+    Main experiment function for learnable M
 
-    Generates synthetic data with a known true model (M=2), then trains
-    multiple models with different loss functions and M initializations.
-    The goal is to recover the true model order M through optimization.
+    Generates synthetic data with a known true model (in this case M=2), then trains
+    multiple models with different loss functions and M initialisations
+    The goal is to recover the true model order M through optimisation
 
     Returns:
         None
@@ -268,13 +268,13 @@ def experiment_with_learnable_m():
             print(f"Training with initial M = {m_init:.1f}")
 
             # Train model with learnable M
-            w, optimized_m = fit_logistic_sgd_with_learnable_m(
+            w, optimised_m = fit_logistic_sgd_with_learnable_m(
                 x_train, t_train, loss_fn, m_init=m_init, epochs=100
             )
 
             # Evaluate on test set
             test_acc = evaluate_learned_m_model(
-                w, optimized_m, x_test, t_test, true_test
+                w, optimised_m, x_test, t_test, true_test
             )
 
             # Store results
@@ -282,7 +282,7 @@ def experiment_with_learnable_m():
                 {
                     "loss_fn": loss_fn.__class__.__name__,
                     "m_init": m_init,
-                    "optimized_m": optimized_m,
+                    "optimised_m": optimised_m,
                     "test_acc": test_acc,
                 }
             )
@@ -293,7 +293,7 @@ def experiment_with_learnable_m():
     for result in sorted(results, key=lambda x: -x["test_acc"]):
         print(
             f"Loss: {result['loss_fn']}, Init M: {result['m_init']}, "
-            f"Optimized M: {result['optimized_m']:.4f}, "
+            f"Optimised M: {result['optimised_m']:.4f}, "
             f"Test Acc: {result['test_acc'] * 100:.2f}%"
         )
 

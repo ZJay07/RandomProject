@@ -9,11 +9,12 @@ from task2.metrics_and_visualisation import evaluate_metrics
 class MyExtremeLearningMachine(nn.Module):
     """
     Implementation of Extreme Learning Machine (ELM) for image classification.
-    
+
     An ELM consists of a single convolutional layer with fixed (non-trainable) weights
     followed by a fully connected layer with trainable weights. The fixed weights are
-    initialized randomly and remain unchanged during training.
+    initialised randomly and remain unchanged during training.
     """
+
     def __init__(
         self,
         num_feature_maps,
@@ -25,16 +26,16 @@ class MyExtremeLearningMachine(nn.Module):
         pooling=False,
     ):
         """
-        Initialize the Extreme Learning Machine model.
-        
+        Init the Extreme Learning Machine model.
+
         Args:
             num_feature_maps (int): Number of feature maps in the convolutional layer
             num_classes (int): Number of output classes
-            std_dev (float): Standard deviation for weight initialization
+            std_dev (float): Standard deviation for weight initialisation
             feature_size (int): Size of the flattened feature vector after convolution
-            kernel_size (int, optional): Size of the convolutional kernel. Defaults to 3.
-            input_channels (int, optional): Number of input channels. Defaults to 3.
-            pooling (bool, optional): Whether to use average pooling. Defaults to False.
+            kernel_size (int, optional): Size of the convolutional kernel with a default value of `3`
+            input_channels (int, optional): Number of input channels with a default value of `3`
+            pooling (bool, optional): Whether to use average pooling with a default value of `False`
         """
         super(MyExtremeLearningMachine, self).__init__()
         # one convo layer non trainable weights
@@ -55,14 +56,14 @@ class MyExtremeLearningMachine(nn.Module):
 
     def initialise_fixed_layers(self, std):
         """
-        Initialize fixed weights in the convolutional layer.
-        
+        Initialise fixed weights in the convolutional layer.
+
         Weights are randomly sampled from a Gaussian distribution with zero mean
         and the specified standard deviation.
-        
+
         Args:
-            std (float): Standard deviation for the Gaussian initialization
-            
+            std (float): Standard deviation for the Gaussian initialisation
+
         Returns:
             None
         """
@@ -73,10 +74,10 @@ class MyExtremeLearningMachine(nn.Module):
     def forward(self, x):
         """
         Forward pass through the network.
-        
+
         Args:
             x (torch.Tensor): Input tensor of shape (batch_size, channels, height, width)
-            
+
         Returns:
             torch.Tensor: Output logits of shape (batch_size, num_classes)
         """
@@ -95,19 +96,19 @@ def fit_elm_sgd(
 ):
     """
     Train an Extreme Learning Machine model using Stochastic Gradient Descent.
-    
+
     Only the fully connected layer weights are updated during training.
     The model is evaluated on the test set periodically to track performance.
-    
+
     Args:
         model (MyExtremeLearningMachine): The ELM model to train
         train_loader (torch.utils.data.DataLoader): DataLoader for training data
         test_loader (torch.utils.data.DataLoader): DataLoader for test data
-        lr (float, optional): Learning rate for SGD. Defaults to 0.01.
-        device (str, optional): Device to train on ('cpu' or 'cuda'). Defaults to "cpu".
-        num_epochs (int, optional): Number of training epochs. Defaults to 10.
-        eval_every (int, optional): Frequency of evaluation on test set. Defaults to 1.
-        
+        lr (float, optional): Learning rate for SGD with a default value of `0.01`
+        device (str, optional): Device to train on ('cpu' or 'cuda') with a default value of "cpu"
+        num_epochs (int, optional): Number of training epochs with a default value of `10`
+        eval_every (int, optional): Frequency of evaluation on test set with a default value of `1`
+
     Returns:
         tuple: A tuple containing:
             - statistics (dict): Dictionary with training and testing metrics over time
