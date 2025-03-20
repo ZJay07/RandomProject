@@ -99,7 +99,6 @@ def fit_elm_ls(model, train_loader, test_loader=None, lambda_reg=0.1, device="cp
     print(f"Adding regularisation (lambda={lambda_reg})")
     HTH += lambda_reg * torch.eye(feature_dim, device=device)
 
-    # Solve the system
     print("Solving linear system...")
     try:
         # Process in batches of classes to save memory
@@ -290,6 +289,7 @@ def comparison_duration_sgd_and_ls(
     sgd_metrics = evaluate_metrics(sgd_model, test_loader, device)
     sgd_time = time.time() - sgd_start
 
+    # Statistics and comparison
     print("\n=== Method Comparison ===")
     print("Training time comparison between Least Squares and SGD:")
     print(f"Least Squares Training Time: {ls_time:.2f}s")
@@ -318,7 +318,7 @@ def comparison_duration_sgd_and_ls(
         "ls": {
             "accuracy": float(
                 ls_metrics["accuracy"]
-            ),  # Convert to float for JSON serialization
+            ),
             "macro_f1": float(ls_metrics["macro_f1"]),
             "time": float(ls_time),
             "pooling": True,
@@ -441,7 +441,6 @@ def random_search_hyperparameter_ls(
             print("Starting from scratch")
             resume_from_step = 0
 
-    # Continue with the random search from the specified step
     for step in range(resume_from_step, num_steps):
         # Randomly sample hyperparameters
         n_models = int(np.random.uniform(ensemble_size[0], ensemble_size[1]))

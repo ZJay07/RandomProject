@@ -115,29 +115,23 @@ def visualise_model_predictions(
         ensemble_output /= len(ensemble_model.models)
         _, predictions = torch.max(ensemble_output, 1)
 
-    # Create individual annotated images
+    # Batch annotation
     annotated_images = []
 
     for i in range(num_images):
-        # Get image
+
+        # Get image and process to format for PIL
         img = images[i]
-
-        # Denormalise
         img = img * 0.5 + 0.5
-
-        # Convert to numpy format for PIL
         img_np = (np.transpose(img.numpy(), (1, 2, 0)) * 255).astype(np.uint8)
-
-        # Create PIL image
         pil_img = Image.fromarray(img_np)
         pil_img = pil_img.resize((64, 64), Image.BILINEAR)
 
-        # Create a new image with white border for annotation
+        # Create white baorder and annotate
         width, height = pil_img.size
         annotated_img = Image.new("RGB", (width, height + 15), color="white")
         annotated_img.paste(pil_img, (0, 0))
 
-        # Add draw capability
         draw = ImageDraw.Draw(annotated_img)
 
         # Get labels
@@ -145,21 +139,20 @@ def visualise_model_predictions(
         pred_label_idx = predictions[i].item()
         is_correct = true_label_idx == pred_label_idx
 
-        # Set text color based on correctness
+        # Set green for correct and red for wrong
         text_color = "green" if is_correct else "red"
 
-        # Try to load a font, fall back to default if not available
+        # loading font, if available
         try:
             font = ImageFont.truetype("arial.ttf", 10)
         except IOError:
             font = ImageFont.load_default()
 
-        # Add text using just the class number
+        # Add class number text
         text = f"T:{class_codes[true_label_idx]} P:{class_codes[pred_label_idx]}"
 
         draw.text((2, height + 2), text, fill=text_color, font=font)
 
-        # Add to list
         annotated_images.append(
             torch.tensor(np.transpose(np.array(annotated_img) / 255.0, (2, 0, 1)))
         )
@@ -170,7 +163,7 @@ def visualise_model_predictions(
     grid = make_grid(annotated_images, nrow=grid_size, padding=2)
     grid_np = (np.transpose(grid.numpy(), (1, 2, 0)) * 255).astype(np.uint8)
 
-    # Create final image
+    # Final image creation
     result_img = Image.fromarray(grid_np)
 
     # Add title and legend

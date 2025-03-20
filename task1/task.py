@@ -47,7 +47,6 @@ def polynomial_features(x, M):
 
     features = []
     for exp in all_exp:
-        # convert tuple of exp to tensor
         exp = torch.tensor(exp, dtype=x.dtype, device=x.device)
         # compute each term of the polynomial
         term = torch.prod(x**exp)
